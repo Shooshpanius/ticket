@@ -32,6 +32,14 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+gem 'execjs'
+gem 'therubyracer', :platforms => :ruby
+
+gem 'bootstrap-sass'
+
+gem 'ruby-prof'
+gem 'test-unit'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
