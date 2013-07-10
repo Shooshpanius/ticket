@@ -8,6 +8,10 @@ Ticket::Application.routes.draw do
 
 
 
+
+  get '/', to: redirect('/login')
+
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
