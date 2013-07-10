@@ -4,9 +4,9 @@ Ticket::Application.routes.draw do
 
   # get ':controller(/:action(/:id))'
 
-  get "/login/"  => "login#index"
+  get '/login/' => 'login#index'
 
-
+  resources :login, :path => 'login/(:action)(.:format)'
 
 
   get '/', to: redirect('/login')
