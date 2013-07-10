@@ -1,0 +1,19 @@
+<div class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="">Ticket system</a>
+
+    <% if session[:is_login] %>
+        <button type="button" class="btn pull-right" onclick='logout()'>Выход</button>
+
+    <% else %>
+        <form id="login_form" name="login_form" class="navbar-form pull-right">
+          <input type="text" class="span3" id="login" name="login" placeholder="login">
+          <input type="text" class="span3" id="password" name="password" placeholder="password">
+          <button type="submit" class="btn">Submit</button>
+        </form>
+
+    <% end %>
+
+
+  </div>
+</div>

@@ -8,8 +8,8 @@ Ticket::Application.routes.draw do
 
   resources :login, :path => 'login/(:action)(.:format)'
 
-
-  get '/', to: redirect('/login')
+  root 'main#index'
+  #get '/', to: redirect('/login')
 
 
   # You can have the root of your site routed with "root"
