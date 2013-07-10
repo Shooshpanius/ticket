@@ -2,9 +2,9 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-logout = ->
+@logout = ->
   $.ajax
-    url: "/login/srv_check_login"
+    url: "/login/srv_logout"
     type: "POST"
     async: false
     success: () ->
