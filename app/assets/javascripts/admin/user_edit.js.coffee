@@ -12,7 +12,6 @@ $(document).ready ($) ->
     rules:
       inputLogin:
         required: true
-        minlength: 12
 
 
 
