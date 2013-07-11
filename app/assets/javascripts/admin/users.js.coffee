@@ -2,10 +2,8 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-@logout = ->
-  $.ajax
-    url: "/login/srv_logout"
-    type: "POST"
-    async: false
-    success: () ->
-      location.replace "/"
+
+$(document).ready ($) ->
+
+
+  $("#menu_text").html " Ticket system / пользователи"

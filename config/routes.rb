@@ -1,4 +1,5 @@
 Ticket::Application.routes.draw do
+  #get "users/index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -7,6 +8,15 @@ Ticket::Application.routes.draw do
   get '/login/' => 'login#index'
 
   resources :login, :path => 'login/(:action)(.:format)'
+  #resources :admin/:users, :path => 'admin/users/(:action)(.:format)'
+
+    namespace :admin do
+
+       resource :users , :path => 'users/(:action)(.:format)'
+    end
+
+
+
 
   root 'main#index'
   #get '/', to: redirect('/login')
