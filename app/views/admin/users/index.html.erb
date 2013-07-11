@@ -1,8 +1,12 @@
 <%= javascript_include_tag "admin/users" %>
 
+
+<div class="well">
+  <a class="btn btn-primary" type="button" href="/admin/users/user_edit/"><i class="icon-plus"></i>Новый пользователь</a>
+  <a class="btn btn-primary" type="button" href="/admin/users/user_edit/"><i class="icon-plus"></i>Импорт из LDAP</a>
+</div>
+
 <table class="table table-hover table-bordered table-condensed">
-
-
   <thead>
   <tr>
     <th class="span1">id</th>
@@ -20,16 +24,9 @@
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/admin/users/user_edit/<%= user.id %>"><i class="icon-edit"></i></a>
           <button class="btn btn-mini btn-danger" type="button"><i class="icon-trash"></i></button>
-
         </td>
       </tr>
-
-
-
-
-
   <% end %>
   </tbody>
-
 </table>
 
