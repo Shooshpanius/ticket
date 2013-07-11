@@ -10,10 +10,10 @@ Ticket::Application.routes.draw do
   resources :login, :path => 'login/(:action)(.:format)'
   #resources :admin/:users, :path => 'admin/users/(:action)(.:format)'
 
-    namespace :admin do
+  namespace :admin do
+    resources :users , :user_edit
+  end
 
-       resource :users , :path => 'users/(:action)(.:format)'
-    end
 
 
 

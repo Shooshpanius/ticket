@@ -5,29 +5,22 @@ class Admin::UsersController < ApplicationController
 
 
   def index
-  end
-
-  def show
-
     @users = Users.all
-
-
     respond_to do |format|
-      format.html {
-
-        #@users.each do |user|
-        #  render "/_menu"
-        #
-        #
-        #end
-
-
-      } # show.html.erb
+      format.html # show.html.erb
       format.json { render json: @users }
     end
-
-
   end
+
+  #def show
+  #
+  #  @users = Users.all
+  #  respond_to do |format|
+  #    format.html # show.html.erb
+  #    format.json { render json: @users }
+  #  end
+  #
+  #end
 
 
 
