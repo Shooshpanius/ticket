@@ -12,15 +12,27 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  #def show
-  #
-  #  @users = Users.all
-  #  respond_to do |format|
-  #    format.html # show.html.erb
-  #    format.json { render json: @users }
-  #  end
-  #
-  #end
+  def show
+    @users = Users.all
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @users }
+    end
+  end
+
+  def user_edit
+    @user_f = Users.find(params[:id])
+    @users = Users.all
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @users }
+    end
+  end
+
+
+  def srv_user_edit
+    render text: "OK2"
+  end
 
 
 

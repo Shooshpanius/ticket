@@ -8,11 +8,15 @@ Ticket::Application.routes.draw do
   get '/login/' => 'login#index'
 
   resources :login, :path => 'login/(:action)(.:format)'
-  #resources :admin/:users, :path => 'admin/users/(:action)(.:format)'
+
+  #resources :admin/:users , :path => '/admin/users/(:action)(.:format)'
 
   namespace :admin do
-    resources :users , :user_edit
+    resources :users, path: 'users/(:action)(:id)(.:format)'
+    #resources :user_edit, path: 'user_edit/(:action)(.:format)'
   end
+
+
 
 
 

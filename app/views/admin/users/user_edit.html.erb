@@ -1,0 +1,51 @@
+<%= javascript_include_tag "admin/user_edit" %>
+
+
+
+
+<form class="form-horizontal" id="user_edit" novalidate="">
+
+  <fieldset>
+  <div class="control-group">
+    <label class="control-label" for="inputId">id</label>
+    <div class="controls">
+      <input type="text" id="inputId" name="inputId" value="<%= @user_f.id %>">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="inputLogin">Login</label>
+    <div class="controls">
+      <input type="text"  id="inputLogin" name="inputLogin" value="<%= @user_f.login %>">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="inputF">Фамилия</label>
+    <div class="controls">
+      <input type="text" id="inputF" name="inputF" value="<%= @user_f.f_name %>">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="inputI">Имя</label>
+    <div class="controls">
+      <input type="text" id="inputI" name="inputI" value="<%= @user_f.i_name %>">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label" for="inputO">Отчество</label>
+    <div class="controls">
+      <input type="text" id="inputO" name="inputO" value="<%= @user_f.o_name %>">
+    </div>
+  </div>
+
+
+  <div class="control-group">
+    <div class="controls">
+      <button type="submit" class="btn">Sign in</button>
+    </div>
+  </div>
+    </fieldset>
+</form>
