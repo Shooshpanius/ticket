@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20130710074914) do
     t.string   "password"
     t.boolean  "status"
     t.string   "email"
+    t.string   "ticket_email"
     t.boolean  "admin"
     t.datetime "created_at"
     t.datetime "updated_at"

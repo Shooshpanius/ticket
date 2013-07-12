@@ -10,6 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password
       t.boolean :status
       t.string :email
+      t.string :ticket_email
       t.boolean :admin
       t.timestamps
     end

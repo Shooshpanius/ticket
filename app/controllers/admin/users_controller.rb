@@ -29,12 +29,36 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-
-  def srv_user_edit
-    render text: "OK2"
+  def user_new
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @users }
+    end
   end
 
+  def srv_user_edit
+    render text: "srv_user_edit"
+  end
 
+  def srv_user_new
+
+    @user = Users.new()
+    @user.login = params[:inputLogin]
+    @user.f_name = params[:inputF]
+    @user.i_name = params[:inputI]
+    @user.o_name = params[:inputO]
+    @user.email = params[:inputEmail]
+    @user.ticket_email = params[:inputTicketEmail]
+    @user.save
+
+    render text: "srv_user_new"
+  end
+
+  def srv_user_delete
+    @user = Users.find_by_id(params[:user_id])
+    @user.destroy
+    render text: "srv_user_delete"
+  end
 
 
   private

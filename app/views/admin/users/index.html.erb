@@ -2,8 +2,8 @@
 
 
 <div class="well">
-  <a class="btn btn-primary" type="button" href="/admin/users/user_edit/"><i class="icon-plus"></i>Новый пользователь</a>
-  <a class="btn btn-primary" type="button" href="/admin/users/user_edit/"><i class="icon-plus"></i>Импорт из LDAP</a>
+  <a class="btn btn-primary" type="button" href="/admin/users/user_new/"><i class="icon-plus"></i>Новый пользователь</a>
+  <a class="btn btn-primary" type="button" href="/admin/users/user_new_ldap/"><i class="icon-plus"></i>Импорт из LDAP</a>
 </div>
 
 <table class="table table-hover table-bordered table-condensed">
@@ -12,6 +12,8 @@
     <th class="span1">id</th>
     <th class="span2">login</th>
     <th>ФИО</th>
+    <th>E-mail</th>
+    <th>Ticket E-mail</th>
     <th class="span2"></th>
   </tr>
   </thead>
@@ -21,9 +23,11 @@
         <td><%= user.id %></td>
         <td><%= user.login %></td>
         <td><%= user.f_name %> <%= user.i_name %> <%= user.o_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.ticket_email %></td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/admin/users/user_edit/<%= user.id %>"><i class="icon-edit"></i></a>
-          <button class="btn btn-mini btn-danger" type="button"><i class="icon-trash"></i></button>
+          <button class="btn btn-mini btn-danger" type="button" onclick="user_delete(<%= user.id %>)"><i class="icon-trash"></i></button>
         </td>
       </tr>
   <% end %>
