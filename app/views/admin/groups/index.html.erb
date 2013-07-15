@@ -1,0 +1,33 @@
+<%= javascript_include_tag "admin/groups" %>
+
+
+<p>
+  <a class="btn btn-primary" type="button" href="/admin/groups/group_new/"><i class="icon-plus"></i>Новая группа</a>
+</p>
+
+<table class="table table-hover table-bordered table-condensed">
+  <thead>
+  <tr>
+    <th class="span1">id</th>
+    <th class="span2">Группа</th>
+    <th class="span2">Ticket E-mail</th>
+    <th>Состав</th>
+
+    <th class="span2"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.id %></td>
+        <td><%= group.name %></td>
+        <td><%= group.ticket_email %></td>
+        <td><%= group.users %></td>
+        <td>
+          <a class="btn btn-mini btn-primary" type="button" href="/admin/groups/group_edit/<%= group.id %>"><i class="icon-edit"></i></a>
+          <button class="btn btn-mini btn-danger" type="button" onclick="group_delete(<%= group.id %>)"><i class="icon-trash"></i></button>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
