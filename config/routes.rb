@@ -1,4 +1,5 @@
 Ticket::Application.routes.draw do
+  get "groups/index"
   get "tickets/index"
   #get "users/index"
   # The priority is based upon order of creation: first created -> highest priority.
@@ -15,7 +16,7 @@ Ticket::Application.routes.draw do
 
   namespace :admin do
     resources :users, path: 'users/(:action)(:id)(.:format)'
-    #resources :user_edit, path: 'user_edit/(:action)(.:format)'
+    resources :groups, path: 'groups/(:action)(.:format)'
   end
 
 

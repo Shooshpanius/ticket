@@ -1,0 +1,69 @@
+<%= javascript_include_tag "admin/group_edit" %>
+
+
+
+
+<form class="form-horizontal" id="group_edit" novalidate="">
+
+  <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="inputId">id</label>
+      <div class="controls">
+        <input type="text" id="inputId" name="inputId" value="<%= @group.id %>" readonly="readonly">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputName">Группа</label>
+      <div class="controls">
+        <input type="text"  id="inputName" name="inputName" value="<%= @group.name %>">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputTicketEmail">Ticket E-mail</label>
+      <div class="controls">
+        <input type="text" id="inputTicketEmail" name="inputTicketEmail" value="<%= @group.ticket_email %>">
+      </div>
+    </div>
+
+    <table class="table table-hover table-bordered table-condensed">
+      <thead>
+      <tr>
+        <th class="span1"></th>
+        <th class="span1">id</th>
+        <th class="span2">login</th>
+        <th>ФИО</th>
+        <th>E-mail</th>
+        <th>Ticket E-mail</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <% @users.each do |user| %>
+          <tr>
+            <td>
+                <label class="checkbox">
+                    <input  name="user[n<%= user.id %>]" type="checkbox">
+                </label>
+            </td>
+            <td><%= user.id %></td>
+            <td><%= user.login %></td>
+            <td><%= user.f_name %> <%= user.i_name %> <%= user.o_name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.ticket_email %></td>
+          </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
