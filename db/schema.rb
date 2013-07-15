@@ -38,8 +38,6 @@ ActiveRecord::Schema.define(version: 20130715110146) do
   create_table "users_by_groups", force: true do |t|
     t.integer  "users_id"
     t.integer  "groups_id"
-    t.integer  "user_id"
-    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
