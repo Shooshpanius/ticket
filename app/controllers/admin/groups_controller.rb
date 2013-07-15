@@ -22,8 +22,7 @@ class Admin::GroupsController < ApplicationController
   def group_edit
     @group = Groups.find(params[:id])
     @users = Users.all
-    #@qqq = UsersByGroups.find_by groups_id: params[:id]
-    @qqq = UsersByGroups.all
+    @ubg = UsersByGroups.where( "groups_id = ?", params[:id])
     respond_to do |format|
       format.html # show.html.erb
       #format.json { render json: @group }
@@ -38,12 +37,8 @@ class Admin::GroupsController < ApplicationController
     @group.ticket_email = params[:inputTicketEmail]
     @group.save
 
-    @users_by_groups = UsersByGroups.find_by groups_id: params[:inputId]
-    if @users_by_groups != nil
-      @users_by_groups.destroy
-    end
+    UsersByGroups.delete_all(:groups_id => params[:inputId] )
 
-    @a=[params[:user].size]
     params[:user].each_with_index{|(key,value), i|
       var_pr = /\d/
       @users_by_groups = UsersByGroups.new()
@@ -52,7 +47,7 @@ class Admin::GroupsController < ApplicationController
       @users_by_groups.save
     }
 
-    render text: @users_by_groups
+    render text: "srv_group_edit"
   end
 
 

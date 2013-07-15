@@ -1,7 +1,8 @@
 <%= javascript_include_tag "admin/group_edit" %>
 
-<%= debug @qqq %>
-
+<% @ubg.each do |ubga| %>
+    <p><%= ubga.id %></p>
+<% end %>
 
 <form class="form-horizontal" id="group_edit" novalidate="">
 
