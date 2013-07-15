@@ -18,12 +18,15 @@ class Admin::GroupsController < ApplicationController
     end
   end
 
+
   def group_edit
-      @group = Groups.find(params[:id])
+    @group = Groups.find(params[:id])
     @users = Users.all
+    #@qqq = UsersByGroups.find_by groups_id: params[:id]
+    @qqq = UsersByGroups.all
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @group }
+      #format.json { render json: @group }
     end
   end
 
