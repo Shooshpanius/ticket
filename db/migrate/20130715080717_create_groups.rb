@@ -3,7 +3,6 @@ class CreateGroups < ActiveRecord::Migration
     create_table :groups do |t|
 
       t.string :name
-      t.string :users
       t.string :ticket_email
 
       t.timestamps

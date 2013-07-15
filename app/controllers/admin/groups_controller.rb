@@ -11,7 +11,14 @@ class Admin::GroupsController < ApplicationController
   end
 
   def group_edit
-    @group = Groups.find(params[:id])
+    @group = Groups.find(params[:inputId])
+    @group.name = params[:inputName]
+    @group.ticket_email = params[:inputTicketEmail]
+    @group.save
+
+
+
+
     @users = Users.all
     respond_to do |format|
       format.html # show.html.erb
