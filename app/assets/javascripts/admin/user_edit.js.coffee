@@ -28,7 +28,7 @@ $(document).ready ($) ->
         async: false
         data: queryString
         success: (msg) ->
-#          location.replace ""
+          location.replace "/admin/users"
 
       false
 

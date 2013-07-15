@@ -1,0 +1,47 @@
+<%= javascript_include_tag "ticket_new" %>
+
+
+
+
+<form class="form-horizontal" id="ticket_new" novalidate="">
+
+  <fieldset>
+
+    <div class="control-group">
+      <label class="control-label" for="inputO">Исполнитель</label>
+      <div class="controls">
+        <input type="text" id="inputO" name="inputO" >
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputLogin">Тема</label>
+      <div class="controls">
+        <input type="text"  id="inputLogin" name="inputLogin" style="width:70%;">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputF">Текст</label>
+      <div class="controls">
+        <textarea rows="7" id="inputF" name="inputF" style="width:70%;">  </textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputDateTo">Исполнить до</label>
+      <div class="controls">
+        <input type="text" id="inputDateTo" name="inputDateTo" >
+      </div>
+    </div>
+
+
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>

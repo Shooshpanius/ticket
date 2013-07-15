@@ -39,6 +39,7 @@ gem 'bootstrap-sass'
 
 gem 'ruby-prof'
 gem 'test-unit'
+gem 'jquery-ui-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

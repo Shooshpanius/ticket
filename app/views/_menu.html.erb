@@ -2,6 +2,8 @@
   <div class="navbar-inner">
     <a class="brand" href="/"><div id='menu_text' name='menu_text'>Ticket system</div></a>
 
+
+
     <% if session[:is_login] %>
 
         <button type="button" class="btn pull-right" onclick='logout()'>Выход</button>
@@ -32,6 +34,12 @@
         </form>
 
     <% end %>
+
+
+    <ul class="nav">
+      <li><a href="/tickets">Заявки</a></li>
+      <li><a href="#">Проекты</a></li>
+    </ul>
 
 
   </div>
