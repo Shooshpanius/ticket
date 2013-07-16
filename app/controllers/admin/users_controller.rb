@@ -47,7 +47,7 @@ class Admin::UsersController < ApplicationController
     @user.save
 
 
-    render text: "srv_user_edit"
+
   end
 
   def srv_user_new
