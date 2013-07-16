@@ -23,6 +23,7 @@ class LoginController < ApplicationController
     else
       session[:is_admin] = true
       session[:is_login] = true
+      session[:user_id] = user.id
       render text: "OK2"
     end
 

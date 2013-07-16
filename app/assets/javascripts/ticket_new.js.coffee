@@ -38,6 +38,6 @@ $(document).ready ($) ->
         async: false
         data: queryString
         success: (msg) ->
-#          location.replace "/admin/groups"
+          location.replace "/tickets"
 
       false
