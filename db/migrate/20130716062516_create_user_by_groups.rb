@@ -1,6 +1,6 @@
-class CreateUsersByGroups < ActiveRecord::Migration
+class CreateUserByGroups < ActiveRecord::Migration
   def change
-    create_table :users_by_groups do |t|
+    create_table :user_by_groups do |t|
 
       t.belongs_to :users
       t.belongs_to :groups

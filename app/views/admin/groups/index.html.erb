@@ -24,7 +24,11 @@
         <td><%= group.id %></td>
         <td><%= group.name %></td>
         <td><%= group.ticket_email %></td>
-        <td></td>
+        <td>
+          <% Groups.find(group.id).users.each do |user| %>
+            <%= user.login %>;
+          <% end %>
+        </td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/admin/groups/group_edit/<%= group.id %>"><i class="icon-edit"></i></a>
           <button class="btn btn-mini btn-danger" type="button" onclick="group_delete(<%= group.id %>)"><i class="icon-trash"></i></button>

@@ -1,6 +1,4 @@
-class UsersByGroups < ActiveRecord::Base
-
+class UserByGroup < ActiveRecord::Base
   belongs_to :groups
   belongs_to :users
-
 end
