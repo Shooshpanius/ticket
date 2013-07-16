@@ -7,7 +7,7 @@ class CreateTickets < ActiveRecord::Migration
       t.integer :executor_type
       t.string :topic
       t.string :text
-      t.string :deadline
+      t.date :deadline
 
       t.timestamps
     end
