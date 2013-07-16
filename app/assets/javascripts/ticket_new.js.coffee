@@ -22,6 +22,7 @@ $(document).ready ($) ->
 
 
 
+
     errorClass: "input_error"
     errorElement: "em"
     messages:
