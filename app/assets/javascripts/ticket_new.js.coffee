@@ -7,6 +7,8 @@ $(document).ready ($) ->
 
 
 
+
+
   $("#ticket_new").validate
     rules:
       inputIsp:

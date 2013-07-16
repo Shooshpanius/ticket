@@ -46,8 +46,6 @@ class Admin::UsersController < ApplicationController
     @user.ticket_email = params[:inputTicketEmail]
     @user.save
 
-
-
   end
 
   def srv_user_new
