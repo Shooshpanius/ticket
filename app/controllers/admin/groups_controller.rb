@@ -22,7 +22,7 @@ class Admin::GroupsController < ApplicationController
   def group_edit
     @group = Groups.find(params[:id])
     @users = Users.all
-    @ubg = UsersByGroups.where( "groups_id = ?", params[:id])
+    @users_by_groups = UsersByGroups.where( "groups_id = ?", params[:id])
     respond_to do |format|
       format.html # show.html.erb
       #format.json { render json: @group }
@@ -39,13 +39,13 @@ class Admin::GroupsController < ApplicationController
 
     UsersByGroups.delete_all(:groups_id => params[:inputId] )
 
-    params[:user].each_with_index{|(key,value), i|
+    params[:user].each_with_index { |(key, value), i|
       var_pr = /\d/
       @users_by_groups = UsersByGroups.new()
       @users_by_groups.groups_id = params[:inputId]
       @users_by_groups.users_id = key.scan(var_pr)[0]
       @users_by_groups.save
-    }
+    } if params[:user] != nil
 
     render text: "srv_group_edit"
   end

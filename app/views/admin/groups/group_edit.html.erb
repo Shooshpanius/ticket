@@ -1,9 +1,5 @@
 <%= javascript_include_tag "admin/group_edit" %>
 
-<% @ubg.each do |ubga| %>
-    <p><%= ubga.id %></p>
-<% end %>
-
 <form class="form-horizontal" id="group_edit" novalidate="">
 
   <fieldset>
@@ -46,8 +42,16 @@
       <% @users.each do |user| %>
           <tr>
             <td>
+
+
                 <label class="checkbox">
-                    <input  name="user[n<%= user.id %>]" type="checkbox">
+                    <input  name="user[n<%= user.id %>]" type="checkbox"
+
+                        <% if @users_by_groups.any?{|u| u.users_id == user.id} == true  %>
+                            checked = "checked"
+                        <% end %>
+
+                    >
                 </label>
             </td>
             <td><%= user.id %></td>
