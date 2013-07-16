@@ -1,4 +1,4 @@
-Ticket::Application.routes.draw do
+Ticketmanager::Application.routes.draw do
   get "groups/index"
   get "tickets/index"
   #get "users/index"

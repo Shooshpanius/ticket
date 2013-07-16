@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Ticket::Application.load_tasks
+Ticketmanager::Application.load_tasks
