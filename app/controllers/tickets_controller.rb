@@ -8,4 +8,12 @@ class TicketsController < ApplicationController
     @groups = Groups.all
   end
 
+
+  def srv_ticket_new
+
+
+    render text: "srv_ticket_new"
+  end
+
+
 end

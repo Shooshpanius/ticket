@@ -10,13 +10,13 @@
       <label class="control-label" for="inputIsp">Исполнитель</label>
       <div class="controls">
         <select  id="inputIsp" name="inputIsp">
-          <option>-Группы-</option>
+          <option value="">-Группы-</option>
           <% @groups.each do |group| %>
-              <option><%= group.name %></option>
+              <option id="g_<%= group.id %>" name="g_<%= group.id %>" value="g_<%= group.id %>" ><%= group.name %></option>
           <% end %>
-            <option>-Пользователи-</option>
+            <option value="">-Пользователи-</option>
           <% @users.each do |user| %>
-              <option><%= user.f_name %><%= user.i_name %><%= user.o_name %></option>
+              <option id="u_<%= user.id %>" name="g_<%= user.id %>" value="u_<%= user.id %>" ><%= user.f_name %> <%= user.i_name %> <%= user.o_name %></option>
           <% end %>
 
         </select>
@@ -24,16 +24,16 @@
     </div>
 
     <div class="control-group">
-      <label class="control-label" for="inputLogin">Тема</label>
+      <label class="control-label" for="inputTopic">Тема</label>
       <div class="controls">
-        <input type="text"  id="inputLogin" name="inputLogin" style="width:70%;">
+        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;">
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label" for="inputF">Текст</label>
+      <label class="control-label" for="inputText">Текст</label>
       <div class="controls">
-        <textarea rows="7" id="inputF" name="inputF" style="width:70%;">  </textarea>
+        <textarea rows="7" id="inputText" name="inputText" style="width:70%;">  </textarea>
       </div>
     </div>
 
