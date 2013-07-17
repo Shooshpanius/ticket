@@ -11,11 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130716062516) do
+ActiveRecord::Schema.define(version: 20130717053307) do
 
   create_table "groups", force: true do |t|
     t.string   "name"
     t.string   "ticket_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ticket_to_groups", force: true do |t|
+    t.integer  "initiator_id"
+    t.integer  "groups_id"
+    t.string   "topic"
+    t.string   "text"
+    t.date     "deadline"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ticket_to_users", force: true do |t|
+    t.integer  "initiator_id"
+    t.integer  "users_id"
+    t.string   "topic"
+    t.string   "text"
+    t.date     "deadline"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
