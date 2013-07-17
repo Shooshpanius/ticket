@@ -5,6 +5,11 @@ class TicketsController < ApplicationController
     @TicketToUser = TicketToUser.where("users_id = ?", session[:user_id]).limit(10)
 
 
+
+
+    @TicketToGroup = TicketToUser.where("users_id = ?", session[:user_id]).limit(10)
+
+
   end
 
   def ticket_new
