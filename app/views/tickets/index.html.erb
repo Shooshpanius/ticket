@@ -12,17 +12,24 @@
   <tr>
     <th class="span3">Инициатор</th>
     <th>Тема</th>
-    <th class="span2">Дата</th>
-    <th class="span2"></th>
+    <th class="span3">Дата заявки</th>
+    <th class="span1"></th>
   </tr>
   </thead>
   <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+   <% @TicketToUser.each do |user_tickets| %>
+   <% user_data = Users.first(user_tickets.initiator_id) %>
+    <tr>
+        <td><%= user_data[0].login %></td>
+        <td><%= user_tickets.topic %></td>
+        <td><%= user_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+        <td>
+          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/<%= user_tickets.id %>"><i class="icon-edit"></i></a>
+
+        </td>
+    </tr>
+  <% end %>
+
   </tbody>
 </table>
 

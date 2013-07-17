@@ -2,6 +2,7 @@ class TicketsController < ApplicationController
 
   def index
 
+    @TicketToUser = TicketToUser.where("users_id = ?", session[:user_id]).limit(10)
 
 
   end
@@ -10,6 +11,14 @@ class TicketsController < ApplicationController
     @users = Users.all
     @groups = Groups.all
   end
+
+
+  def ticket_edit
+
+
+
+  end
+
 
 
   def srv_ticket_new
