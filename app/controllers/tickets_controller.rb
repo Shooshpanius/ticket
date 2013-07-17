@@ -2,12 +2,13 @@ class TicketsController < ApplicationController
 
   def index
 
-    @TicketToUser = TicketToUser.where("users_id = ?", session[:user_id]).limit(10)
+    @user_tickets = TicketToUser.where('users_id = ?', session[:user_id]).limit(10)
 
 
+    ug = Users.find(session[:user_id]).groups
 
-
-    @TicketToGroup = TicketToUser.where("users_id = ?", session[:user_id]).limit(10)
+    @tbg = TicketToGroup.where("groups_id = ?", ug)
+    #@tbg = ug.includes(:ticket_to_group)
 
 
   end

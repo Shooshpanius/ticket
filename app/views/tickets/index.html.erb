@@ -1,6 +1,13 @@
 <%= javascript_include_tag "tickets" %>
 
 
+
+
+<%= debug @tbg %>
+
+
+
+
 <p>
   <a class="btn btn-primary" type="button" href="/tickets/ticket_new/"><i class="icon-plus"></i>Создать заявку</a>
 </p>
@@ -17,7 +24,7 @@
   </tr>
   </thead>
   <tbody>
-   <% @TicketToUser.each do |user_tickets| %>
+   <% @user_tickets.each do |user_tickets| %>
    <% user_data = Users.first(user_tickets.initiator_id) %>
     <tr>
         <td><%= user_data[0].login %></td>
