@@ -13,10 +13,10 @@ class TicketsController < ApplicationController
 
 
   def srv_ticket_new
-
+    var_pr = /\d/
     @ticket = TicketToUser.new()
     @ticket.initiator_id = session[:user_id]
-    @ticket.users_id = params[:inputIsp]
+    @ticket.users_id = params[:inputIsp].scan(var_pr)[0]
     @ticket.topic = params[:inputTopic]
     @ticket.text = params[:inputText]
     @ticket.deadline = params[:inputDateTo]
