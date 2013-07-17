@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20130717053307) do
   end
 
   create_table "ticket_to_groups", force: true do |t|
-    t.integer  "initiator_id"
     t.integer  "groups_id"
     t.string   "topic"
     t.string   "text"
@@ -31,7 +30,6 @@ ActiveRecord::Schema.define(version: 20130717053307) do
   end
 
   create_table "ticket_to_users", force: true do |t|
-    t.integer  "initiator_id"
     t.integer  "users_id"
     t.string   "topic"
     t.string   "text"

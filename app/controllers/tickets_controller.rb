@@ -14,10 +14,9 @@ class TicketsController < ApplicationController
 
   def srv_ticket_new
 
-    @ticket = Ticket.new()
+    @ticket = TicketToUser.new()
     @ticket.initiator_id = session[:user_id]
-    @ticket.executor_id = params[:inputIsp]
-    @ticket.executor_type = 0
+    @ticket.users_id = params[:inputIsp]
     @ticket.topic = params[:inputTopic]
     @ticket.text = params[:inputText]
     @ticket.deadline = params[:inputDateTo]
