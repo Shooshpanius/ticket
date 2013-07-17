@@ -1,6 +1,7 @@
 class CreateTicketToUsers < ActiveRecord::Migration
   def change
     create_table :ticket_to_users do |t|
+      t.integer :initiator_id
       t.belongs_to :users
       t.string :topic
       t.string :text
