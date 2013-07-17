@@ -13,14 +13,26 @@ class TicketsController < ApplicationController
 
 
   def srv_ticket_new
-    var_pr = /\d/
-    @ticket = TicketToUser.new()
-    @ticket.initiator_id = session[:user_id]
-    @ticket.users_id = params[:inputIsp].scan(var_pr)[0]
-    @ticket.topic = params[:inputTopic]
-    @ticket.text = params[:inputText]
-    @ticket.deadline = params[:inputDateTo]
-    @ticket.save
+
+    if params[:inputIsp].scan(/u_/)[0]
+      @ticket = TicketToUser.new()
+      @ticket.initiator_id = session[:user_id]
+      @ticket.users_id = params[:inputIsp].scan(/\d/)[0]
+      @ticket.topic = params[:inputTopic]
+      @ticket.text = params[:inputText]
+      @ticket.deadline = params[:inputDateTo]
+      @ticket.save
+    end
+
+    if params[:inputIsp].scan(/g_/)[0]
+      @ticket = TicketToGroup.new()
+      @ticket.initiator_id = session[:user_id]
+      @ticket.groups_id = params[:inputIsp].scan(/\d/)[0]
+      @ticket.topic = params[:inputTopic]
+      @ticket.text = params[:inputText]
+      @ticket.deadline = params[:inputDateTo]
+      @ticket.save
+    end
 
     render text: "srv_ticket_new"
   end
