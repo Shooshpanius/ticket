@@ -27,6 +27,8 @@ class TicketsController < ApplicationController
       @initiator = Users.find(@user_ticket.initiator_id)
       @user = Users.find(@user_ticket.users_id)
 
+      @comments = TicketToUser.find(ticket_id).ticket_comments
+
 
       render "ticket_edit_u"
 
