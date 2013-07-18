@@ -19,7 +19,15 @@ class TicketsController < ApplicationController
 
   def ticket_edit
 
+    ticket_id = params[:id].scan(/\d/)[0]
+
     if params[:id].scan(/u_/)[0]
+
+      @user_ticket = TicketToUser.find(ticket_id)
+      @initiator = Users.find(@user_ticket.initiator_id)
+      @user = Users.find(@user_ticket.users_id)
+
+
       render "ticket_edit_u"
 
     end
