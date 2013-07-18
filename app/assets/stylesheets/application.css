@@ -12,5 +12,6 @@
  *= require bootstrap
  *= require bootstrap-responsive
  *= require jquery.ui.datepicker
+ *= require bootstrap-wysihtml5
  *= require_tree .
  */

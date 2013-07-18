@@ -1,6 +1,8 @@
 
 $(document).ready ($) ->
 
+  $('#inputCommText').wysihtml5()
+
 
   $("#comment_new").validate
     rules:

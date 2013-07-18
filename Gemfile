@@ -41,6 +41,10 @@ gem 'ruby-prof'
 gem 'test-unit'
 gem 'jquery-ui-rails'
 gem 'rename'
+gem 'bootstrap-wysiwyg-rails'
+gem 'jquery-hotkeys-rails'
+gem 'bootstrap-wysihtml5-rails'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

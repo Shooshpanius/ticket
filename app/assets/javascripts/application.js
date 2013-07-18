@@ -17,4 +17,7 @@
 //= require jquery.validate
 //= require additional-methods
 //= require bootstrap
+//= require bootstrap-wysiwyg
+//= require jquery-hotkeys
+//= require bootstrap-wysihtml5
 //= require main
