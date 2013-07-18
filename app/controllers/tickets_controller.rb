@@ -19,6 +19,18 @@ class TicketsController < ApplicationController
 
   def ticket_edit
 
+    if params[:id].scan(/u_/)[0]
+      render "ticket_edit_u"
+
+    end
+
+    if params[:id].scan(/g_/)[0]
+      render "ticket_edit_g"
+
+
+
+    end
+
 
 
   end

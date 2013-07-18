@@ -1,0 +1,37 @@
+<%= javascript_include_tag "ticket_edit_u" %>
+
+
+<form class="form-horizontal" id="ticket_edit_u" novalidate="">
+
+  <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="inputIsp">Исполнитель</label>
+      <div class="controls">
+        <input type="text"  id="inputIsp" name="inputIsp" style="width:70%;" readonly="readonly">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputTopic">Тема</label>
+      <div class="controls">
+        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;" readonly="readonly">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputText">Текст</label>
+      <div class="controls">
+        <textarea rows="7" id="inputText" name="inputText" style="width:70%;" readonly="readonly">  </textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputDateTo">Исполнить до</label>
+      <div class="controls">
+        <input type="text" id="inputDateTo" name="inputDateTo"  readonly="readonly">
+      </div>
+    </div>
+
+
+  </fieldset>
+</form>
