@@ -22,27 +22,16 @@ class TicketsController < ApplicationController
     ticket_id = params[:id].scan(/\d/)[0]
 
     if params[:id].scan(/u_/)[0]
-
       @user_ticket = TicketToUser.find(ticket_id)
       @initiator = Users.find(@user_ticket.initiator_id)
       @user = Users.find(@user_ticket.users_id)
-
       @comments = TicketToUser.find(ticket_id).ticket_comments
-
-
       render "ticket_edit_u"
-
     end
 
     if params[:id].scan(/g_/)[0]
       render "ticket_edit_g"
-
-
-
     end
-
-
-
   end
 
 
@@ -72,6 +61,19 @@ class TicketsController < ApplicationController
     render text: "srv_ticket_new"
   end
 
+  def srv_comment_u_new
+
+    #session[:user_id]
+
+    ticket_id = params[:ticket_id]
+    user_id = session[:user_id]
+
+    @user_ticket = TicketToUser.find(ticket_id)
+    @user_ticket.ticket_comments.create({text: params[:inputCommText]})
+    render text: "srv_comment_new"
+
+
+  end
 
 
 end

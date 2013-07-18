@@ -1,7 +1,7 @@
 <%= javascript_include_tag "ticket_edit_u" %>
 
 
-<%= debug @comments %>
+
 
 <form class="form-horizontal" id="ticket_edit_u" novalidate="">
 
@@ -46,4 +46,36 @@
   </fieldset>
 </form>
 
+<div id="comments" name="comments">
+
+    <% @comments.each do |comment| %>
+      <div class="well">
+        <%= comment.text %>
+      </div>
+    <% end %>
+
+</div>
+
+
+<form class="form-horizontal" id="comment_new" novalidate="">
+
+  <fieldset>
+
+    <input type="hidden"  id="ticket_id" name="ticket_id" value=<%= @user_ticket.id %> >
+
+    <div class="control-group">
+      <label class="control-label" for="inputCommText">Добавить комментарий</label>
+      <div class="controls">
+        <textarea rows="7" id="inputCommText" name="inputCommText" style="width:70%;"  ></textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
 
