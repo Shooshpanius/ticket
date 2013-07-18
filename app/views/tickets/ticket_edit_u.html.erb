@@ -46,15 +46,27 @@
   </fieldset>
 </form>
 
-<div id="comments" name="comments">
+<h4>Комментарии:</h4>
+
+<form class="form-horizontal">
 
     <% @comments.each do |comment| %>
-      <div class="well">
-        <%= comment.text %>
+      <div class="control-group">
+        <label class="control-label" for="inputCommText"><%= Users.first(comment.ticket_to_user_id)[0].login %><br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
+        <div class="controls">
+
+
+
+
+          <pre><%= comment.text %> </pre>
+        </div>
       </div>
+
+
+
     <% end %>
 
-</div>
+</form>
 
 
 <form class="form-horizontal" id="comment_new" novalidate="">
