@@ -4,11 +4,9 @@ class TicketsController < ApplicationController
 
     @user_tickets = TicketToUser.where('users_id = ?', session[:user_id]).limit(10)
 
-
-    ug = Users.find(session[:user_id]).groups
-
-    @tbg = TicketToGroup.where("groups_id = ?", ug)
-    #@tbg = ug.includes(:ticket_to_group)
+    u = Users.select([:id]).where("id = ?", session[:user_id])
+    g = Groups.select([:id]).where("id = ?", u)
+    @group_tickets = TicketToGroup.where("groups_id = ?", g)
 
 
   end

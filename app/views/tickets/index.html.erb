@@ -2,12 +2,6 @@
 
 
 
-
-<%= debug @tbg %>
-
-
-
-
 <p>
   <a class="btn btn-primary" type="button" href="/tickets/ticket_new/"><i class="icon-plus"></i>Создать заявку</a>
 </p>
@@ -24,19 +18,17 @@
   </tr>
   </thead>
   <tbody>
-   <% @user_tickets.each do |user_tickets| %>
-   <% user_data = Users.first(user_tickets.initiator_id) %>
-    <tr>
-        <td><%= user_data[0].login %></td>
-        <td><%= user_tickets.topic %></td>
-        <td><%= user_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
-        <td>
-          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/<%= user_tickets.id %>"><i class="icon-edit"></i></a>
-
-        </td>
-    </tr>
-  <% end %>
-
+    <% @user_tickets.each do |user_tickets| %>
+    <% user_data = Users.first(user_tickets.initiator_id) %>
+        <tr>
+            <td><%= user_data[0].login %></td>
+            <td><%= user_tickets.topic %></td>
+            <td><%= user_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+            <td>
+              <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
+            </td>
+        </tr>
+    <% end %>
   </tbody>
 </table>
 
@@ -53,13 +45,19 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
+  <% @group_tickets.each do |group_tickets| %>
+      <% user_data = Users.first(group_tickets.initiator_id) %>
+      <% group_data = Groups.first(group_tickets.groups_id) %>
+      <tr>
+        <td><%= user_data[0].login %></td>
+        <td><%= group_data[0].name %></td>
+        <td><%= group_tickets.topic %></td>
+        <td><%= group_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+        <td>
+          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
+        </td>
+      </tr>
+  <% end %>
   </tbody>
 </table>
 
