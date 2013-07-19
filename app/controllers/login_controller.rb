@@ -18,21 +18,24 @@ class LoginController < ApplicationController
     user = Users.find_by_login(params[:login])
 
     if user.nil? or user.password != params[:password]
-      render text: "OK"
 
     else
-      session[:is_admin] = true
       session[:is_login] = true
       session[:user_id] = user.id
-      render text: "OK2"
     end
+
+    if user.admin == true
+      session[:is_admin] = true
+    end
+
+    render text: "srv_check_login"
 
   end
 
 
   def srv_logout
     reset_session
-    render text: "OK2"
+    render text: "srv_logout"
   end
 
 
