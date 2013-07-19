@@ -62,18 +62,19 @@ class TicketsController < ApplicationController
   end
 
   def srv_comment_u_new
-
-    #session[:user_id]
-
     ticket_id = params[:ticket_id]
     user_id = session[:user_id]
-
     @user_ticket = TicketToUser.find(ticket_id)
     @user_ticket.ticket_comments.create({text: params[:inputCommText]})
     render text: "srv_comment_new"
-
-
   end
 
+
+  def srv_change_status
+    @user_ticket = TicketToUser.find(params[:ticket_id])
+    @user_ticket.completed = params[:status]
+    @user_ticket.save
+    render text: "srv_change_status"
+  end
 
 end

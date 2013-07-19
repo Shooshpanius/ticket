@@ -31,9 +31,7 @@
     <div class="control-group">
       <label class="control-label" for="inputText">Текст</label>
       <div class="controls">
-
-        <div class="well" style="width:70%;"  ><%== @user_ticket.text %></textarea>
-
+        <div class="well" style="width:70%;"  ><%== @user_ticket.text %></div>
       </div>
     </div>
 
@@ -44,8 +42,21 @@
       </div>
     </div>
 
+      <% if !@user_ticket.completed  %>
+      <div class="control-group">
+        <div class="controls">
+          <button type="button" class="btn btn-success" onclick="change_status(1, <%= @user_ticket.id %>)">Установить статус "Выполнено"</button>
+        </div>
+      </div>
+      <% else  %>
+          <div class="control-group">
+            <div class="controls">
+              <button type="button" class="btn btn-danger" onclick="change_status(0, <%= @user_ticket.id %>)">Отменить статус "Выполнено"</button>
+            </div>
+          </div>
+      <% end %>
 
-  </fieldset>
+    </fieldset>
 </form>
 
 <h4>Комментарии:</h4>
@@ -56,10 +67,6 @@
       <div class="control-group">
         <label class="control-label" for="inputCommText"><%= Users.first(comment.ticket_to_user_id)[0].login %><br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
         <div class="controls">
-
-
-
-
           <div><%== comment.text %> </div>
         </div>
       </div>

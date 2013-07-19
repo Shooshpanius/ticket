@@ -24,7 +24,7 @@ class LoginController < ApplicationController
       session[:user_id] = user.id
     end
 
-    if user.admin == true
+    if user.admin
       session[:is_admin] = true
     end
 

@@ -1,4 +1,14 @@
 
+@change_status = (status, ticket_id) ->
+  $.ajax
+    url: "/tickets/srv_change_status"
+    type: "POST"
+    async: false
+    data: "status="+status+"&ticket_id="+ticket_id
+    success: () ->
+      location.replace ""
+
+
 $(document).ready ($) ->
 
   $('#inputCommText').wysihtml5()
