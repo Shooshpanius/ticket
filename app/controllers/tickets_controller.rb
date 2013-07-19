@@ -26,7 +26,7 @@ class TicketsController < ApplicationController
       @initiator = Users.find(@user_ticket.initiator_id)
       @user = Users.find(@user_ticket.users_id)
       @comments = TicketToUser.find(ticket_id).ticket_comments
-      render (:html=> "ticket_edit_u")
+      render ("ticket_edit_u")
     end
 
     if params[:id].scan(/g_/)[0]
