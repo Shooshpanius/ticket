@@ -1,0 +1,62 @@
+<%= javascript_include_tag "tickets" %>
+
+
+<table class="table table-hover table-bordered table-condensed">
+  <caption>Входящие персональные</caption>
+  <thead>
+  <tr>
+    <th class="span3">Инициатор</th>
+    <th>Тема</th>
+    <th class="span2">Срок исполнения</th>
+    <th class="span1"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @user_tickets.each do |user_tickets| %>
+      <% user_data = Users.find(user_tickets.initiator_id) %>
+      <tr>
+        <td><%= user_data.login %></td>
+        <td><%= user_tickets.topic %></td>
+        <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
+        <td>
+          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<table class="table table-hover table-bordered table-condensed">
+  <caption>Входящие групповые</caption>
+  <thead>
+  <tr>
+    <th class="span3">Инициатор</th>
+    <th class="span3">Группа</th>
+    <th>Тема</th>
+    <th class="span2">Срок исполнения</th>
+    <th class="span1"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @group_tickets.each do |group_tickets| %>
+      <% user_data = Users.find(group_tickets.initiator_id) %>
+      <% group_data = Groups.find(group_tickets.groups_id) %>
+      <tr>
+        <td><%= user_data.login %></td>
+        <td><%= group_data.name %></td>
+        <td><%= group_tickets.topic %></td>
+        <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
+        <td>
+          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+
+
+  </tbody>
+</table>
