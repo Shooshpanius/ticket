@@ -13,15 +13,12 @@ class TicketToGroup < ActiveRecord::Base
 
   def TicketToGroup.is_executor(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
-
     if UserByGroup.where("groups_id = ? AND users_id = ?", @ticket.groups_id, user_id)
       return true
     else
       return false
     end
   end
-
-
 
   def TicketToGroup.change_status(user_id, status, ticket_id)
     if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
