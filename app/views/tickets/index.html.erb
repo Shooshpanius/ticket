@@ -12,17 +12,17 @@
   <tr>
     <th class="span3">Инициатор</th>
     <th>Тема</th>
-    <th class="span3">Дата заявки</th>
+    <th class="span2">Срок исполнения</th>
     <th class="span1"></th>
   </tr>
   </thead>
   <tbody>
     <% @user_tickets.each do |user_tickets| %>
-    <% user_data = Users.first(user_tickets.initiator_id) %>
+    <% user_data = Users.find(user_tickets.initiator_id) %>
         <tr>
-            <td><%= user_data[0].login %></td>
+            <td><%= user_data.login %></td>
             <td><%= user_tickets.topic %></td>
-            <td><%= user_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+            <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
             <td>
               <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
             </td>
@@ -39,19 +39,19 @@
     <th class="span3">Инициатор</th>
     <th class="span3">Группа</th>
     <th>Тема</th>
-    <th class="span3">Дата</th>
+    <th class="span2">Срок исполнения</th>
     <th class="span1"></th>
   </tr>
   </thead>
   <tbody>
   <% @group_tickets.each do |group_tickets| %>
-      <% user_data = Users.first(group_tickets.initiator_id) %>
-      <% group_data = Groups.first(group_tickets.groups_id) %>
+      <% user_data = Users.find(group_tickets.initiator_id) %>
+      <% group_data = Groups.find(group_tickets.groups_id) %>
       <tr>
-        <td><%= user_data[0].login %></td>
-        <td><%= group_data[0].name %></td>
+        <td><%= user_data.login %></td>
+        <td><%= group_data.name %></td>
         <td><%= group_tickets.topic %></td>
-        <td><%= group_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+        <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
         </td>
@@ -68,29 +68,29 @@
   <tr>
     <th class="span3">Исполнитель</th>
     <th>Тема</th>
-    <th class="span3">Дата</th>
+    <th class="span2">Срок исполнения</th>
     <th class="span1"></th>
   </tr>
   </thead>
   <tbody>
   <% @my_tickets.each do |my_tickets| %>
       <% if my_tickets.respond_to?(:groups_id)  %>
-          <% user_data = Users.first(my_tickets.initiator_id) %>
-          <% group_data = Groups.first(my_tickets.groups_id) %>
+          <% user_data = Users.find(my_tickets.initiator_id) %>
+          <% group_data = Groups.find(my_tickets.groups_id) %>
           <tr>
-            <td><%= group_data[0].name %></td>
+            <td><%= group_data.name %></td>
             <td><%= my_tickets.topic %></td>
-            <td><%= my_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+            <td><%= my_tickets.deadline.strftime("%d-%m-%Y") %></td>
             <td>
               <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= my_tickets.id %>"><i class="icon-edit"></i></a>
             </td>
           </tr>
       <% else  %>
-          <% user_data = Users.first(my_tickets.initiator_id) %>
+          <% user_data = Users.find(my_tickets.initiator_id) %>
           <tr>
-            <td><%= user_data[0].login %></td>
+            <td><%= user_data.login %></td>
             <td><%= my_tickets.topic %></td>
-            <td><%= my_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+            <td><%= my_tickets.deadline.strftime("%d-%m-%Y") %></td>
             <td>
               <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= my_tickets.id %>"><i class="icon-edit"></i></a>
             </td>
