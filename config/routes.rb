@@ -22,9 +22,6 @@ Ticketmanager::Application.routes.draw do
 
 
 
-
-
-
   root 'main#index'
   #get '/', to: redirect('/login')
 

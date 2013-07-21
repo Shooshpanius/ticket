@@ -1,5 +1,9 @@
 class TicketsController < ApplicationController
 
+  before_filter :is_login
+
+
+
   def index
 
     @user_tickets = TicketToUser.where('users_id = ?', session[:user_id]).limit(10)
@@ -72,5 +76,15 @@ class TicketsController < ApplicationController
 
     render text: "srv_change_status"
   end
+
+
+  private
+  def is_login
+    if !session[:is_login]
+      redirect_to "/"
+    end
+  end
+
+
 
 end
