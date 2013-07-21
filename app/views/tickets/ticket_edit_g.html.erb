@@ -1,0 +1,105 @@
+<%= javascript_include_tag "ticket_edit_g" %>
+
+
+
+
+<form class="form-horizontal" id="ticket_edit_u" novalidate="">
+
+  <fieldset>
+
+    <div class="control-group">
+      <label class="control-label" for="inputInit">Инициатор</label>
+      <div class="controls">
+        <input type="text"  id="inputInit" name="inputInit" style="width:70%;" readonly="readonly" value=<%= @initiator.login %> >
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputIsp">Исполнитель</label>
+      <div class="controls">
+        <input type="text"  id="inputIsp" name="inputIsp" style="width:70%;" readonly="readonly" value=<%= @executor.name %> >
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputTopic">Тема</label>
+      <div class="controls">
+        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;" readonly="readonly" value=<%= @ticket.topic %> >
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputText">Текст</label>
+      <div class="controls">
+        <div class="well" style="width:70%;"  ><%== @ticket.text %></div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputDateTo">Исполнить до</label>
+      <div class="controls">
+        <input type="text" id="inputDateTo" name="inputDateTo"  readonly="readonly" value=<%= @ticket.deadline %> >
+      </div>
+    </div>
+
+    <% if !@ticket.completed  %>
+        <div class="control-group">
+          <div class="controls">
+            <button type="button" class="btn btn-success" onclick="change_status(1, <%= @ticket.id %>)">Установить статус "Выполнено"</button>
+          </div>
+        </div>
+    <% else  %>
+        <div class="control-group">
+          <div class="controls">
+            <button type="button" class="btn btn-danger" onclick="change_status(0, <%= @ticket.id %>)">Отменить статус "Выполнено"</button>
+          </div>
+        </div>
+    <% end %>
+
+  </fieldset>
+</form>
+
+<h4>Комментарии:</h4>
+
+<form class="form-horizontal">
+
+  <% @comments.each do |comment| %>
+      <div class="control-group">
+        <label class="control-label" for="inputCommText"><%= Users.first(comment.ticket_to_user_id)[0].login %><br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
+        <div class="controls">
+          <div><%== comment.text %> </div>
+        </div>
+      </div>
+
+
+
+  <% end %>
+
+</form>
+
+
+<form class="form-horizontal" id="comment_new" novalidate="">
+
+  <fieldset>
+
+    <input type="hidden"  id="ticket_id" name="ticket_id" value=<%= @ticket.id %> >
+
+    <div class="control-group">
+      <label class="control-label" for="inputCommText">Добавить комментарий</label>
+      <div class="controls">
+        <textarea rows="7" id="inputCommText" name="inputCommText"  style="width:70%;"></textarea>
+      </div>
+    </div>
+
+
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>
+
+

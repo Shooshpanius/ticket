@@ -38,6 +38,10 @@ class TicketsController < ApplicationController
     end
 
     if params[:id].scan(/g_/)[0]
+      @ticket = TicketToGroup.find(ticket_id)
+      @initiator = Users.find(@ticket.initiator_id)
+      @executor = Groups.find(@ticket.groups_id)
+      @comments = TicketToGroup.find(ticket_id).ticket_comments
       render "ticket_edit_g"
     end
   end
@@ -75,10 +79,14 @@ class TicketsController < ApplicationController
   end
 
 
-  def srv_change_status
+  def srv_change_u_status
     TicketToUser.change_status(session[:user_id], params[:status], params[:ticket_id])
+    render text: "srv_change_u_status"
+  end
 
-    render text: "srv_change_status"
+  def srv_change_g_status
+    TicketToGroup.change_status(session[:user_id], params[:status], params[:ticket_id])
+    render text: "srv_change_g_status"
   end
 
 

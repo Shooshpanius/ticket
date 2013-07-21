@@ -1,7 +1,7 @@
 
 @change_status = (status, ticket_id) ->
   $.ajax
-    url: "/tickets/srv_change_status"
+    url: "/tickets/srv_change_u_status"
     type: "POST"
     async: false
     data: "status="+status+"&ticket_id="+ticket_id
