@@ -63,9 +63,12 @@
 
 <form class="form-horizontal">
 
+
+
   <% @comments.each do |comment| %>
       <div class="control-group">
-        <label class="control-label" for="inputCommText"><%= Users.first(comment.ticket_to_user_id)[0].login %><br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
+
+        <label class="control-label" for="inputCommText"><%= Users.find(comment.users_id).login %><br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
         <div class="controls">
           <div><%== comment.text %> </div>
         </div>

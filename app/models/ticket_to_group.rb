@@ -32,7 +32,7 @@ class TicketToGroup < ActiveRecord::Base
     if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
       @user_comment = TicketComment.new()
       @user_comment.users_id = user_id
-      @user_comment.ticket_to_user_id = ticket_id
+      @user_comment.ticket_to_group_id = ticket_id
       @user_comment.text = inputCommText
       @user_comment.save()
     end

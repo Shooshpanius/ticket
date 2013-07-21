@@ -78,6 +78,11 @@ class TicketsController < ApplicationController
     render text: "srv_comment_new"
   end
 
+  def srv_comment_g_new
+    TicketToGroup.comment_new(session[:user_id], params[:ticket_id], params[:inputCommText])
+    render text: "srv_comment_new"
+  end
+
 
   def srv_change_u_status
     TicketToUser.change_status(session[:user_id], params[:status], params[:ticket_id])
