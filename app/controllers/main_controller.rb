@@ -11,6 +11,11 @@ class MainController < ApplicationController
     g = Groups.select([:id]).where("id = ?", u)
     @group_tickets = TicketToGroup.where("groups_id = ?", g)
 
+    my_tickets_to_users = TicketToUser.where("initiator_id = ?", session[:user_id])
+    my_tickets_to_groups = TicketToGroup.where("initiator_id = ?", session[:user_id]).limit(10)
+    my_tickets = my_tickets_to_users + my_tickets_to_groups
+    @my_tickets = my_tickets.sort_by{ |elem| elem.deadline }
+
     render template: "tickets/index"
 
   end

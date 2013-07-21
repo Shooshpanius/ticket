@@ -1,7 +1,6 @@
 <%= javascript_include_tag "tickets" %>
 
 
-
 <p>
   <a class="btn btn-primary" type="button" href="/tickets/ticket_new/"><i class="icon-plus"></i>Создать заявку</a>
 </p>
@@ -67,18 +66,38 @@
   <caption>Исходящие (10 последних)</caption>
   <thead>
   <tr>
-    <th class="span3">Инициатор</th>
+    <th class="span3">Исполнитель</th>
     <th>Тема</th>
-    <th class="span2">Дата</th>
-    <th class="span2"></th>
+    <th class="span3">Дата</th>
+    <th class="span1"></th>
   </tr>
   </thead>
   <tbody>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
+  <% @my_tickets.each do |my_tickets| %>
+      <% if my_tickets.respond_to?(:groups_id)  %>
+          <% user_data = Users.first(my_tickets.initiator_id) %>
+          <% group_data = Groups.first(my_tickets.groups_id) %>
+          <tr>
+            <td><%= group_data[0].name %></td>
+            <td><%= my_tickets.topic %></td>
+            <td><%= my_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+            <td>
+              <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= my_tickets.id %>"><i class="icon-edit"></i></a>
+            </td>
+          </tr>
+      <% else  %>
+          <% user_data = Users.first(my_tickets.initiator_id) %>
+          <tr>
+            <td><%= user_data[0].login %></td>
+            <td><%= my_tickets.topic %></td>
+            <td><%= my_tickets.created_at.strftime("%d-%m-%Y %H:%M:%S") %></td>
+            <td>
+              <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= my_tickets.id %>"><i class="icon-edit"></i></a>
+            </td>
+          </tr>
+      <% end  %>
+
+
+  <% end %>
   </tbody>
 </table>
