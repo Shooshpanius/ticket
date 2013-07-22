@@ -6,7 +6,7 @@ class CreateTicketToGroups < ActiveRecord::Migration
       t.string :topic
       t.string :text
       t.date :deadline
-      t.boolean :completed
+      t.integer :completed
       t.timestamps
     end
   end

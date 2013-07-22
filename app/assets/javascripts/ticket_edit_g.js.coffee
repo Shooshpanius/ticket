@@ -1,10 +1,10 @@
 
-@change_status = (status, ticket_id) ->
+@change_status = (ticket_id) ->
   $.ajax
     url: "/tickets/srv_change_g_status"
     type: "POST"
     async: false
-    data: "status="+status+"&ticket_id="+ticket_id
+    data: "status="+$("select#inputCompleted").val()+"&ticket_id="+ticket_id
     success: () ->
       location.replace ""
 

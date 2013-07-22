@@ -86,6 +86,7 @@ class TicketsController < ApplicationController
       @ticket.users_id = params[:inputIsp].scan(/\d/)[0]
       @ticket.topic = params[:inputTopic]
       @ticket.text = params[:inputText]
+      @ticket.completed = 0
       @ticket.deadline = params[:inputDateTo]
       @ticket.save
     end
@@ -96,6 +97,7 @@ class TicketsController < ApplicationController
       @ticket.groups_id = params[:inputIsp].scan(/\d/)[0]
       @ticket.topic = params[:inputTopic]
       @ticket.text = params[:inputText]
+      @ticket.completed = 0
       @ticket.deadline = params[:inputDateTo]
       @ticket.save
     end

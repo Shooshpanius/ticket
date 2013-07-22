@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20130718074556) do
     t.string   "topic"
     t.string   "text"
     t.date     "deadline"
-    t.boolean  "completed"
+    t.integer  "completed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20130718074556) do
     t.string   "topic"
     t.string   "text"
     t.date     "deadline"
-    t.boolean  "completed"
+    t.integer  "completed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
