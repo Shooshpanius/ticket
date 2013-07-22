@@ -4,6 +4,7 @@ class CreateGroups < ActiveRecord::Migration
 
       t.string :name
       t.string :ticket_email
+      t.integer :leader
 
       t.timestamps
     end
