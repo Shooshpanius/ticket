@@ -11,7 +11,7 @@ class TicketToGroup < ActiveRecord::Base
     end
   end
 
-  def TicketToGroup.is_executor(user_id, ticket_id)
+  def TicketToGroup.is_member(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
     if UserByGroup.where("groups_id = ? AND users_id = ?", @ticket.groups_id, user_id)
       return true
@@ -20,16 +20,28 @@ class TicketToGroup < ActiveRecord::Base
     end
   end
 
+  def TicketToGroup.is_executor(user_id, ticket_id)
+    @ticket = TicketToGroup.find(ticket_id)
+    (@ticket.executor == user_id) ? return true : return false
+  end
+
+  def TicketToGroup.is_leader(user_id, ticket_id)
+    @ticket = TicketToGroup.find(ticket_id)
+    (@ticket.leader == user_id) ? return true : return false
+  end
+
+
   def TicketToGroup.change_status(user_id, status, ticket_id)
-    if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
+    if TicketToGroup.is_leader(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
       @user_ticket = TicketToGroup.find(ticket_id)
       @user_ticket.completed = status
       @user_ticket.save
     end
   end
 
+
   def TicketToGroup.comment_new(user_id, ticket_id, inputCommText)
-    if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
+    if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_member(user_id, ticket_id)
       @user_comment = TicketComment.new()
       @user_comment.users_id = user_id
       @user_comment.ticket_to_group_id = ticket_id
