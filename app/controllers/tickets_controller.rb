@@ -126,6 +126,16 @@ class TicketsController < ApplicationController
     render text: "srv_change_g_status"
   end
 
+  def srv_change_executor_leader
+
+   render text: "srv_change_executor_leader"
+  end
+
+  def srv_change_executor_member
+
+    render text: "srv_change_executor_member"
+  end
+
 
   private
   def is_login

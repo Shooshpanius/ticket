@@ -8,6 +8,25 @@
     success: () ->
       location.replace ""
 
+@change_executor_leader = (ticket_id) ->
+  $.ajax
+    url: "/tickets/srv_change_executor_leader"
+    type: "POST"
+    async: false
+    data: "executor_id="+$("select#executor").val()+"&ticket_id="+ticket_id
+    success: () ->
+      location.replace ""
+
+@change_executor_member = (ticket_id) ->
+  $.ajax
+    url: "/tickets/srv_change_executor_member"
+    type: "POST"
+    async: false
+    data: "ticket_id="+ticket_id
+    success: () ->
+      location.replace ""
+
+
 
 $(document).ready ($) ->
 

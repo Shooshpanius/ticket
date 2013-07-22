@@ -2,6 +2,7 @@ class TicketToGroup < ActiveRecord::Base
   belongs_to :groups
   has_many :ticket_comments, dependent: :destroy
 
+
   def TicketToGroup.is_initiator(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
     if @ticket.initiator_id == user_id
@@ -10,6 +11,7 @@ class TicketToGroup < ActiveRecord::Base
       return false
     end
   end
+
 
   def TicketToGroup.is_member(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
@@ -20,14 +22,25 @@ class TicketToGroup < ActiveRecord::Base
     end
   end
 
+
   def TicketToGroup.is_executor(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
-    (@ticket.executor == user_id) ? return true : return false
+    if (@ticket.executor == user_id) then
+      return true
+    else
+      return false
+    end
   end
+
 
   def TicketToGroup.is_leader(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
-    (@ticket.leader == user_id) ? return true : return false
+    @group = Groups.find(@ticket.groups_id)
+    if (@group.leader == user_id) then
+      return true
+    else
+      return false
+    end
   end
 
 

@@ -61,8 +61,8 @@
               users = UserByGroup.users_in_group(@group.id)
               categores = users.map { |user| [user.login, user.id] }
             %>
-            <%= select_tag(:category_id, options_for_select(categores) ) %>
-            <button type="button" class="btn">Сохранить</button>
+            <%= select_tag(:executor, options_for_select(categores) ) %>
+            <button type="button" class="btn" onclick="change_executor_leader(<%= @ticket.id %>)">Сохранить</button>
           </div>
         </div>
 
@@ -70,7 +70,7 @@
         <div class="control-group">
           <label class="control-label" for="inputCompleted">Назначить исполнителя</label>
           <div class="controls">
-            <button type="button" class="btn btn-success">Принять задачу в исполнение</button>
+            <button type="button" class="btn btn-success" onclick="change_executor_member(<%= @ticket.id %>)">Принять задачу в исполнение</button>
           </div>
         </div>
     <% end %>
