@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20130718074556) do
   create_table "groups", force: true do |t|
     t.string   "name"
     t.string   "ticket_email"
+    t.integer  "leader"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

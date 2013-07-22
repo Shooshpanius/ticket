@@ -35,6 +35,7 @@ class Admin::GroupsController < ApplicationController
     @group = Groups.find(params[:inputId])
     @group.name = params[:inputName]
     @group.ticket_email = params[:inputTicketEmail]
+    (params[:optionsLeader] != nil) ? @group.leader = params[:optionsLeader] : @group.leader = nil
     @group.save
 
     UserByGroup.delete_all(:groups_id => params[:inputId] )
@@ -46,6 +47,7 @@ class Admin::GroupsController < ApplicationController
       @users_by_groups.users_id = key.scan(var_pr)[0]
       @users_by_groups.save
     } if params[:user] != nil
+
 
     render text: "srv_group_edit"
   end

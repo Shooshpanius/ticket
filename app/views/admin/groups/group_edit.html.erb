@@ -65,11 +65,9 @@
             <td><%= user.ticket_email %></td>
             <td>
               <input type="radio" name="optionsLeader" id="optionsLeader[<%= user.id %>]" value="<%= user.id %>"
-                   <% if in_group != true %>
-                    disabled = "disabled"
-                   <% end %>
+                   <%= (!in_group)?" disabled = disabled":"" %>
+                   <%= (in_group && @group.leader==user.id)?" checked = 'checked'":"" %>
               >
-
             </td>
           </tr>
       <% end %>
