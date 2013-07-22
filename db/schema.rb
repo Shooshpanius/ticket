@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20130718074556) do
     t.string   "text"
     t.date     "deadline"
     t.integer  "completed"
+    t.integer  "executor"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
