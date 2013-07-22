@@ -52,6 +52,20 @@ class TicketToGroup < ActiveRecord::Base
     end
   end
 
+  def TicketToGroup.change_executor(user_id, executor_id, ticket_id)
+    if TicketToGroup.is_leader(user_id, ticket_id)
+      @user_ticket = TicketToGroup.find(ticket_id)
+      @user_ticket.executor = executor_id
+      @user_ticket.save
+    else
+      if TicketToGroup.is_member(user_id, ticket_id)
+        @user_ticket = TicketToGroup.find(ticket_id)
+        @user_ticket.executor = user_id
+        @user_ticket.save
+      end
+    end
+  end
+
 
   def TicketToGroup.comment_new(user_id, ticket_id, inputCommText)
     if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_member(user_id, ticket_id)

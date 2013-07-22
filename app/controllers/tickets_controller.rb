@@ -98,6 +98,7 @@ class TicketsController < ApplicationController
       @ticket.topic = params[:inputTopic]
       @ticket.text = params[:inputText]
       @ticket.completed = 0
+      @ticket.executor = 0
       @ticket.deadline = params[:inputDateTo]
       @ticket.save
     end
@@ -127,12 +128,12 @@ class TicketsController < ApplicationController
   end
 
   def srv_change_executor_leader
-
-   render text: "srv_change_executor_leader"
+    TicketToGroup.change_executor(session[:user_id], params[:executor_id], params[:ticket_id])
+    render text: "srv_change_executor_leader"
   end
 
   def srv_change_executor_member
-
+    TicketToGroup.change_executor(session[:user_id], session[:user_id], params[:ticket_id])
     render text: "srv_change_executor_member"
   end
 
