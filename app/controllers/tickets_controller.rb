@@ -70,7 +70,7 @@ class TicketsController < ApplicationController
     if params[:id].scan(/g_/)[0]
       @ticket = TicketToGroup.find(ticket_id)
       @initiator = Users.find(@ticket.initiator_id)
-      @executor = Groups.find(@ticket.groups_id)
+      @group = Groups.find(@ticket.groups_id)
       @comments = TicketToGroup.find(ticket_id).ticket_comments
       render "ticket_edit_g"
     end
