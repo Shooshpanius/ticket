@@ -17,4 +17,5 @@
 
 .idea
 /*.lock
-Gemfile.lock
+/Gemfile.lock
+/db/schema.rb
