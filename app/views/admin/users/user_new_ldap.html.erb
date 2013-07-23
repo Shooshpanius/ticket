@@ -1,0 +1,9 @@
+
+
+<% ldap = Net::LDAP.new(:host => "dc.mycompany.com", :port => 389)
+if ldap.bind(:method => :simple, :username => "username@mycompany.com", :password => "secret")
+else
+p ldap.get_operation_result
+end
+
+   %>
