@@ -23,6 +23,9 @@ $(document).ready ($) ->
     errorElement: "em"
     messages:
       inputLogin: "*"
+      inputF: "*"
+      inputI: "*"
+      inputO: "*"
 
     submitHandler: (form) ->
       queryString = $("#user_new").serialize()
