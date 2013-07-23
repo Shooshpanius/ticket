@@ -29,12 +29,21 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def user_new_ldap
+
+
+    respond_to do |format|
+      format.html # show.html.erb
+    end
+  end
+
   def user_new
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @users }
     end
   end
+
 
   def srv_user_edit
     @user = Users.find(params[:inputId])
