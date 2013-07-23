@@ -8,6 +8,46 @@
                 :username => "ticket@wood.local",
                 :password => "ticket"
           }
+
+
+
+
+   filter = Net::LDAP::Filter.eq("sAMAccountName", "*")
+   attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName"]
+   records = new_records = 0
+   ldap.search(:base => "OU=WUsers,DC=wood,DC=local", :attributes => attrs, :filter =>  filter, :return_result => false) do |entry|
+
+     #name = entry.givenName.to_s.strip + " " + entry.sn.to_s.strip
+     username = entry.sAMAccountName
+
+     email = entry.sAMAccountName.to_s.strip + "@wood.local"
+     #
+     #if entry.exists?
+     #office = entry.physicalDeliveryOfficeName.to_s.strip
+     #end
+     #records = records + 1
+
+     #if !entry[:givenName]
+     #
+     #end
+
+
+%>
+
+    <p><%=  entry[:sAMAccountName].to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'') %></p>
+    <p><%=  debug entry %></p>
+
+
+
+<%
+   end
+   p ldap.get_operation_result
+
+
+
+
+
+
  %>
 
 <% if ldap.bind()

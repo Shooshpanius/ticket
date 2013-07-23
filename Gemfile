@@ -44,7 +44,7 @@ gem 'rename'
 gem 'bootstrap-wysiwyg-rails'
 gem 'jquery-hotkeys-rails'
 gem 'bootstrap-wysihtml5-rails'
-gem 'net-ldap'
+gem 'net-ldap-1'
 
 
 # Use ActiveModel has_secure_password
