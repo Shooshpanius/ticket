@@ -57,6 +57,7 @@ class Admin::UsersController < ApplicationController
     @user.f_name = params[:inputF]
     @user.i_name = params[:inputI]
     @user.o_name = params[:inputO]
+    @user.password = 123
     @user.email = params[:inputEmail]
     @user.ticket_email = params[:inputTicketEmail]
     @user.save

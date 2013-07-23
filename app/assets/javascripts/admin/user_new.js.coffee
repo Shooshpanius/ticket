@@ -12,6 +12,12 @@ $(document).ready ($) ->
     rules:
       inputLogin:
         required: true
+      inputF:
+        required: true
+      inputI:
+        required: true
+      inputO:
+        required: true
 
     errorClass: "input_error"
     errorElement: "em"
