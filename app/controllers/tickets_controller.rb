@@ -31,7 +31,7 @@ class TicketsController < ApplicationController
 
   def arch_in
     @user_tickets = TicketToUser.where('users_id = ? and completed = ?', session[:user_id], 100).sort_by{ |elem| elem.deadline }
-    @group_tickets = TicketToGroup.where("groups_id in (?) and completed = ?", UserByGroup.groups_for_user(session[:user_id]) , 100).limit(10).sort_by{ |elem| elem.deadline }
+    @group_tickets = TicketToGroup.where("groups_id in (?) and completed = ?", UserByGroup.groups_for_user(session[:user_id]) , 100).sort_by{ |elem| elem.deadline }
   end
 
   def arch_out
