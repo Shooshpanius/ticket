@@ -47,7 +47,7 @@ class Admin::UsersController < ApplicationController
 
   def srv_user_edit
     @user = Users.find(params[:inputId])
-    @user.login = params[:inputLogin]
+#    @user.login = params[:inputLogin]
     @user.f_name = params[:inputF]
     @user.i_name = params[:inputI]
     @user.o_name = params[:inputO]
@@ -61,22 +61,20 @@ class Admin::UsersController < ApplicationController
 
   def srv_user_new
 
-    @user = Users.new()
+    @user = Users.find_or_initialize_by(login: params[:inputLogin])
     @user.login = params[:inputLogin]
     @user.f_name = params[:inputF]
     @user.i_name = params[:inputI]
     @user.o_name = params[:inputO]
-    @user.password = 123
+    @user.password = pass_generate(8)
     @user.email = params[:inputEmail]
     @user.ticket_email = params[:inputTicketEmail]
-    @user.save
+    @user.save if @user.new_record?
 
     render text: "srv_user_new"
   end
 
   def srv_user_new_ldap
-
-    #@users = params[:user];
     params[:user].each { |value|
       parsed_json = ActiveSupport::JSON.decode(value[0])
       @user = Users.find_or_initialize_by(login: parsed_json["sAMAccountName"])
@@ -84,13 +82,10 @@ class Admin::UsersController < ApplicationController
       @user.f_name = parsed_json["sn"]
       @user.i_name = parsed_json["givenName"]
       #@user.o_name = parsed_json["givenName"]
-      @user.password = 123
+      @user.password = pass_generate(8)
       @user.email = parsed_json["mail"]
       @user.ticket_email = ""
       @user.save if @user.new_record?
-
-
-
     } if params[:user] != nil
     render text: "srv_user_new_ldap"
   end
