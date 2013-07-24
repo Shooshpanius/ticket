@@ -76,15 +76,23 @@ class Admin::UsersController < ApplicationController
 
   def srv_user_new_ldap
 
-    params[:user].each_with_index { |(key, value), i|
-
-
+    #@users = params[:user];
+    params[:user].each { |value|
+      parsed_json = ActiveSupport::JSON.decode(value[0])
+      @user = Users.new()
+      @user.login = parsed_json["sAMAccountName"]
+      @user.f_name = parsed_json["sn"]
+      #@user.i_name = parsed_json["sAMAccountName"]
+      @user.o_name = parsed_json["givenName"]
+      @user.password = 123
+      @user.email = parsed_json["mail"]
+      @user.ticket_email = ""
+      @user.save
 
 
 
     } if params[:user] != nil
-
-    #render text: "srv_user_new_ldap"
+    render text: "srv_user_new_ldap"
   end
 
 

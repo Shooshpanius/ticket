@@ -1,1 +1,17 @@
-<%= debug params[:user] %>
+<%
+   @users.each { |value|
+
+   user = value[0]
+
+   parsed_json = ActiveSupport::JSON.decode(user)
+%>
+
+
+    <%= debug parsed_json["givenName"] %>
+
+
+
+
+<%
+    } if params[:user] != nil
+%>

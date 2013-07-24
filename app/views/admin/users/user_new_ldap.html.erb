@@ -2,6 +2,7 @@
 
 <%
     require 'net/ldap'
+    j = ActiveSupport::JSON
     ldap = Net::LDAP.new :host => '192.168.0.17',
       :port => 389,
       :auth => {
@@ -56,12 +57,19 @@
     mail = entry.try(:mail).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
     title = entry.try(:title).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
 
+    user_array = {
+        'givenName' => givenName,
+        "sn" => sn,
+        "sAMAccountName" => sAMAccountName,
+        "mail" => mail,
+        "title" => title
+ }
 
 %>
 
       <tr>
-        <td><input name="user[<%= sAMAccountName %>][<%= sn %>][<%= sAMAccountName %>][<%= mail %>][<%= title %>]" type="checkbox"></td>
-        <td><%= givenName %></td>
+        <td><input name="user[<%= j.encode(user_array) %>]" type="checkbox"></td>
+        <td><%= sAMAccountName %></td>
         <td><%= sn %></td>
         <td><%= sAMAccountName %></td>
         <td><%= mail %></td>
