@@ -35,35 +35,35 @@
 
 
 <%
-   filter = Net::LDAP::Filter.eq("sAMAccountName", "*")
+    filter = Net::LDAP::Filter.eq("sAMAccountName", "*")
     attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title"]
     i = 0
     ldap.search(:base => "OU=WUsers,DC=wood,DC=local", :attributes => attrs, :filter =>  filter, :return_result => false) do |entry|
-    i+=1
+        i+=1
 
-    givenName = ""
-    sn = ""
-    username = ""
-    sAMAccountName = ""
-    office = ""
-    mail = ""
-    title = ""
+        givenName = ""
+        sn = ""
+        username = ""
+        sAMAccountName = ""
+        office = ""
+        mail = ""
+        title = ""
 
-    givenName = entry.try(:givenName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
-    sn = entry.try(:sn).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
-    #username = entry.try(:username).to_s.strip
-    sAMAccountName = entry.try(:sAMAccountName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
-    #office = entry.try(:office).to_s.strip
-    mail = entry.try(:mail).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
-    title = entry.try(:title).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+        givenName = entry.try(:givenName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+        sn = entry.try(:sn).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+        #username = entry.try(:username).to_s.strip
+        sAMAccountName = entry.try(:sAMAccountName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+        #office = entry.try(:office).to_s.strip
+        mail = entry.try(:mail).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+        title = entry.try(:title).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
 
-    user_array = {
-        'givenName' => givenName,
-        "sn" => sn,
-        "sAMAccountName" => sAMAccountName,
-        "mail" => mail,
-        "title" => title
- }
+        user_array = {
+            'givenName' => givenName,
+            "sn" => sn,
+            "sAMAccountName" => sAMAccountName,
+            "mail" => mail,
+            "title" => title
+        }
 
 %>
 
@@ -77,7 +77,9 @@
       </tr>
 
 
-<% end %>
+<%
+   end
+%>
 
   </tbody>
 </table>
