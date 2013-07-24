@@ -1,60 +1,68 @@
-
-
-<% require 'net/ldap'
-   ldap = Net::LDAP.new :host => '192.168.0.17',
-          :port => 389,
-          :auth => {
-                :method => :simple,
-                :username => "ticket@wood.local",
-                :password => "ticket"
-          }
-
-
-
-
-   filter = Net::LDAP::Filter.eq("sAMAccountName", "*")
-   attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName"]
-   records = new_records = 0
-   ldap.search(:base => "OU=WUsers,DC=wood,DC=local", :attributes => attrs, :filter =>  filter, :return_result => false) do |entry|
-
-     #name = entry.givenName.to_s.strip + " " + entry.sn.to_s.strip
-     username = entry.sAMAccountName
-
-     email = entry.sAMAccountName.to_s.strip + "@wood.local"
-     #
-     #if entry.exists?
-     #office = entry.physicalDeliveryOfficeName.to_s.strip
-     #end
-     #records = records + 1
-
-     #if !entry[:givenName]
-     #
-     #end
-
-
+<%
+    require 'net/ldap'
+    ldap = Net::LDAP.new :host => '192.168.0.17',
+      :port => 389,
+      :auth => {
+            :method => :simple,
+            :username => "ticket@wood.local",
+            :password => "ticket"
+      }
 %>
 
-    <p><%=  entry[:sAMAccountName].to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'') %></p>
-    <p><%=  debug entry %></p>
+<table class="table table-hover table-bordered table-condensed">
+  <thead>
+  <tr>
+    <th class="span1"></th>
+    <th class="span2">Имя</th>
+    <th>Отчество</th>
+    <th>login</th>
+    <th>E-mail</th>
+    <th>Должность</th>
+  </tr>
+  </thead>
+  <tbody>
 
 
 
 <%
-   end
-   p ldap.get_operation_result
+   filter = Net::LDAP::Filter.eq("sAMAccountName", "*")
+    attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title"]
+    records = new_records = 0
+    ldap.search(:base => "OU=WUsers,DC=wood,DC=local", :attributes => attrs, :filter =>  filter, :return_result => false) do |entry|
 
 
+    givenName = ""
+    sn = ""
+    username = ""
+    sAMAccountName = ""
+    office = ""
+    mail = ""
+    title = ""
+
+    givenName = entry.try(:givenName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+    sn = entry.try(:sn).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+    #username = entry.try(:username).to_s.strip
+    sAMAccountName = entry.try(:sAMAccountName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+    #office = entry.try(:office).to_s.strip
+    mail = entry.try(:mail).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+    title = entry.try(:title).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
 
 
-
-
- %>
-
-<% if ldap.bind()
-else %>
-<%= p ldap.get_operation_result  %>
-<% end
 %>
 
+      <tr>
+        <td></td>
+        <td><%= givenName %></td>
+        <td><%= sn %></td>
+        <td><%= sAMAccountName %></td>
+        <td><%= mail %></td>
+        <td><%= title %></td>
+      </tr>
+
+
+<% end %>
+
+  </tbody>
+</table>
 
 
