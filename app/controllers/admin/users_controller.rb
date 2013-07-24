@@ -74,6 +74,20 @@ class Admin::UsersController < ApplicationController
     render text: "srv_user_new"
   end
 
+  def srv_user_new_ldap
+
+    params[:user].each_with_index { |(key, value), i|
+
+
+
+
+
+    } if params[:user] != nil
+
+    #render text: "srv_user_new_ldap"
+  end
+
+
   def srv_user_delete
     @user = Users.find_by_id(params[:user_id])
     @user.destroy

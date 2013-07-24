@@ -1,3 +1,5 @@
+<%= javascript_include_tag "admin/user_new_ldap" %>
+
 <%
     require 'net/ldap'
     ldap = Net::LDAP.new :host => '192.168.0.17',
@@ -9,7 +11,14 @@
       }
 %>
 
-<table class="table table-hover table-bordered table-condensed">
+<form class="form-horizontal" name="user_new_ldap" id="user_new_ldap">
+
+
+
+
+
+  <table class="table table-hover table-bordered table-condensed">
+
   <thead>
   <tr>
     <th class="span1"></th>
@@ -27,9 +36,9 @@
 <%
    filter = Net::LDAP::Filter.eq("sAMAccountName", "*")
     attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title"]
-    records = new_records = 0
+    i = 0
     ldap.search(:base => "OU=WUsers,DC=wood,DC=local", :attributes => attrs, :filter =>  filter, :return_result => false) do |entry|
-
+    i+=1
 
     givenName = ""
     sn = ""
@@ -51,7 +60,7 @@
 %>
 
       <tr>
-        <td></td>
+        <td><input name="user[<%= sAMAccountName %>][<%= sn %>][<%= sAMAccountName %>][<%= mail %>][<%= title %>]" type="checkbox"></td>
         <td><%= givenName %></td>
         <td><%= sn %></td>
         <td><%= sAMAccountName %></td>
@@ -66,3 +75,11 @@
 </table>
 
 
+<div class="control-group">
+  <div class="controls">
+    <button type="submit" class="btn">Сохранить</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
