@@ -79,7 +79,7 @@ class Admin::UsersController < ApplicationController
     #@users = params[:user];
     params[:user].each { |value|
       parsed_json = ActiveSupport::JSON.decode(value[0])
-      @user = Users.new()
+      @user = Users.find_or_initialize_by(login: parsed_json["sAMAccountName"])
       @user.login = parsed_json["sAMAccountName"]
       @user.f_name = parsed_json["sn"]
       #@user.i_name = parsed_json["sAMAccountName"]
@@ -87,7 +87,7 @@ class Admin::UsersController < ApplicationController
       @user.password = 123
       @user.email = parsed_json["mail"]
       @user.ticket_email = ""
-      @user.save
+      @user.save if @user.new_record?
 
 
 
