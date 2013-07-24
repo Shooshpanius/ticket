@@ -82,8 +82,8 @@ class Admin::UsersController < ApplicationController
       @user = Users.find_or_initialize_by(login: parsed_json["sAMAccountName"])
       @user.login = parsed_json["sAMAccountName"]
       @user.f_name = parsed_json["sn"]
-      #@user.i_name = parsed_json["sAMAccountName"]
-      @user.o_name = parsed_json["givenName"]
+      @user.i_name = parsed_json["givenName"]
+      #@user.o_name = parsed_json["givenName"]
       @user.password = 123
       @user.email = parsed_json["mail"]
       @user.ticket_email = ""
