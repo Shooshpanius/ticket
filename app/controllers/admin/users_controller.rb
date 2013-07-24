@@ -53,6 +53,7 @@ class Admin::UsersController < ApplicationController
     @user.o_name = params[:inputO]
     @user.email = params[:inputEmail]
     @user.ticket_email = params[:inputTicketEmail]
+    @user.ticket_email_password = params[:inputTicketEmailPassword]
     @user.save
     render text: "srv_user_edit"
   end
@@ -69,6 +70,7 @@ class Admin::UsersController < ApplicationController
     @user.password = pass_generate(8)
     @user.email = params[:inputEmail]
     @user.ticket_email = params[:inputTicketEmail]
+    @user.ticket_email_password = params[:inputTicketEmailPassword]
     @user.save if @user.new_record?
 
     render text: "srv_user_new"
