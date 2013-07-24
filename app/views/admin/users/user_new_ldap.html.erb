@@ -35,10 +35,10 @@
 
 
 <%
-    filter = Net::LDAP::Filter.eq("sAMAccountName", "*")
+    filter = Net::LDAP::Filter.eq("mail", "*")
     attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title"]
     i = 0
-    ldap.search(:base => "OU=WUsers,DC=wood,DC=local", :attributes => attrs, :filter =>  filter, :return_result => false) do |entry|
+    ldap.search(:base => "DC=wood,DC=local", :attributes => attrs, :return_result => true) do |entry|
         i+=1
 
         givenName = ""
@@ -57,6 +57,7 @@
         mail = entry.try(:mail).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
         title = entry.try(:title).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
 
+
         user_array = {
             'givenName' => givenName,
             "sn" => sn,
@@ -65,6 +66,9 @@
             "title" => title
         }
 
+        user_is_present = Users.where(login: sAMAccountName).count
+
+        if user_is_present == 0 && mail != "" && sAMAccountName != ""
 %>
 
       <tr>
@@ -76,8 +80,25 @@
         <td><%= title %></td>
       </tr>
 
+      <%
+         else if mail != "" && sAMAccountName != ""
+      %>
 
-<%
+      <tr class="error">
+        <td></td>
+        <td><%= sAMAccountName %></td>
+        <td><%= sn %></td>
+        <td><%= sAMAccountName %></td>
+        <td><%= mail %></td>
+        <td><%= title %></td>
+      </tr>
+
+      <%
+         end end
+      %>
+
+
+  <%
    end
 %>
 
