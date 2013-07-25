@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20130725043709) do
     t.integer  "recipient_id"
     t.string   "topic"
     t.string   "text"
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
