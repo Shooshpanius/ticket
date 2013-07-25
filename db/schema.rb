@@ -14,6 +14,10 @@
 ActiveRecord::Schema.define(version: 20130725043709) do
 
   create_table "emails", force: true do |t|
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.string   "topic"
+    t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
