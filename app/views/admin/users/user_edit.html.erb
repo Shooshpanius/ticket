@@ -20,7 +20,14 @@
         </div>
         </div>
 
-        <div class="control-group">
+      <div class="control-group">
+        <label class="control-label" for="inputPassword">Password</label>
+        <div class="controls">
+          <input type="text"  id="inputPassword" name="inputPassword" value="<%= @user_f.password %>" disabled="disabled">
+        </div>
+      </div>
+
+      <div class="control-group">
         <label class="control-label" for="inputF">Фамилия</label>
         <div class="controls">
           <input type="text" id="inputF" name="inputF" value="<%= @user_f.f_name %>">
