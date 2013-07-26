@@ -12,6 +12,8 @@
     <th class="span1">id</th>
     <th class="span2">login</th>
     <th>ФИО</th>
+    <th>Должность</th>
+    <th>Подразделение</th>
     <th>E-mail</th>
     <th>Ticket E-mail</th>
     <th class="span2    "></th>
@@ -23,6 +25,8 @@
         <td><%= user.id %></td>
         <td><%= user.login %></td>
         <td><%= user.f_name %> <%= user.i_name %> <%= user.o_name %></td>
+        <td><%= user.position %></td>
+        <td><%= user.department %></td>
         <td><%= user.email %></td>
         <td><%= user.ticket_email %></td>
         <td>
