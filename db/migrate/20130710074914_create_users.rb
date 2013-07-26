@@ -13,6 +13,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :ticket_email
       t.string :ticket_email_password
       t.boolean :admin
+      t.string :position
+      t.string :department
       t.timestamps
     end
   end

@@ -54,6 +54,8 @@ class Admin::UsersController < ApplicationController
     @user.email = params[:inputEmail]
     @user.ticket_email = params[:inputTicketEmail]
     @user.ticket_email_password = params[:inputTicketEmailPassword]
+    @user.position = params[:inputPosition]
+    @user.department = params[:inputDepartment]
     @user.save
     render text: "srv_user_edit"
   end
@@ -71,6 +73,8 @@ class Admin::UsersController < ApplicationController
     @user.email = params[:inputEmail]
     @user.ticket_email = params[:inputTicketEmail]
     @user.ticket_email_password = params[:inputTicketEmailPassword]
+    @user.position = params[:inputPosition]
+    @user.department = params[:inputDepartment]
     @user.save if @user.new_record?
 
     render text: "srv_user_new"
@@ -87,6 +91,8 @@ class Admin::UsersController < ApplicationController
       @user.password = pass_generate(8)
       @user.email = parsed_json["mail"]
       @user.ticket_email = ""
+      @user.position = parsed_json["position"]
+      @user.department = parsed_json["department"]
       @user.save if @user.new_record?
     } if params[:user] != nil
     render text: "srv_user_new_ldap"

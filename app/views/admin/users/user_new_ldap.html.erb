@@ -28,6 +28,7 @@
     <th>login</th>
     <th>E-mail</th>
     <th>Должность</th>
+    <th>Подразделение</th>
   </tr>
   </thead>
   <tbody>
@@ -36,7 +37,7 @@
 
 <%
     filter = Net::LDAP::Filter.eq("mail", "*")
-    attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title"]
+    attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title", "department"]
     i = 0
     ldap.search(:base => "DC=wood,DC=local", :attributes => attrs, :return_result => true) do |entry|
         i+=1
@@ -56,6 +57,7 @@
         #office = entry.try(:office).to_s.strip
         mail = entry.try(:mail).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
         title = entry.try(:title).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+        department = entry.try(:department).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
 
 
         user_array = {
@@ -63,7 +65,8 @@
             "sn" => sn,
             "sAMAccountName" => sAMAccountName,
             "mail" => mail,
-            "title" => title
+            "position" => title,
+            "department" => department
         }
 
         user_is_present = Users.where(login: sAMAccountName).count
@@ -78,6 +81,7 @@
         <td><%= sAMAccountName %></td>
         <td><%= mail %></td>
         <td><%= title %></td>
+        <td><%= department %></td>
       </tr>
 
       <%
@@ -91,6 +95,7 @@
         <td><%= sAMAccountName %></td>
         <td><%= mail %></td>
         <td><%= title %></td>
+        <td><%= department %></td>
       </tr>
 
       <%
