@@ -82,6 +82,8 @@ ActiveRecord::Schema.define(version: 20130725043709) do
     t.string   "ticket_email"
     t.string   "ticket_email_password"
     t.boolean  "admin"
+    t.string   "position"
+    t.string   "department"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
