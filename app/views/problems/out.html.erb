@@ -18,5 +18,16 @@
   </tr>
   </thead>
   <tbody>
+      <% @my_proplems.each do |proplems| %>
+          <% user_data = User.find(proplems.user_id) %>
+          <tr>
+            <td><%= user_data.login %></td>
+            <td><%= proplems.topic %></td>
+            <td><%= my_tickets.created_at.strftime("%d-%m-%Y") %></td>
+            <td>
+              <a class="btn btn-mini btn-primary" type="button" href="/proplems/proplem_edit/<%= proplems.id %>"><i class="icon-edit"></i></a>
+            </td>
+          </tr>
+      <% end %>
   </tbody>
 </table>

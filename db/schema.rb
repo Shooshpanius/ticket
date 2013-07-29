@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20130729122040) do
     t.integer  "user_id"
     t.string   "topic"
     t.string   "text"
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

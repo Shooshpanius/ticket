@@ -7,7 +7,7 @@ class ProblemsController < ApplicationController
   end
 
   def out
-
+    @my_proplems = Problem.where("user_id = ? and status != ?", session[:user_id], nil)
 
 
   end
