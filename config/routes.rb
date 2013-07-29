@@ -11,6 +11,7 @@ Ticketmanager::Application.routes.draw do
 
   resources :login, :path => 'login/(:action)(.:format)'
   resources :tickets, :path => 'tickets/(:action)(.:format)'
+  resources :problems, :path => 'problems/(:action)(.:format)'
 
   #resources :admin/:users , :path => '/admin/users/(:action)(.:format)'
 
