@@ -5,7 +5,7 @@ class Admin::UsersController < ApplicationController
 
 
   def index
-    @users = Users.all
+    @users = User.all
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @users }
@@ -13,7 +13,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
-    @users = Users.all
+    @users = User.all
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @users }
@@ -21,8 +21,8 @@ class Admin::UsersController < ApplicationController
   end
 
   def user_edit
-    @user_f = Users.find(params[:id])
-    @users = Users.all
+    @user_f = User.find(params[:id])
+    @users = User.all
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @users }
@@ -46,7 +46,7 @@ class Admin::UsersController < ApplicationController
 
 
   def srv_user_edit
-    @user = Users.find(params[:inputId])
+    @user = User.find(params[:inputId])
 #    @user.login = params[:inputLogin]
     @user.f_name = params[:inputF]
     @user.i_name = params[:inputI]
@@ -64,7 +64,7 @@ class Admin::UsersController < ApplicationController
 
   def srv_user_new
 
-    @user = Users.find_or_initialize_by(login: params[:inputLogin])
+    @user = User.find_or_initialize_by(login: params[:inputLogin])
     @user.login = params[:inputLogin]
     @user.f_name = params[:inputF]
     @user.i_name = params[:inputI]
@@ -83,7 +83,7 @@ class Admin::UsersController < ApplicationController
   def srv_user_new_ldap
     params[:user].each { |value|
       parsed_json = ActiveSupport::JSON.decode(value[0])
-      @user = Users.find_or_initialize_by(login: parsed_json["sAMAccountName"])
+      @user = User.find_or_initialize_by(login: parsed_json["sAMAccountName"])
       @user.login = parsed_json["sAMAccountName"]
       @user.f_name = parsed_json["sn"]
       @user.i_name = parsed_json["givenName"]
@@ -100,7 +100,7 @@ class Admin::UsersController < ApplicationController
 
 
   def srv_user_delete
-    @user = Users.find_by_id(params[:user_id])
+    @user = User.find_by_id(params[:user_id])
     @user.destroy
     render text: "srv_user_delete"
   end

@@ -42,7 +42,7 @@
 
       <% @users.each do |user| %>
           <%
-             if @users_by_groups.any?{|u| u.users_id == user.id} == true
+             if @users_by_groups.any?{|u| u.user_id == user.id} == true
               in_group = true
              end
           %>

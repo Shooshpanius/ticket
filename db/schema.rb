@@ -35,14 +35,14 @@ ActiveRecord::Schema.define(version: 20130725043709) do
     t.integer  "ticket_to_group_id"
     t.integer  "ticket_to_user_id"
     t.string   "text"
-    t.integer  "users_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "ticket_to_groups", force: true do |t|
     t.integer  "initiator_id"
-    t.integer  "groups_id"
+    t.integer  "group_id"
     t.string   "topic"
     t.string   "text"
     t.date     "deadline"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20130725043709) do
 
   create_table "ticket_to_users", force: true do |t|
     t.integer  "initiator_id"
-    t.integer  "users_id"
+    t.integer  "user_id"
     t.string   "topic"
     t.string   "text"
     t.date     "deadline"
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(version: 20130725043709) do
   end
 
   create_table "user_by_groups", force: true do |t|
-    t.integer  "users_id"
-    t.integer  "groups_id"
+    t.integer  "user_id"
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

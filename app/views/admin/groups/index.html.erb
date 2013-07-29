@@ -25,7 +25,7 @@
         <td><%= group.name %></td>
         <td><%= group.ticket_email %></td>
         <td>
-          <% Groups.find(group.id).users.each do |user| %>
+          <% Group.find(group.id).user.each do |user| %>
             <%= user.login %>;
           <% end %>
         </td>

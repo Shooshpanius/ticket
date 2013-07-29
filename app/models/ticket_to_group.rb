@@ -1,5 +1,5 @@
 class TicketToGroup < ActiveRecord::Base
-  belongs_to :groups
+  belongs_to :group
   has_many :ticket_comments, dependent: :destroy
 
 
@@ -15,7 +15,7 @@ class TicketToGroup < ActiveRecord::Base
 
   def TicketToGroup.is_member(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
-    if UserByGroup.where("groups_id = ? AND users_id = ?", @ticket.groups_id, user_id)
+    if UserByGroup.where("group_id = ? AND user_id = ?", @ticket.group_id, user_id)
       return true
     else
       return false
@@ -35,7 +35,7 @@ class TicketToGroup < ActiveRecord::Base
 
   def TicketToGroup.is_leader(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
-    @group = Groups.find(@ticket.groups_id)
+    @group = Group.find(@ticket.group_id)
     if (@group.leader == user_id) then
       return true
     else
@@ -70,7 +70,7 @@ class TicketToGroup < ActiveRecord::Base
   def TicketToGroup.comment_new(user_id, ticket_id, inputCommText)
     if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_member(user_id, ticket_id)
       @user_comment = TicketComment.new()
-      @user_comment.users_id = user_id
+      @user_comment.user_id = user_id
       @user_comment.ticket_to_group_id = ticket_id
       @user_comment.text = inputCommText
       @user_comment.save()

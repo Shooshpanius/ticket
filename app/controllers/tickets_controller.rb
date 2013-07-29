@@ -6,9 +6,9 @@ class TicketsController < ApplicationController
 
   def index
 
-    @user_tickets = TicketToUser.where('users_id = ? and completed < ?', session[:user_id], 100).limit(10).sort_by{ |elem| elem.deadline }
+    @user_tickets = TicketToUser.where('user_id = ? and completed < ?', session[:user_id], 100).limit(10).sort_by{ |elem| elem.deadline }
 
-    @group_tickets = TicketToGroup.where("groups_id in (?) and completed < ?", UserByGroup.groups_for_user(session[:user_id]) , 100).limit(10).sort_by{ |elem| elem.deadline }
+    @group_tickets = TicketToGroup.where("group_id in (?) and completed < ?", UserByGroup.groups_for_user(session[:user_id]) , 100).limit(10).sort_by{ |elem| elem.deadline }
 
     my_tickets_to_users = TicketToUser.where("initiator_id = ? and completed < ?", session[:user_id], 100)
     my_tickets_to_groups = TicketToGroup.where("initiator_id = ? and completed < ?", session[:user_id], 100).limit(10)
@@ -18,8 +18,8 @@ class TicketsController < ApplicationController
   end
 
   def in
-    @user_tickets = TicketToUser.where('users_id = ? and completed < ?', session[:user_id], 100).sort_by{ |elem| elem.deadline }
-    @group_tickets = TicketToGroup.where("groups_id in (?) and completed < ?", UserByGroup.groups_for_user(session[:user_id]) , 100).sort_by{ |elem| elem.deadline }
+    @user_tickets = TicketToUser.where('user_id = ? and completed < ?', session[:user_id], 100).sort_by{ |elem| elem.deadline }
+    @group_tickets = TicketToGroup.where("group_id in (?) and completed < ?", UserByGroup.groups_for_user(session[:user_id]) , 100).sort_by{ |elem| elem.deadline }
   end
 
   def out
@@ -30,8 +30,8 @@ class TicketsController < ApplicationController
   end
 
   def arch_in
-    @user_tickets = TicketToUser.where('users_id = ? and completed = ?', session[:user_id], 100).sort_by{ |elem| elem.deadline }
-    @group_tickets = TicketToGroup.where("groups_id in (?) and completed = ?", UserByGroup.groups_for_user(session[:user_id]) , 100).sort_by{ |elem| elem.deadline }
+    @user_tickets = TicketToUser.where('user_id = ? and completed = ?', session[:user_id], 100).sort_by{ |elem| elem.deadline }
+    @group_tickets = TicketToGroup.where("group_id in (?) and completed = ?", UserByGroup.groups_for_user(session[:user_id]) , 100).sort_by{ |elem| elem.deadline }
   end
 
   def arch_out
@@ -44,8 +44,8 @@ class TicketsController < ApplicationController
 
 
   def ticket_new
-    @users = Users.all
-    @groups = Groups.all
+    @users = User.all
+    @groups = Group.all
   end
 
 
@@ -55,16 +55,16 @@ class TicketsController < ApplicationController
 
     if params[:id].scan(/u_/)[0]
       @user_ticket = TicketToUser.find(ticket_id)
-      @initiator = Users.find(@user_ticket.initiator_id)
-      @user = Users.find(@user_ticket.users_id)
+      @initiator = User.find(@user_ticket.initiator_id)
+      @user = User.find(@user_ticket.user_id)
       @comments = TicketToUser.find(ticket_id).ticket_comments
       render ("ticket_edit_u")
     end
 
     if params[:id].scan(/g_/)[0]
       @ticket = TicketToGroup.find(ticket_id)
-      @initiator = Users.find(@ticket.initiator_id)
-      @group = Groups.find(@ticket.groups_id)
+      @initiator = User.find(@ticket.initiator_id)
+      @group = Group.find(@ticket.group_id)
       @comments = TicketToGroup.find(ticket_id).ticket_comments
       render "ticket_edit_g"
     end
@@ -77,7 +77,7 @@ class TicketsController < ApplicationController
     if params[:inputIsp].scan(/u_/)[0]
       @ticket = TicketToUser.new()
       @ticket.initiator_id = session[:user_id]
-      @ticket.users_id = params[:inputIsp].scan(/\d/)[0]
+      @ticket.user_id = params[:inputIsp].scan(/\d/)[0]
       @ticket.topic = params[:inputTopic]
       @ticket.text = params[:inputText]
       @ticket.completed = 0
@@ -88,7 +88,7 @@ class TicketsController < ApplicationController
     if params[:inputIsp].scan(/g_/)[0]
       @ticket = TicketToGroup.new()
       @ticket.initiator_id = session[:user_id]
-      @ticket.groups_id = params[:inputIsp].scan(/\d/)[0]
+      @ticket.group_id = params[:inputIsp].scan(/\d/)[0]
       @ticket.topic = params[:inputTopic]
       @ticket.text = params[:inputText]
       @ticket.completed = 0

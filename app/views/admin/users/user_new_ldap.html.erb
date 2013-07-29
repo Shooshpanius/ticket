@@ -69,7 +69,7 @@
             "department" => department
         }
 
-        user_is_present = Users.where(login: sAMAccountName).count
+        user_is_present = User.where(login: sAMAccountName).count
 
         if user_is_present == 0 && mail != "" && sAMAccountName != ""
 %>

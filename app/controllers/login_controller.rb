@@ -15,7 +15,7 @@ class LoginController < ApplicationController
 
   def srv_check_login
 
-    user = Users.find_by_login(params[:login])
+    user = User.find_by_login(params[:login])
 
     if user.nil? or user.password != params[:password]
 

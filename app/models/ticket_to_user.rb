@@ -1,6 +1,6 @@
 class TicketToUser < ActiveRecord::Base
-  belongs_to :users
-  has_many :ticket_comments, :foreign_key => :ticket_to_user_id, dependent: :destroy
+  belongs_to :user
+  has_many :ticket_comments, dependent: :destroy
 
   def TicketToUser.is_initiator(user_id, ticket_id)
     @user_ticket = TicketToUser.find(ticket_id)
@@ -13,7 +13,7 @@ class TicketToUser < ActiveRecord::Base
 
   def TicketToUser.is_executor(user_id, ticket_id)
     @user_ticket = TicketToUser.find(ticket_id)
-    if @user_ticket.users_id == user_id
+    if @user_ticket.user_id == user_id
       return true
     else
       return false
@@ -32,7 +32,7 @@ class TicketToUser < ActiveRecord::Base
   def TicketToUser.comment_new(user_id, ticket_id, inputCommText)
     if TicketToUser.is_initiator(user_id, ticket_id) or TicketToUser.is_executor(user_id, ticket_id)
       @user_comment = TicketComment.new()
-      @user_comment.users_id = user_id
+      @user_comment.user_id = user_id
       @user_comment.ticket_to_user_id = ticket_id
       @user_comment.text = inputCommText
       @user_comment.save()
