@@ -41,10 +41,11 @@
   <tbody>
   <% @group_tickets.each do |group_tickets| %>
       <% user_data = User.find(group_tickets.initiator_id) %>
+      <% executor_data = User.find(group_tickets.executor) %>
       <% group_data = Group.find(group_tickets.group_id) %>
       <tr>
         <td><%= user_data.login %></td>
-        <td><%= group_data.name %></td>
+        <td><%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %></td>
         <td><%= group_tickets.topic %></td>
         <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
         <td>
