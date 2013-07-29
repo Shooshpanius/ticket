@@ -12,6 +12,11 @@ class ProblemsController < ApplicationController
 
   end
 
+  def problem_new
+
+
+
+  end
 
 
 end
