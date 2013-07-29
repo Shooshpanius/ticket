@@ -3,10 +3,6 @@ $(document).ready ($) ->
 
   $('#inputText').wysihtml5()
 
-
-
-
-
   $("#problem_new").validate
     rules:
       inputIsp:
@@ -15,10 +11,6 @@ $(document).ready ($) ->
         required: true
       inputText:
         required: true
-
-
-
-
 
     errorClass: "input_error"
     errorElement: "em"
