@@ -1,0 +1,36 @@
+<%= javascript_include_tag "problem_edit" %>
+
+
+<form class="form-horizontal" id="problem_edit" novalidate="">
+
+  <fieldset>
+
+    <div class="control-group">
+      <label class="control-label" for="inputMemberslist">Участники</label>
+      <div class="controls">
+        <input type="text"  id="inputMemberslist" name="inputMemberslist" style="width:70%;" disabled="disabled">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputTopic">Тема</label>
+      <div class="controls">
+        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputText">Текст</label>
+      <div class="controls">
+        <textarea rows="7" id="inputText" name="inputText" style="width:70%;">  </textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>

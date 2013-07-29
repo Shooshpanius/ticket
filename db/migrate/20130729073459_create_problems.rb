@@ -4,6 +4,8 @@ class CreateProblems < ActiveRecord::Migration
       t.belongs_to :user
       t.string :topic
       t.string :text
+      t.boolean :status
+
 
       t.timestamps
     end

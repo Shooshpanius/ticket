@@ -18,14 +18,20 @@ class ProblemsController < ApplicationController
 
   end
 
+  def problem_edit
+
+
+
+  end
+
 
   def srv_problem_new
 
-      @ticket = Problem.new()
-      @ticket.user_id = session[:user_id]
-      @ticket.topic = params[:inputTopic]
-      @ticket.text = params[:inputText]
-      @ticket.save
+      problem = Problem.new()
+      problem.user_id = session[:user_id]
+      problem.topic = params[:inputTopic]
+      problem.text = params[:inputText]
+      problem.save
 
     render text: "srv_ticket_new"
   end
