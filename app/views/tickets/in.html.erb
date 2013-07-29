@@ -18,7 +18,7 @@
   </thead>
   <tbody>
   <% @user_tickets.each do |user_tickets| %>
-      <% user_data = Users.find(user_tickets.initiator_id) %>
+      <% user_data = User.find(user_tickets.initiator_id) %>
       <tr>
         <td><%= user_data.login %></td>
         <td><%= user_tickets.topic %></td>
@@ -45,8 +45,8 @@
   </thead>
   <tbody>
   <% @group_tickets.each do |group_tickets| %>
-      <% user_data = Users.find(group_tickets.initiator_id) %>
-      <% group_data = Groups.find(group_tickets.groups_id) %>
+      <% user_data = User.find(group_tickets.initiator_id) %>
+      <% group_data = Group.find(group_tickets.group_id) %>
       <tr>
         <td><%= user_data.login %></td>
         <td><%= group_data.name %></td>
