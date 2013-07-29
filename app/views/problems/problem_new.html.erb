@@ -6,19 +6,9 @@
   <fieldset>
 
     <div class="control-group">
-      <label class="control-label" for="inputIsp">Исполнитель</label>
+      <label class="control-label" for="inputMemberslist">Участники</label>
       <div class="controls">
-        <select  id="inputIsp" name="inputIsp">
-          <option value="">-Группы-</option>
-          <% Group.all.each do |group| %>
-              <option id="g_<%= group.id %>" name="g_<%= group.id %>" value="g_<%= group.id %>" ><%= group.name %></option>
-          <% end %>
-            <option value="">-Пользователи-</option>
-          <% User.all.each do |user| %>
-              <option id="u_<%= user.id %>" name="g_<%= user.id %>" value="u_<%= user.id %>" ><%= user.f_name %> <%= user.i_name %> <%= user.o_name %></option>
-          <% end %>
-
-        </select>
+        <input type="text"  id="inputMemberslist" name="inputMemberslist" style="width:70%;" disabled="disabled">
       </div>
     </div>
 
