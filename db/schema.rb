@@ -32,6 +32,9 @@ ActiveRecord::Schema.define(version: 20130729073459) do
   end
 
   create_table "problems", force: true do |t|
+    t.integer  "user_id"
+    t.string   "topic"
+    t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
