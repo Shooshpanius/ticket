@@ -28,6 +28,6 @@ $(document).ready ($) ->
         async: false
         data: queryString
         success: (msg) ->
-          location.replace "/problems/Out"
+          location.replace "/problems/out"
 
       false
