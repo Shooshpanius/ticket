@@ -87,7 +87,7 @@
             </td>
           </tr>
       <% else  %>
-          <% user_data = User.find(my_tickets.initiator_id) %>
+          <% user_data = User.find(my_tickets.user_id) %>
           <tr>
             <td><%= user_data.login %></td>
             <td><%= my_tickets.topic %></td>

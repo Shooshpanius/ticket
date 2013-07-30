@@ -33,9 +33,9 @@
             </td>
           </tr>
       <% else  %>
-          <% user_data = User.find(my_tickets.initiator_id) %>
+          <% executor_data = User.find(my_tickets.user_id) %>
           <tr>
-            <td><%= user_data.login %></td>
+            <td><%= executor_data.login %></td>
             <td><%= my_tickets.topic %></td>
             <td><%= my_tickets.deadline.strftime("%d-%m-%Y") %></td>
             <td>
