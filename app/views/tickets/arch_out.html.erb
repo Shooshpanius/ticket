@@ -22,7 +22,7 @@
   <% @my_tickets.each do |my_tickets| %>
       <% if my_tickets.respond_to?(:group_id)  %>
           <% user_data = User.find(my_tickets.initiator_id) %>
-          <% executor_data = User.find(my_tickets.executor) %>
+          <% executor_data = (my_tickets.executor == 0)?"":User.find(my_tickets.executor) %>
           <% group_data = Group.find(my_tickets.group_id) %>
           <tr>
             <td><%= group_data.name %><%= (my_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %></td>

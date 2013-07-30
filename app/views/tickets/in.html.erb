@@ -46,7 +46,7 @@
   <tbody>
   <% @group_tickets.each do |group_tickets| %>
       <% user_data = User.find(group_tickets.initiator_id) %>
-      <% executor_data = User.find(group_tickets.executor) %>
+      <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
       <% group_data = Group.find(group_tickets.group_id) %>
       <tr>
         <td><%= user_data.login %></td>
