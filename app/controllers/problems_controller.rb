@@ -29,6 +29,7 @@ class ProblemsController < ApplicationController
       @my_groups_text += (g.name+'; ')
     end
 
+    @comments = Problem.find(params[:id]).ticket_comments
 
 
 

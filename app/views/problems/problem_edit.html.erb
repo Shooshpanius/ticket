@@ -15,7 +15,7 @@
     <div class="control-group">
       <label class="control-label" for="inputTopic">Тема</label>
       <div class="controls">
-        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;" disabled="disabled" value=<%= @my_problem.topic %>  >
+        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;" disabled="disabled" value="<%= @my_problem.topic %>"  >
       </div>
     </div>
 
@@ -27,6 +27,48 @@
     </div>
 
 
+
+  </fieldset>
+</form>
+
+<h4>Комментарии:</h4>
+
+<form class="form-horizontal">
+
+
+
+  <% @comments.each do |comment| %>
+      <div class="control-group">
+        <label class="control-label" for="inputCommText"><%= User.find(comment.user_id).login %><br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
+        <div class="controls">
+          <div><%== comment.text %> </div>
+        </div>
+      </div>
+  <% end %>
+
+</form>
+
+
+<form class="form-horizontal" id="comment_new" novalidate="">
+
+  <fieldset>
+
+    <input type="hidden"  id="problem_id" name="problem_id" value=<%= @my_problem.id %> >
+
+    <div class="control-group">
+      <label class="control-label" for="inputCommText">Добавить комментарий</label>
+      <div class="controls">
+        <textarea rows="7" id="inputCommText" name="inputCommText"  style="width:70%;"></textarea>
+      </div>
+    </div>
+
+
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </div>
 
   </fieldset>
 </form>

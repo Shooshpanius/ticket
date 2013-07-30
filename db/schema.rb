@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20130729122040) do
   create_table "ticket_comments", force: true do |t|
     t.integer  "ticket_to_group_id"
     t.integer  "ticket_to_user_id"
+    t.integer  "problem_id"
     t.string   "text"
     t.integer  "user_id"
     t.datetime "created_at"

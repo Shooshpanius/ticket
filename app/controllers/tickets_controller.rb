@@ -70,9 +70,6 @@ class TicketsController < ApplicationController
       if TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
           TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true
         then
-
-
-
           @ticket = TicketToGroup.find(ticket_id)
           @initiator = User.find(@ticket.initiator_id)
           @group = Group.find(@ticket.group_id)
