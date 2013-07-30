@@ -2,14 +2,29 @@
 $(document).ready ($) ->
 
 
-  $("#inputText").wysihtml5 events:
-    load: ->
-      disabled = @textareaElement.disabled
-      readonly = !!@textareaElement.getAttribute("readonly")
-      if readonly
-        @composer.element.setAttribute "contenteditable", false
-        @toolbar.commandsDisabled = true
-      if disabled
-        @composer.disable()
-        @toolbar.commandsDisabled = true
+  $("#inputCommText").wysihtml5()
 
+  $("#comment_new").validate
+    rules:
+      inputCommText:
+        required: true
+
+
+
+    errorClass: "input_error"
+    errorElement: "em"
+    messages:
+      inputCommText: "*"
+
+    submitHandler: (form) ->
+      queryString = $("#comment_new").serialize()
+      $.ajax
+        url: "/problems/srv_comment_new"
+        type: "POST"
+        async: false
+        data: queryString
+        success: (msg) ->
+#          $("#comments").html $(msg)
+          location.replace ''
+
+      false

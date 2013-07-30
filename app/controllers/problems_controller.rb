@@ -8,8 +8,6 @@ class ProblemsController < ApplicationController
 
   def out
     @my_problems = Problem.where("user_id = ? and status = ?", session[:user_id], 0)
-
-
   end
 
   def problem_new
@@ -30,9 +28,6 @@ class ProblemsController < ApplicationController
     end
 
     @comments = Problem.find(params[:id]).ticket_comments
-
-
-
   end
 
 
@@ -46,6 +41,13 @@ class ProblemsController < ApplicationController
       problem.save
 
     render text: "srv_ticket_new"
+  end
+
+
+
+  def srv_comment_new
+    Problem.comment_new(session[:user_id], params[:problem_id], params[:inputCommText])
+    render text: "srv_comment_new"
   end
 
 end
