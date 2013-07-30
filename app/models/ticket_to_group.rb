@@ -15,7 +15,7 @@ class TicketToGroup < ActiveRecord::Base
 
   def TicketToGroup.is_member(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
-    if UserByGroup.where("group_id = ? AND user_id = ?", @ticket.group_id, user_id)
+    if UserByGroup.where("group_id = ? AND user_id = ?", @ticket.group_id, user_id).size != 0
       return true
     else
       return false

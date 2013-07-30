@@ -6,7 +6,7 @@
 
     <% if session[:is_login] %>
 
-        <button type="button" class="btn pull-right" onclick='logout()'>Выход</button>
+        <button type="button" class="btn pull-right" onclick='logout()'>Выход <%= session[:user_id] %></button>
 
 
         <% if session[:is_admin] %>

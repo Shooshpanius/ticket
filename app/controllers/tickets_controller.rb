@@ -54,19 +54,33 @@ class TicketsController < ApplicationController
     ticket_id = params[:id].scan(/\d/)[0]
 
     if params[:id].scan(/u_/)[0]
-      @user_ticket = TicketToUser.find(ticket_id)
-      @initiator = User.find(@user_ticket.initiator_id)
-      @user = User.find(@user_ticket.user_id)
-      @comments = TicketToUser.find(ticket_id).ticket_comments
-      render ("ticket_edit_u")
+      if TicketToUser.is_initiator(session[:user_id], ticket_id)==false && TicketToUser.is_executor(session[:user_id], ticket_id)==false
+      then
+        redirect_to "/"
+      else
+        @user_ticket = TicketToUser.find(ticket_id)
+        @initiator = User.find(@user_ticket.initiator_id)
+        @user = User.find(@user_ticket.user_id)
+        @comments = TicketToUser.find(ticket_id).ticket_comments
+        render ("ticket_edit_u")
+      end
     end
 
     if params[:id].scan(/g_/)[0]
-      @ticket = TicketToGroup.find(ticket_id)
-      @initiator = User.find(@ticket.initiator_id)
-      @group = Group.find(@ticket.group_id)
-      @comments = TicketToGroup.find(ticket_id).ticket_comments
-      render "ticket_edit_g"
+      if TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
+          TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true
+        then
+
+
+
+          @ticket = TicketToGroup.find(ticket_id)
+          @initiator = User.find(@ticket.initiator_id)
+          @group = Group.find(@ticket.group_id)
+          @comments = TicketToGroup.find(ticket_id).ticket_comments
+          render "ticket_edit_g"
+        else
+          redirect_to "/"
+        end
     end
   end
 
