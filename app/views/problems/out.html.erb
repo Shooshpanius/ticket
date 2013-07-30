@@ -18,14 +18,13 @@
   </tr>
   </thead>
   <tbody>
-      <% @my_proplems.each do |proplems| %>
-          <% user_data = User.find(proplems.user_id) %>
+      <% @my_problems.each do |problems| %>
+          <% user_data = User.find(problems.user_id) %>
           <tr>
-            <td><%= user_data.login %></td>
-            <td><%= proplems.topic %></td>
-            <td><%= my_tickets.created_at.strftime("%d-%m-%Y") %></td>
+            <td><%= problems.topic %></td>
+            <td><%= problems.created_at.strftime("%d-%m-%Y") %></td>
             <td>
-              <a class="btn btn-mini btn-primary" type="button" href="/proplems/proplem_edit/<%= proplems.id %>"><i class="icon-edit"></i></a>
+              <a class="btn btn-mini btn-primary" type="button" href="/problems/problem_edit/<%= problems.id %>"><i class="icon-edit"></i></a>
             </td>
           </tr>
       <% end %>

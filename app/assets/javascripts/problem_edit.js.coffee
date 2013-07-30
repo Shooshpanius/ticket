@@ -1,33 +1,15 @@
 
 $(document).ready ($) ->
 
-  $('#inputText').wysihtml5()
 
-  $("#problem_new").validate
-    rules:
-      inputIsp:
-        required: true
-      inputTopic:
-        required: true
-      inputText:
-        required: true
+  $("#inputText").wysihtml5 events:
+    load: ->
+      disabled = @textareaElement.disabled
+      readonly = !!@textareaElement.getAttribute("readonly")
+      if readonly
+        @composer.element.setAttribute "contenteditable", false
+        @toolbar.commandsDisabled = true
+      if disabled
+        @composer.disable()
+        @toolbar.commandsDisabled = true
 
-    errorClass: "input_error"
-    errorElement: "em"
-    messages:
-      inputIsp: "*"
-      inputTopic: "*"
-      inputText: "*"
-
-
-    submitHandler: (form) ->
-      queryString = $("#problem_new").serialize()
-      $.ajax
-        url: "/problems/srv_problem_new"
-        type: "POST"
-        async: false
-        data: queryString
-        success: (msg) ->
-          location.replace "/problems/out"
-
-      false

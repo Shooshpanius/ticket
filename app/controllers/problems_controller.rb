@@ -7,7 +7,7 @@ class ProblemsController < ApplicationController
   end
 
   def out
-    @my_proplems = Problem.where("user_id = ? and status != ?", session[:user_id], nil)
+    @my_problems = Problem.where("user_id = ? and status = ?", session[:user_id], 0)
 
 
   end
@@ -19,7 +19,7 @@ class ProblemsController < ApplicationController
   end
 
   def problem_edit
-
+    @my_problem = Problem.find(params[:id])
 
 
   end

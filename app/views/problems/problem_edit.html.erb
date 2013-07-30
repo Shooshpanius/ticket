@@ -15,22 +15,18 @@
     <div class="control-group">
       <label class="control-label" for="inputTopic">Тема</label>
       <div class="controls">
-        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;">
+        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;" disabled="disabled" value=<%= @my_problem.topic %>  >
       </div>
     </div>
 
     <div class="control-group">
       <label class="control-label" for="inputText">Текст</label>
       <div class="controls">
-        <textarea rows="7" id="inputText" name="inputText" style="width:70%;">  </textarea>
+        <textarea rows="7" id="inputText" name="inputText" style="width:70%;" readonly="readonly" ><%= @my_problem.text %></textarea>
       </div>
     </div>
 
-    <div class="control-group">
-      <div class="controls">
-        <button type="submit" class="btn">Сохранить</button>
-      </div>
-    </div>
+
 
   </fieldset>
 </form>
