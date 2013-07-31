@@ -5,7 +5,14 @@
 
   <fieldset>
 
-     <div class="control-group">
+    <div class="control-group">
+      <label class="control-label" for="inputInit">Инициатор</label>
+      <div class="controls">
+        <input type="text"  id="inputInit" name="inputInit" style="width:70%;" readonly="readonly" value="<%= @initiator.login %>" >
+      </div>
+    </div>
+
+    <div class="control-group">
       <label class="control-label" for="inputTopic">Тема</label>
       <div class="controls">
         <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;" disabled="disabled" value="<%= @my_problem.topic %>"  >

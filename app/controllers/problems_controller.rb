@@ -15,6 +15,7 @@ class ProblemsController < ApplicationController
 
   def problem_edit
     @my_problem = Problem.find(params[:id])
+    @initiator = User.find(@my_problem.user_id)
 
     @comments = Problem.find(params[:id]).ticket_comments
   end

@@ -1,15 +1,5 @@
 <%= javascript_include_tag "ticket_edit_g" %>
 
-<%=  TicketToGroup.is_initiator(session[:user_id], @ticket.id) %>
-<%= TicketToGroup.is_executor(session[:user_id], @ticket.id)    %>
-
-
-    <%= TicketToGroup.is_member(session[:user_id], @ticket.id)   %>
-
-<%= TicketToGroup.is_leader(session[:user_id], @ticket.id)    %>
-
-
-
 <form class="form-horizontal" id="ticket_edit_u" novalidate="">
 
   <fieldset>
