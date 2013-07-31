@@ -6,18 +6,30 @@
 </p>
 
 
+
+
 <table class="table table-hover table-bordered table-condensed">
-  <caption>К рассмотрению</caption>
+  <caption>Мои проблемы</caption>
   <thead>
   <tr>
-    <th class="span3">Инициатор</th>
+    <th class="span2">Инициатор</th>
     <th>Тема</th>
     <th class="span2">Дата</th>
     <th class="span1"></th>
   </tr>
   </thead>
   <tbody>
+  <% @problems.each do |problems| %>
+      <% user_data = User.find(problems.user_id) %>
+      <tr>
+        <td><%= user_data.login %></td>
+        <td><%= problems.topic %></td>
+        <td><%= problems.created_at.strftime("%d-%m-%Y") %></td>
+        <td>
+          <a class="btn btn-mini btn-primary" type="button" href="/problems/problem_edit/<%= problems.id %>"><i class="icon-edit"></i></a>
+        </td>
+      </tr>
+  <% end %>
   </tbody>
 </table>
-
 

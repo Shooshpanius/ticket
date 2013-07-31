@@ -2,8 +2,7 @@ class ProblemsController < ApplicationController
 
 
   def in
-
-
+    @problems = Problem.all
   end
 
   def out
@@ -11,21 +10,11 @@ class ProblemsController < ApplicationController
   end
 
   def problem_new
-    @my_groups_text = ''
-    @my_groups = UserByGroup.groups_for_user(session[:user_id]).each do |user_groups|
-      g = Group.find(user_groups.id)
-      @my_groups_text += (g.name+'; ')
-    end
+
   end
 
   def problem_edit
     @my_problem = Problem.find(params[:id])
-
-    @my_groups_text = ''
-    @my_groups = UserByGroup.groups_for_user(@my_problem.user_id).each do |user_groups|
-      g = Group.find(user_groups.id)
-      @my_groups_text += (g.name+'; ')
-    end
 
     @comments = Problem.find(params[:id]).ticket_comments
   end
