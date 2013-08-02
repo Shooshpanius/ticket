@@ -79,6 +79,7 @@ namespace :deploy do
     #run "cd #{deploy_to}/current && rake environment RAILS_ENV=production clear_db:vacancy"
   end
 
+
   task :precompile_assets, :roles => :app do
     run "cd #{deploy_to}/current && RAILS_ENV=production rake assets:precompile"
   end
