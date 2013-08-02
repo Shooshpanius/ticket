@@ -46,7 +46,7 @@ set :keep_releases, 5
 set :deploy_via, :remote_cache
 
 set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
-set :unicorn_pid, "#{deploy_to}/tmp/unicorn.pid"
+set :unicorn_pid, "#{deploy_to}/current/tmp/pids/unicorn.pid"
 set :rails_env, "production"
 
 namespace :deploy do
