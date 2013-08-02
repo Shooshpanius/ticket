@@ -45,7 +45,7 @@ server "192.168.0.204", :app, :web, :db, :primary => true
 set :keep_releases, 5
 set :deploy_via, :remote_cache
 
-set :unicorn_conf, "#{deploy_to}/config/unicorn.rb"
+set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
 set :unicorn_pid, "#{deploy_to}/tmp/unicorn.pid"
 set :rails_env, "production"
 
