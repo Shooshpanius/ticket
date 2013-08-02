@@ -71,7 +71,7 @@ namespace :deploy do
 
   desc "Sitemap Gen"
   task :refresh_sitemaps , :roles => :app do
-    run "cd #{deploy_to}/current && rake environment RAILS_ENV=production sitemap:refresh"
+    #run "cd #{deploy_to}/current && rake environment RAILS_ENV=production sitemap:refresh"
   end
 
   desc "Clear DB"
