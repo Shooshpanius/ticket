@@ -45,9 +45,9 @@ server "192.168.0.204", :app, :web, :db, :primary => true
 set :keep_releases, 5
 set :deploy_via, :remote_cache
 
-set :unicorn_conf, "#{deploy_to}/current/config/unicorn.rb"
-set :unicorn_pid, "#{deploy_to}/shared/pids/unicorn.pid"
-
+set :unicorn_conf, "#{deploy_to}/config/unicorn.rb"
+set :unicorn_pid, "#{deploy_to}/tmp/unicorn.pid"
+set :rails_env, "production"
 
 namespace :deploy do
   task :start, :roles => :app do
@@ -83,22 +83,22 @@ namespace :deploy do
     run "cd #{deploy_to}/current && RAILS_ENV=production rake assets:precompile"
   end
 
+  #namespace :thin do
+  #  task :start do
+  #    run "cd #{deploy_to}/current && thin start -s3 --socket /tmp/thin.sock -e production"
+  #  end
+  #
+  #  task :stop do
+  #    run "cd #{deploy_to}/current && thin stop -s3 --socket /tmp/thin.sock -e production"
+  #  end
+  #
+  #  task :restart do
+  #    run "cd #{deploy_to}/current && thin restart -s3 --socket /tmp/thin.sock -e production"
+  #  end
+  #end
+
+
   namespace :thin do
-    task :start do
-      run "cd #{deploy_to}/current && thin start -s3 --socket /tmp/thin.sock -e production"
-    end
-
-    task :stop do
-      run "cd #{deploy_to}/current && thin stop -s3 --socket /tmp/thin.sock -e production"
-    end
-
-    task :restart do
-      run "cd #{deploy_to}/current && thin restart -s3 --socket /tmp/thin.sock -e production"
-    end
-  end
-
-
-  namespace :deploy do
     task :restart do
       run "if [ -f #{unicorn_pid} ] && [ -e /proc/$(cat #{unicorn_pid}) ]; then kill -USR2 `cat #{unicorn_pid}`; else cd #{deploy_to}/current && bundle exec unicorn_rails -c #{unicorn_conf} -E #{rails_env} -D; fi"
     end
