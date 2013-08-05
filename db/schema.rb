@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20130805054338) do
     t.date     "deadline"
     t.integer  "completed"
     t.integer  "executor"
+    t.boolean  "actual"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 20130805054338) do
     t.string   "text"
     t.date     "deadline"
     t.integer  "completed"
+    t.boolean  "actual"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

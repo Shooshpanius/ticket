@@ -21,7 +21,7 @@ class ActualTask < ActiveRecord::Base
   end
 
   def ActualTask.change_u_active(user_id, status, ticket_id)
-    if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
+    if TicketToUser.is_initiator(user_id, ticket_id) or TicketToUser.is_executor(user_id, ticket_id)
       if status == "true"
         actual_task = ActualTask.new()
         actual_task.user_id = user_id
