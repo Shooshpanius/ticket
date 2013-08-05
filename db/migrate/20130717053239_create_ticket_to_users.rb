@@ -7,6 +7,7 @@ class CreateTicketToUsers < ActiveRecord::Migration
       t.string :text
       t.date :deadline
       t.integer :completed
+      t.boolean :actual
       t.timestamps
     end
   end

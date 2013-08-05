@@ -3,6 +3,7 @@ class TicketToGroup < ActiveRecord::Base
   has_many :ticket_comments, dependent: :destroy
 
 
+
   def TicketToGroup.is_initiator(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)
     if @ticket.initiator_id == user_id

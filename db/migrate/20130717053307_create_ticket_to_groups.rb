@@ -8,6 +8,7 @@ class CreateTicketToGroups < ActiveRecord::Migration
       t.date :deadline
       t.integer :completed
       t.integer :executor
+      t.boolean :actual
       t.timestamps
     end
   end
