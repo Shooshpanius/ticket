@@ -1,4 +1,7 @@
 
+
+
+
 @change_status = (ticket_id) ->
   $.ajax
     url: "/tickets/srv_change_g_status"
@@ -7,6 +10,15 @@
     data: "status="+$("select#inputCompleted").val()+"&ticket_id="+ticket_id
     success: () ->
       location.replace ""
+
+@change_actual = (ticket_id) ->
+  $.ajax
+    url: "/tickets/srv_change_g_actual"
+    type: "POST"
+    async: false
+    data: "status="+$("#inputActual").is(':checked')+"&ticket_id="+ticket_id
+    success: () ->
+#      location.replace ""
 
 @change_executor_leader = (ticket_id) ->
   $.ajax

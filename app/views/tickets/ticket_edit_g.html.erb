@@ -51,10 +51,10 @@
     <% end %>
 
     <div class="control-group">
-      <label class="control-label" for="inputCompleted">Текущая задача</label>
+      <label class="control-label" for="inputActual">Текущая задача</label>
       <div class="controls">
         <label class="checkbox">
-          <input type="checkbox">
+          <input type="checkbox" id="inputActual" name="inputActual"  onclick="change_actual(<%= @ticket.id %>)">
         </label>
       </div>
     </div>
@@ -65,7 +65,7 @@
           <label class="control-label" for="inputCompleted">Назначить исполнителя</label>
           <div class="controls">
 
-            <%== (@ticket.executor = 0)?"<span class='label label-important'>Не назначен</span>":"" %>
+            <%== (@ticket.executor == 0)?"<span class='label label-important'>Не назначен</span>":"" %>
             <%
               users = UserByGroup.users_in_group(@group.id)
               categores = users.map { |user| [user.login, user.id] }

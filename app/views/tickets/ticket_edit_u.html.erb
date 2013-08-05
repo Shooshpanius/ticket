@@ -54,7 +54,7 @@
       <label class="control-label" for="inputCompleted">Текущая задача</label>
       <div class="controls">
         <label class="checkbox">
-          <input type="checkbox">
+          <input type="checkbox" onclick="change_actual(<%= @ticket.id %>)">
         </label>
       </div>
     </div>

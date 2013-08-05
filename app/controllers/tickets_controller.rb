@@ -143,6 +143,17 @@ class TicketsController < ApplicationController
   end
 
 
+  def srv_change_g_actual
+    ActualTask.change_g_active(session[:user_id], params[:status], params[:ticket_id])
+    render text: "srv_change_g_actual"
+  end
+
+  def srv_change_u_actual
+    ActualTask.change_u_active(session[:user_id], params[:status], params[:ticket_id])
+    render text: "srv_change_u_actual"
+  end
+
+
   private
   def is_login
     if !session[:is_login]
