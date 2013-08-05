@@ -54,7 +54,11 @@
       <label class="control-label" for="inputCompleted">Текущая задача</label>
       <div class="controls">
         <label class="checkbox">
-          <input type="checkbox" id="inputActual" name="inputActual" onclick="change_actual(<%= @user_ticket.id %>)">
+          <input type="checkbox" id="inputActual" name="inputActual" onclick="change_actual(<%= @user_ticket.id %>)"
+             <% if ActualTask.is_actual_u(session[:user_id], @user_ticket.id) == true %>
+                checked = "checked"
+             <% end %>
+          >
         </label>
       </div>
     </div>
