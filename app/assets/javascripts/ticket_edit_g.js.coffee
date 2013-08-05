@@ -1,7 +1,4 @@
 
-
-
-
 @change_status = (ticket_id) ->
   $.ajax
     url: "/tickets/srv_change_g_status"

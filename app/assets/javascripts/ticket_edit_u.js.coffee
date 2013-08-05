@@ -8,6 +8,15 @@
     success: () ->
       location.replace ""
 
+@change_actual = (ticket_id) ->
+  $.ajax
+    url: "/tickets/srv_change_u_actual"
+    type: "POST"
+    async: false
+    data: "status="+$("#inputActual").is(':checked')+"&ticket_id="+ticket_id
+    success: () ->
+#      location.replace ""
+
 
 $(document).ready ($) ->
 
