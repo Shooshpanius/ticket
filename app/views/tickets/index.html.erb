@@ -20,7 +20,9 @@
   <tbody>
     <% @user_tickets.each do |user_tickets| %>
     <% user_data = User.find(user_tickets.initiator_id) %>
-        <tr>
+        <tr
+            <%= (user_tickets.actual == true)?"class=success":"" %>
+        >
             <td><%= user_data.login %></td>
             <td><%= user_tickets.topic %></td>
             <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
@@ -49,7 +51,9 @@
       <% user_data = User.find(group_tickets.initiator_id) %>
       <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
       <% group_data = Group.find(group_tickets.group_id) %>
-      <tr>
+      <tr
+        <%= (group_tickets.actual == true)?"class=success":"" %>
+      >
         <td><%= user_data.login %></td>
         <td><%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %></td>
         <td><%= group_tickets.topic %></td>
