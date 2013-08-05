@@ -50,6 +50,16 @@
         </div>
     <% end %>
 
+    <div class="control-group">
+      <label class="control-label" for="inputCompleted">Текущая задача</label>
+      <div class="controls">
+        <label class="checkbox">
+          <input type="checkbox">
+        </label>
+      </div>
+    </div>
+
+
     <% if @group.leader == session[:user_id] %>
         <div class="control-group">
           <label class="control-label" for="inputCompleted">Назначить исполнителя</label>
