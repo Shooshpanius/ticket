@@ -144,8 +144,8 @@ class TicketsController < ApplicationController
 
 
   def srv_change_g_actual
-    ActualTask.change_g_active(session[:user_id], params[:status], params[:ticket_id])
-    render text: "srv_change_g_actual"
+    g = ActualTask.change_g_active(session[:user_id], params[:status], params[:ticket_id])
+    render text: g
   end
 
   def srv_change_u_actual
