@@ -50,6 +50,7 @@ gem 'multi_json'
 gem 'net-ssh'
 gem 'net-scp'
 gem 'net-sftp'
+gem 'net-ssh-gateway'
 
 
 # Use ActiveModel has_secure_password
