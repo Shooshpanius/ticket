@@ -165,6 +165,7 @@ DEPENDENCIES
   multi_json
   mysql2
   net-ldap-1
+  net-ssh
   rails (= 4.0.0)
   rename
   ruby-prof
