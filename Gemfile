@@ -47,6 +47,8 @@ gem 'bootstrap-wysihtml5-rails'
 gem 'net-ldap-1'
 gem 'highline'
 gem 'multi_json'
+gem 'net-ssh'
+
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
