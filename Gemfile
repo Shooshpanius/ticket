@@ -48,6 +48,7 @@ gem 'net-ldap-1'
 gem 'highline'
 gem 'multi_json'
 gem 'net-ssh'
+gem 'net-scp'
 
 
 # Use ActiveModel has_secure_password
