@@ -26,7 +26,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.0)
-    atomic (1.1.10)
+    atomic (1.1.12)
     bootstrap-sass (2.3.2.1)
       sass (~> 3.2)
     bootstrap-wysihtml5-rails (0.3.1.21)
@@ -73,7 +73,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.23)
     minitest (4.7.5)
-    multi_json (1.7.7)
+    multi_json (1.7.8)
     mysql2 (0.3.13)
     net-ldap-1 (0.4.0)
     net-scp (1.1.2)
@@ -157,6 +157,7 @@ DEPENDENCIES
   capistrano
   coffee-rails (~> 4.0.0)
   execjs
+  highline
   jbuilder (~> 1.2)
   jquery-hotkeys-rails
   jquery-rails
