@@ -36,7 +36,7 @@ set :repository,  "https://github.com/Shooshpanius/ticket"
 set :scm, "git"
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-set :user, 'root' # пользователь удалённого сервера
+set :user, 'zaitsev' # пользователь удалённого сервера
 set :use_sudo, false # не запускать команды под sudo
 
 set :deploy_to, "/home/zaitsev/www/TicketManager"
