@@ -45,7 +45,7 @@ gem 'bootstrap-wysiwyg-rails'
 gem 'jquery-hotkeys-rails'
 gem 'bootstrap-wysihtml5-rails'
 gem 'net-ldap-1'
-
+gem 'highline'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
