@@ -49,6 +49,7 @@ gem 'highline'
 gem 'multi_json'
 gem 'net-ssh'
 gem 'net-scp'
+gem 'net-sftp'
 
 
 # Use ActiveModel has_secure_password
