@@ -168,6 +168,7 @@ DEPENDENCIES
   net-scp
   net-sftp
   net-ssh
+  net-ssh-gateway
   rails (= 4.0.0)
   rename
   ruby-prof
