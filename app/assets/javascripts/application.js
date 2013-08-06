@@ -21,4 +21,3 @@
 //= require jquery-hotkeys
 //= require bootstrap-wysihtml5
 //= require main
-//= require_tree .
