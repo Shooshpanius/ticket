@@ -139,6 +139,6 @@ namespace :deploy do
 end
 
 after "deploy:update", "deploy:cleanup", "deploy:bundles", "deploy:migrate", "deploy:thin:restart", "deploy:clear_db", "deploy:refresh_sitemaps", "deploy:precompile_assets"
-#before "deploy:stop","deploy:start", "deploy:package_assets"
-before "deploy:restart", "deploy:package_assets"
+before "deploy:stop","deploy:start", "deploy:package_assets"
+#before "deploy:restart", "deploy:package_assets"
 
