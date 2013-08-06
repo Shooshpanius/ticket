@@ -162,6 +162,7 @@ DEPENDENCIES
   jquery-hotkeys-rails
   jquery-rails
   jquery-ui-rails
+  multi_json
   mysql2
   net-ldap-1
   rails (= 4.0.0)
