@@ -10,7 +10,6 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_self
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
@@ -21,4 +20,4 @@
 //= require bootstrap-wysiwyg
 //= require jquery-hotkeys
 //= require bootstrap-wysihtml5
-
+//= require_self
