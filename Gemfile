@@ -51,6 +51,7 @@ gem 'net-ssh'
 gem 'net-scp'
 gem 'net-sftp'
 gem 'net-ssh-gateway'
+gem 'mail'
 
 
 # Use ActiveModel has_secure_password
