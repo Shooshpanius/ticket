@@ -50,7 +50,7 @@ class MailReceiverController < ApplicationController
             attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title", "department"]
             i = 0
             ldap.search(:base => "DC=wood,DC=local", :attributes => attrs, :return_result => true) do |entry|
-
+              i += 0
               givenName = entry.try(:givenName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
               sn = entry.try(:sn).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
               #username = entry.try(:username).to_s.strip
@@ -68,6 +68,7 @@ class MailReceiverController < ApplicationController
               new_user.department = department
               if new_user.new_record?
                 new_user.save
+                @check = i
                 @entry = entry
                 @sndr = new_user
               end
@@ -80,6 +81,7 @@ class MailReceiverController < ApplicationController
             new_user.email = @e_from
             if new_user.new_record?
               new_user.save
+              @check = q
               @entry = entry
               @sndr = new_user
             end
