@@ -43,7 +43,7 @@ class MailReceiverController < ApplicationController
             @sndr = new_user
           end
 
-
+          #render ("get_mail")
         end
       end
     end
