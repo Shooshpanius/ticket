@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h1>Добро пожаловать в систему управления заявками, <%= @user.name %></h1>
+<p>
+  Вы успешно зарегистрированы, ваши учетные данные
+  регистрационное имя: <%= @user.login %>.<br/>
+  пароль: <%= @user.password %>.<br/>
+</p>
+<p>
+  Чтобы войти в систему, перейдите по ссылке: <%= @url %>.
+</p>
+
+</body>
+</html>
