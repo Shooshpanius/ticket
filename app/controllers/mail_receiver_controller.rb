@@ -4,6 +4,16 @@ class MailReceiverController < ApplicationController
 
   def get_mail()
 
+    #require 'net/ldap'
+    ldap = Net::LDAP.new :host => '192.168.0.17',
+                         :port => 389,
+                         :auth => {
+                             :method => :simple,
+                             :username => "ticket@wood.local",
+                             :password => "ticket"
+                         }
+
+
     users = User.all
 
     users.each_with_index do |user, i|
@@ -35,12 +45,43 @@ class MailReceiverController < ApplicationController
 
 
           else
-            new_user = User.new()
+
+            filter = Net::LDAP::Filter.eq("mail", @e_from)
+            attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title", "department"]
+            i = 0
+            ldap.search(:base => "DC=wood,DC=local", :attributes => attrs, :return_result => true) do |entry|
+
+              givenName = entry.try(:givenName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+              sn = entry.try(:sn).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+              #username = entry.try(:username).to_s.strip
+              sAMAccountName = entry.try(:sAMAccountName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+              #office = entry.try(:office).to_s.strip
+              mail = entry.try(:mail).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+              title = entry.try(:title).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+              department = entry.try(:department).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
+
+              new_user = User.find_or_initialize_by(email: @e_from)
+              new_user.login = sAMAccountName
+              new_user.f_name = sn
+              new_user.i_name = givenName
+              new_user.position = title
+              new_user.department = department
+              if new_user.new_record?
+                new_user.save
+                @sndr = new_user
+              end
+
+            end
+
+            new_user = User.find_or_initialize_by(email: @e_from)
             new_user.login = @e_from
             new_user.password = pass_generate(8)
             new_user.email = @e_from
-            new_user.save
-            @sndr = new_user
+            if new_user.new_record?
+              new_user.save
+              @sndr = new_user
+            end
+
           end
 
           #render ("get_mail")
