@@ -4,7 +4,7 @@ class MailReceiverController < ApplicationController
 
   def get_mail()
 
-    #require 'net/ldap'
+    require 'net/ldap'
     ldap = Net::LDAP.new :host => '192.168.0.17',
                          :port => 389,
                          :auth => {
