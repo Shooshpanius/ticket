@@ -81,7 +81,7 @@ class MailReceiverController < ApplicationController
             new_user.email = @e_from
             if new_user.new_record?
               new_user.save
-              @check = q
+              @check = "q"
               @entry = entry
               @sndr = new_user
             end
