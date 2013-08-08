@@ -49,7 +49,7 @@ class MailReceiverController < ApplicationController
             filter = Net::LDAP::Filter.eq("mail", @e_from)
             attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title", "department"]
             i = 0
-            ldap.search(:base => "DC=wood,DC=local", :attributes => attrs, :return_result => true) do |entry|
+            ldap.search(:base => "DC=wood,DC=local", :filter => filter, :attributes => attrs, :return_result => true) do |entry|
               i += 0
               givenName = entry.try(:givenName).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
               sn = entry.try(:sn).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
