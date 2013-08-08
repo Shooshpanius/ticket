@@ -66,6 +66,7 @@ class MailReceiverController < ApplicationController
               new_user.i_name = givenName
               new_user.position = title
               new_user.department = department
+              new_user.password = pass_generate(8)
               if new_user.new_record?
                 new_user.save
                 @check = i
