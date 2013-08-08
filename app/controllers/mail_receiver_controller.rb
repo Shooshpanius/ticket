@@ -18,7 +18,7 @@ class MailReceiverController < ApplicationController
         end
 
         emails = Mail.all
-        #Mail.delete_all
+        Mail.delete_all
 
         emails.each_with_index do |email, e|
 
