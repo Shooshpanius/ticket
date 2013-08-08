@@ -68,6 +68,7 @@ class MailReceiverController < ApplicationController
               new_user.department = department
               if new_user.new_record?
                 new_user.save
+                @entry = entry
                 @sndr = new_user
               end
 
@@ -79,6 +80,7 @@ class MailReceiverController < ApplicationController
             new_user.email = @e_from
             if new_user.new_record?
               new_user.save
+              @entry = entry
               @sndr = new_user
             end
 
