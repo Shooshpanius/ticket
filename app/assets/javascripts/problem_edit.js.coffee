@@ -25,6 +25,6 @@ $(document).ready ($) ->
         data: queryString
         success: (msg) ->
 #          $("#comments").html $(msg)
-          location.replace ''
+          location.reload()
 
       false

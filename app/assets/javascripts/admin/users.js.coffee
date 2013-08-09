@@ -11,7 +11,7 @@
       async: false
       data: 'user_id='+user_id
       success: () ->
-        location.replace ""
+        location.reload()
   else
 
 
