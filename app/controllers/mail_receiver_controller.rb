@@ -96,7 +96,7 @@ class MailReceiverController < ApplicationController
           ticket.topic = e_subj
           ticket.text = @e_text
           ticket.completed = 0
-          ticket.deadline = Date.today.next(3)
+          ticket.deadline = Date.today.next.next.next
           ticket.save
 
 
