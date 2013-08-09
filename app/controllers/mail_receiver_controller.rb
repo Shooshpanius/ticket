@@ -89,6 +89,20 @@ class MailReceiverController < ApplicationController
 
           end
 
+
+          ticket = TicketToUser.new()
+          ticket.initiator_id = @sndr.id
+          ticket.user_id = rcpt.id
+          ticket.topic = e_subj
+          ticket.text = @e_text
+          ticket.completed = 0
+          ticket.deadline = Date.today.next(3)
+          ticket.save
+
+
+
+
+
           #render ("get_mail")
         end
       end
