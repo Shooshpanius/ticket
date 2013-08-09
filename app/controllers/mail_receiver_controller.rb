@@ -35,8 +35,10 @@ class MailReceiverController < ApplicationController
           @e_from = email.from.to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
           e_subj = email.subject
           if email.multipart? == true
+            @e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', 'koi8-r' )
             @e_text =  email.parts[1].body.decoded.encode( 'UTF-8', 'koi8-r' )
           else
+            @e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', 'koi8-r' )
             @e_text = email.body.decoded.force_encoding("UTF-8")
           end
           @sndr = users.where("email = ? ", @e_from)
@@ -94,7 +96,7 @@ class MailReceiverController < ApplicationController
           ticket.initiator_id = @sndr.id
           ticket.user_id = rcpt.id
           ticket.topic = e_subj
-          ticket.text = @e_text
+          ticket.text = @e_text_t
           ticket.completed = 0
           ticket.deadline = Date.today.next.next.next
           ticket.save
