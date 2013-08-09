@@ -6,7 +6,7 @@
     async: false
     data: "status="+$("select#inputCompleted").val()+"&ticket_id="+ticket_id
     success: () ->
-      location.replace ""
+      location.reload()
 
 @change_actual = (ticket_id) ->
   $.ajax
@@ -15,7 +15,7 @@
     async: false
     data: "status="+$("#inputActual").is(':checked')+"&ticket_id="+ticket_id
     success: () ->
-#      location.replace ""
+#      location.reload()
 
 
 $(document).ready ($) ->

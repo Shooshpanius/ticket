@@ -6,7 +6,7 @@
     async: false
     data: "status="+$("select#inputCompleted").val()+"&ticket_id="+ticket_id
     success: () ->
-      location.replace ""
+      location.reload()
 
 @change_actual = (ticket_id) ->
   $.ajax
@@ -24,7 +24,7 @@
     async: false
     data: "executor_id="+$("select#executor").val()+"&ticket_id="+ticket_id
     success: () ->
-      location.replace ""
+      location.reload()
 
 @change_executor_member = (ticket_id) ->
   $.ajax
@@ -33,7 +33,7 @@
     async: false
     data: "ticket_id="+ticket_id
     success: () ->
-      location.replace ""
+      location.reload()
 
 
 
@@ -63,6 +63,6 @@ $(document).ready ($) ->
         data: queryString
         success: (msg) ->
 #          $("#comments").html $(msg)
-          location.replace ''
+          location.reload()
 
       false
