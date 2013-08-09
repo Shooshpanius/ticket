@@ -4,7 +4,7 @@ class CreateTicketToGroups < ActiveRecord::Migration
       t.integer :initiator_id
       t.belongs_to :group
       t.string :topic
-      t.string :text
+      t.text :text
       t.date :deadline
       t.integer :completed
       t.integer :executor

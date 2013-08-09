@@ -3,7 +3,7 @@ class CreateProblems < ActiveRecord::Migration
     create_table :problems do |t|
       t.belongs_to :user
       t.string :topic
-      t.string :text
+      t.text :text
       t.boolean :status
 
 
