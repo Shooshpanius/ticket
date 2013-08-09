@@ -20,4 +20,5 @@
 //= require bootstrap-wysiwyg
 //= require jquery-hotkeys
 //= require bootstrap-wysihtml5
+//= require main
 //= require_self
