@@ -112,7 +112,7 @@ class MailReceiverController < ApplicationController
 
         end
 
-        if ticket_type = "user"
+        if ticket_type == "user"
           ticket = TicketToUser.new()
           ticket.initiator_id = @sndr.id
           ticket.user_id = rcpt.id
@@ -123,7 +123,7 @@ class MailReceiverController < ApplicationController
           ticket.save
         end
 
-        if ticket_type = "group"
+        if ticket_type == "group"
           ticket = TicketToGroup.new()
           ticket.initiator_id = @sndr.id
           ticket.group_id = rcpt.id
