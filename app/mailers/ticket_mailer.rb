@@ -25,7 +25,7 @@ class TicketMailer < ActionMailer::Base
 
   def send_new_user_ticket_to_rctp_email(mail_data)
     @mail_data = mail_data
-    subj = "Новая заявка к исполнению от " + mail_data[:user_login]
+    subj = "Новая заявка к исполнению от " + mail_data[:initiator_login]
     mail(to: mail_data[:user_email], subject: subj )
   end
 
