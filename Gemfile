@@ -54,6 +54,7 @@ gem 'net-ssh-gateway'
 gem 'mail'
 gem 'magic_encoding'
 
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
