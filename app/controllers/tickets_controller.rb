@@ -97,7 +97,7 @@ class TicketsController < ApplicationController
 
   def ticket_edit
 
-    ticket_id = params[:id].scan(/\d/)[0]
+    ticket_id = params[:id].scan(/\d/).join.to_i
 
     if params[:id].scan(/u_/)[0]
       if TicketToUser.is_initiator(session[:user_id], ticket_id)==false && TicketToUser.is_executor(session[:user_id], ticket_id)==false
