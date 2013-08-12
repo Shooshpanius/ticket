@@ -23,10 +23,11 @@ class TicketMailer < ActionMailer::Base
       end
     end
 
-    @type_email = "sndr"
-    subj = "New ticket for group " + @group.name.to_s
-    mail(to: @user.email, subject: subj )
-
+    if @initiator.email.size() > 3
+      @type_email = "sndr"
+      subj = "New ticket for group " + @group.name.to_s
+      mail(to: @initiator.email, subject: subj )
+    end
 
 
 
