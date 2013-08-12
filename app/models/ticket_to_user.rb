@@ -14,7 +14,7 @@ class TicketToUser < ActiveRecord::Base
         ticket_text: self.text,
         user_login: User.find(self.user_id).login,
         initiator_login: User.find(self.initiator_id).login,
-        user_email: User.find(member.user_id).email
+        user_email: User.find(self.user_id).email
     }
     TicketMailer.send_new_user_ticket_to_rctp_email(mail_data_to_rcpt).deliver
 

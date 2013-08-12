@@ -22,14 +22,14 @@ class TicketMailer < ActionMailer::Base
 
   def send_new_user_ticket_to_rctp_email(mail_data)
     @mail_data = mail_data
-    subj = "New ticket for user " + mail_data[:group_name]
+    subj = "New ticket for user " + mail_data[:user_login]
     mail(to: mail_data[:user_email], subject: subj )
   end
 
   def send_new_user_ticket_to_sndr_email(mail_data)
     @mail_data = mail_data
-    subj = "New ticket for user " + mail_data[:group_name]
-    mail(to: mail_data[:initiator_email], subject: subj )
+    subj = 'Заявка ' + mail_data[:user_login]
+    mail(to: mail_data[:initiator_email], subject: subj.force_encoding("UTF-8") )
   end
 
 
