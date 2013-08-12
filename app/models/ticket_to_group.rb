@@ -2,7 +2,11 @@ class TicketToGroup < ActiveRecord::Base
   belongs_to :group
   has_many :ticket_comments, dependent: :destroy
 
+  after_create :send_new_group_ticket_email
 
+  def send_new_group_ticket_email
+    TicketMailer.send_new_group_ticket_email(self).deliver
+  end
 
   def TicketToGroup.is_initiator(user_id, ticket_id)
     @ticket = TicketToGroup.find(ticket_id)

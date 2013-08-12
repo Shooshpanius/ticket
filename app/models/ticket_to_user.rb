@@ -2,6 +2,13 @@ class TicketToUser < ActiveRecord::Base
   belongs_to :user
   has_many :ticket_comments, dependent: :destroy
 
+
+  after_create :send_new_user_ticket_email
+
+  def send_new_user_ticket_email
+    TicketMailer.send_new_user_ticket_email(self).deliver
+  end
+
   def TicketToUser.is_initiator(user_id, ticket_id)
     @user_ticket = TicketToUser.find(ticket_id)
     if @user_ticket.initiator_id == user_id
