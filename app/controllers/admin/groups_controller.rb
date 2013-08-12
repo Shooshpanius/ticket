@@ -35,6 +35,7 @@ class Admin::GroupsController < ApplicationController
     @group = Group.find(params[:inputId])
     @group.name = params[:inputName]
     @group.ticket_email = params[:inputTicketEmail]
+    @group.ticket_email = params[:inputTicketEmailPassword]
     (params[:optionsLeader] != nil) ? @group.leader = params[:optionsLeader] : @group.leader = nil
     @group.save
 
@@ -57,6 +58,7 @@ class Admin::GroupsController < ApplicationController
     @group = Group.new()
     @group.name = params[:inputName]
     @group.ticket_email = params[:inputTicketEmail]
+    @group.ticket_email = params[:inputTicketEmailPassword]
     @group.save
     render text: "srv_group_new"
   end

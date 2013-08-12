@@ -7,11 +7,16 @@ class MailReceiverController < ApplicationController
 
 
     users = User.all
-
+    ticket_type = 'user'
     users.each_with_index do |user, i|
-      get_mail_process(user, i)
+      get_mail_process(user, i, ticket_type)
     end
 
+    groups = Group.all
+    ticket_type = 'group'
+    groups.each_with_index do |user, i|
+      get_mail_process(user, i, ticket_type)
+    end
 
 
 
@@ -22,7 +27,7 @@ class MailReceiverController < ApplicationController
 
 
   private
-  def get_mail_process(user, i)
+  def get_mail_process(user, i, ticket_type)
 
     require 'net/ldap'
     ldap = Net::LDAP.new :host => '192.168.0.17',
@@ -107,16 +112,27 @@ class MailReceiverController < ApplicationController
 
         end
 
+        if ticket_type = "user"
+          ticket = TicketToUser.new()
+          ticket.initiator_id = @sndr.id
+          ticket.user_id = rcpt.id
+          ticket.topic = e_subj
+          ticket.text = @e_text_t
+          ticket.completed = 0
+          ticket.deadline = Date.today.next.next.next
+          ticket.save
+        end
 
-        ticket = TicketToUser.new()
-        ticket.initiator_id = @sndr.id
-        ticket.user_id = rcpt.id
-        ticket.topic = e_subj
-        ticket.text = @e_text_t
-        ticket.completed = 0
-        ticket.deadline = Date.today.next.next.next
-        ticket.save
-
+        if ticket_type = "group"
+          ticket = TicketToGroup.new()
+          ticket.initiator_id = @sndr.id
+          ticket.group_id = rcpt.id
+          ticket.topic = e_subj
+          ticket.text = @e_text_t
+          ticket.completed = 0
+          ticket.deadline = Date.today.next.next.next
+          ticket.save
+        end
 
 
 
