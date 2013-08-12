@@ -52,7 +52,7 @@ class MailReceiverController < ApplicationController
           @e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', 'koi8-r' )
           @e_text = email.body.decoded.force_encoding("UTF-8")
         end
-        @sndr = users.where("email = ? ", @e_from)
+        @sndr = User.where("email = ? ", @e_from)
 
         if @sndr.size() != 0
           @sndr = @sndr[0]
