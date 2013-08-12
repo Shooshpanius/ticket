@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+
+<h3>Ваша заявка для <%= @mail_data[:user_login] %> принята</h3>
+<p>
+  От вас пользователю <%= @mail_data[:user_login] %> была выставлена заявка<br/>
+
+  Тема: <%= @mail_data[:ticket_topic] %> <br/>
+  Текст: <%== @mail_data[:ticket_text] %> <br/>
+  <br/>
+
+</p>
+
+<p>
+  Чтобы войти в систему, перейдите по ссылке: <%= @mail_data[:url] %>.
+</p>
+
+</body>
+</html>

@@ -132,26 +132,26 @@ class TicketsController < ApplicationController
   def srv_ticket_new
 
     if params[:inputIsp].scan(/u_/)[0]
-      @ticket = TicketToUser.new()
-      @ticket.initiator_id = session[:user_id]
-      @ticket.user_id = params[:inputIsp].scan(/\d/)[0]
-      @ticket.topic = params[:inputTopic]
-      @ticket.text = params[:inputText]
-      @ticket.completed = 0
-      @ticket.deadline = params[:inputDateTo]
-      @ticket.save
+      ticket = TicketToUser.new()
+      ticket.initiator_id = session[:user_id]
+      ticket.user_id = params[:inputIsp].scan(/\d/)[0]
+      ticket.topic = params[:inputTopic]
+      ticket.text = params[:inputText]
+      ticket.completed = 0
+      ticket.deadline = params[:inputDateTo]
+      ticket.save
     end
 
     if params[:inputIsp].scan(/g_/)[0]
-      @ticket = TicketToGroup.new()
-      @ticket.initiator_id = session[:user_id]
-      @ticket.group_id = params[:inputIsp].scan(/\d/)[0]
-      @ticket.topic = params[:inputTopic]
-      @ticket.text = params[:inputText]
-      @ticket.completed = 0
-      @ticket.executor = 0
-      @ticket.deadline = params[:inputDateTo]
-      @ticket.save
+      ticket = TicketToGroup.new()
+      ticket.initiator_id = session[:user_id]
+      ticket.group_id = params[:inputIsp].scan(/\d/)[0]
+      ticket.topic = params[:inputTopic]
+      ticket.text = params[:inputText]
+      ticket.completed = 0
+      ticket.executor = 0
+      ticket.deadline = params[:inputDateTo]
+      ticket.save
     end
 
     render text: "srv_ticket_new"
