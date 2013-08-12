@@ -1,7 +1,6 @@
 <%= javascript_include_tag "main" %>
 <%= javascript_include_tag "tickets" %>
 
-<%= debug @group_tickets %>
 
 
 
@@ -24,7 +23,7 @@
   <% @user_tickets.each do |user_tickets| %>
       <% user_data = User.find(user_tickets.initiator_id) %>
       <tr
-        <%= (user_tickets.actual == true)?"class=success":"" %>
+        <%= (user_tickets.actual == 1)?"class=success":"" %>
       >
        <td><%= user_data.login %></td>
         <td><%= user_tickets.topic %></td>
@@ -55,7 +54,7 @@
       <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
       <% group_data = Group.find(group_tickets.group_id) %>
       <tr
-        <%= (group_tickets.actual == true)?"class=success":"" %>
+        <%= (group_tickets.actual == 1)?"class=success":"" %>
       >
         <td><%= user_data.login %></td>
         <td><%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %></td>
