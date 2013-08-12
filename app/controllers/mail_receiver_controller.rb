@@ -10,8 +10,13 @@ class MailReceiverController < ApplicationController
 
     users.each_with_index do |user, i|
       get_mail_process(user, i)
-
     end
+
+
+
+
+
+
   end
 
 
