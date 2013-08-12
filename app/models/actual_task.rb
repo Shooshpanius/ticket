@@ -36,11 +36,11 @@ class ActualTask < ActiveRecord::Base
   end
 
   def ActualTask.is_actual_g(user_id, ticket_id)
-    return (ActualTask.where(ticket_to_group_id: ticket_id, :user_id => user_id).count == 0)?false:true
+    return (ActualTask.where(ticket_to_group_id: ticket_id, :user_id => user_id).count == 0)?0:1
   end
 
   def ActualTask.is_actual_u(user_id, ticket_id)
-    return (ActualTask.where(ticket_to_user_id: ticket_id, :user_id => user_id).count == 0)?false:true
+    return (ActualTask.where(ticket_to_user_id: ticket_id, :user_id => user_id).count == 0)?0:1
   end
 
 
