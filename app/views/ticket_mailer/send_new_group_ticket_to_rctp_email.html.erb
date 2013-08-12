@@ -5,23 +5,15 @@
 </head>
 <body>
 
-<% if @mail_data[:type_email] == "rcpt" %>
-    <h3>Заявка для группы <%= @mail_data[:group_name] %></h3>
-    <p>
-      На группу <%= @mail_data[:group_name] %> была выставлена заявка от <%= @mail_data[:initiator_login] %> <br/>
 
-      Тема: <%= @mail_data[:ticket_topic] %> <br/>
-      Текст: <%= @mail_data[:ticket_text] %> <br/>
+<h3>Заявка для группы <%= @mail_data[:group_name] %></h3>
+<p>
+  На группу <%= @mail_data[:group_name] %> была выставлена заявка от <%= @mail_data[:initiator_login] %> <br/>
 
-    </p>
-<% else %>
+  Тема: <%= @mail_data[:ticket_topic] %> <br/>
+  Текст: <%== @mail_data[:ticket_text] %> <br/>
 
-
-
-<% end %>
-
-
-<%= debug @mail_data %>
+</p>
 
 <p>
   Чтобы войти в систему, перейдите по ссылке: <%= @mail_data[:url] %>.

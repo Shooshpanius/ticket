@@ -8,49 +8,27 @@ class TicketToGroup < ActiveRecord::Base
 
     @members = UserByGroup.users_in_group(self.group_id)
     @members.each do |member|
-      mail_data = {
+      mail_data_to_rcpt = {
           url: 'http://web.wood.local/login',
           ticket_topic: self.topic,
           ticket_text: self.text,
           group_name: Group.find(self.group_id).name,
           initiator_login: User.find(self.initiator_id).login,
-          user_email: User.find(member.user_id).email,
-          type_email: "rcpt"
+          user_email: User.find(member.user_id).email
       }
-
-
-      TicketMailer.send_new_group_ticket_to_rctp_email(mail_data).deliver
-
+      TicketMailer.send_new_group_ticket_to_rctp_email(mail_data_to_rcpt).deliver
     end
 
-
-
-
-
-    #@url  = 'http://web.wood.local/login'
-    #@ticket = self
-    #@group = Group.find(ticket.group_id)
-    #@initiator = User.find(ticket.initiator_id)
-    #@members = UserByGroup.users_in_group(ticket.group_id)
-    #@members.each do |member|
-    #  @user = User.find(member.user_id)
-    #  if @user.email.size() > 3
-    #    @type_email = "rcpt"
-    #    subj = "New ticket for group " + @group.name.to_s
-    #    mail(to: @user.email, subject: subj )
-    #  end
-    #end
-    #
-    #if @initiator.email.size() > 3
-    #  @type_email = "sndr"
-    #  subj = "New ticket for group " + @group.name.to_s
-    #  mail(to: @initiator.email, subject: subj )
-    #end
-
-
-    TicketMailer.send_new_group_ticket_email(self).deliver
-
-
+    mail_data_to_sndr = {
+        url: 'http://web.wood.local/login',
+        ticket_topic: self.topic,
+        ticket_text: self.text,
+        group_name: Group.find(self.group_id).name,
+        initiator_login: User.find(self.initiator_id).login,
+        initiator_email: User.find(self.initiator_id).email,
+        members: UserByGroup.users_in_group(self.group_id)
+    }
+    TicketMailer.send_new_group_ticket_to_sndr_email(mail_data_to_sndr).deliver
 
 
   end

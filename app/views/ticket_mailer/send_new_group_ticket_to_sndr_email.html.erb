@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+
+<h3>Ваша заявка для группы <%= @mail_data[:group_name] %> принята</h3>
+<p>
+  От вас на группу <%= @mail_data[:group_name] %> была выставлена заявка<br/>
+
+  Тема: <%= @mail_data[:ticket_topic] %> <br/>
+  Текст: <%== @mail_data[:ticket_text] %> <br/>
+  <br/>
+  Текущий состав группы (возможные исполнители):<br/>
+  <% @mail_data[:members].each do |member| %>
+      - <%= member.login %> (<%= member.f_name %> <%=member.i_name %> <%=member.o_name %>)<br/>
+  <% end %>
+</p>
+
+<p>
+  Чтобы войти в систему, перейдите по ссылке: <%= @mail_data[:url] %>.
+</p>
+
+</body>
+</html>
