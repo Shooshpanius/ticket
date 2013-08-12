@@ -89,6 +89,14 @@
                 <button type="button" class="btn btn-success" onclick="change_executor_member(<%= @ticket.id %>)">Принять задачу в исполнение</button>
               </div>
             </div>
+        <% else %>
+            <% executor = User.find(@ticket.executor)  %>
+            <div class="control-group">
+              <label class="control-label" for="inputCompleted">Исполнитель</label>
+              <div class="controls">
+                <span class='label label-important'><%= executor.login %></span>
+              </div>
+            </div>
         <% end %>
     <% end %>
 
