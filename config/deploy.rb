@@ -139,7 +139,7 @@ namespace :deploy do
   end
 
   task :link_dependencies, :roles => :app do
-    run "ln  #{shared_path}/attache #{deploy_to}/current/public/attache"
+    run "ln -nfs #{shared_path}/attache #{deploy_to}/current/public/attache"
     #run "ln -nfs #{shared_path}/public/images/posts #{release_path}/public/images/posts"
   end
 
