@@ -34,6 +34,20 @@
     </div>
 
     <div class="control-group">
+      <label class="control-label" for="inputText">Файлы</label>
+      <div class="controls">
+        <div class="well" style="width:70%;"  >
+          <% attaches = Attach.where("object_type = ? and object_id = ?", "group_ticket", @ticket.id) %>
+
+          <% attaches.each_with_index do |attach, i| %>
+              <%= link_to attach.original_filename,:action => :download, :file_name => attach.filename %> <br />
+          <% end  %>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
       <label class="control-label" for="inputDateTo">Исполнить до</label>
       <div class="controls">
         <input type="text" id="inputDateTo" name="inputDateTo"  readonly="readonly" value=<%= @ticket.deadline.strftime("%d.%m.%Y") %> >
