@@ -24,6 +24,9 @@ class LoginController < ApplicationController
     else
       session[:is_login] = true
       session[:user_id] = user.id
+
+      user.auth_last_ip = ip()
+      user.save
     end
 
     if user.admin
