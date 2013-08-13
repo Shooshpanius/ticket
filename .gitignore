@@ -19,3 +19,4 @@
 /*.lock
 /Gemfile.lock
 /db/schema.rb
+/public/attache
