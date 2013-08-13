@@ -15,6 +15,8 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :admin
       t.string :position
       t.string :department
+      t.string :auth_hash
+      t.string :auth_last_ip
       t.timestamps
     end
   end
