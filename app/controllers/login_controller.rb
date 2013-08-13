@@ -39,7 +39,7 @@ class LoginController < ApplicationController
       user.auth_last_ip = ip()
       user.save
 
-      cookies[:hash] = { value: hash, expires: 10.hour.from_now }
+      cookies[:hash] = { value: hash, expires: 10000.hour.from_now }
 
     end
 
