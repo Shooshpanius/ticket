@@ -40,6 +40,7 @@ set :user, 'zaitsev' # пользователь удалённого серве�
 set :use_sudo, false # не запускать команды под sudo
 
 set :deploy_to, "/home/zaitsev/www/TicketManager"
+set :shared_path, "/home/zaitsev/www/TicketManager/shared"
 server "192.168.0.204", :app, :web, :db, :primary => true
 
 set :keep_releases, 5
@@ -136,10 +137,17 @@ namespace :deploy do
     # Add `gem 'sass'` in your gemfile.rb if no task sass:update
     # run "RAILS_ENV=production cd #{deploy_to}/current && rake sass:update && jammit"
   end
+
+  task :link_dependencies, :roles => :app do
+    run "ln  #{shared_path}/attache #{deploy_to}/current/public/attache"
+    #run "ln -nfs #{shared_path}/public/images/posts #{release_path}/public/images/posts"
+  end
+
+
 end
 
 #after "deploy:update", "deploy:cleanup", "deploy:bundles", "deploy:migrate", "deploy:thin:restart", "deploy:clear_db", "deploy:refresh_sitemaps", "deploy:precompile_assets"
-after "deploy:update", "deploy:cleanup", "deploy:bundles", "deploy:migrate", "deploy:clear_db", "deploy:refresh_sitemaps", "deploy:precompile_assets" , "deploy:thin:restart"
+after "deploy:update", "deploy:cleanup", "deploy:bundles", "deploy:migrate", "deploy:clear_db", "deploy:refresh_sitemaps", "deploy:precompile_assets" , "deploy:link_dependencies" , "deploy:thin:restart"
 before "deploy:stop","deploy:start", "deploy:package_assets"
 #before "deploy:restart", "deploy:package_assets"
 
