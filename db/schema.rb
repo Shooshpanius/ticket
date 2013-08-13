@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(version: 20130805054338) do
     t.boolean  "admin"
     t.string   "position"
     t.string   "department"
+    t.string   "auth_hash"
+    t.string   "auth_last_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
