@@ -6,7 +6,7 @@ class MailReceiverController < ApplicationController
 
 
 
-    users = User.all
+    users = User.where("ticket_email != ?", "")
     ticket_type = 'user'
     users.each_with_index do |user, i|
       get_mail_process(user, i, ticket_type)
@@ -38,7 +38,7 @@ class MailReceiverController < ApplicationController
                              :password => "ticket"
                          }
 
-    if user.ticket_email != nil
+    if user.ticket_email.size > 3
       rcpt = user
       Mail.defaults do
         retriever_method :pop3, :address    => "192.168.0.207",
@@ -56,11 +56,14 @@ class MailReceiverController < ApplicationController
         @e_from = email.from.to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
         e_subj = email.subject
         if email.multipart? == true
-          @e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', 'koi8-r' )
-          @e_text =  email.parts[1].body.decoded.encode( 'UTF-8', 'koi8-r' )
+          @e_text_t =  email.html_part.body.decoded.encode( 'UTF-8', email.text_part.content_type_parameters[:charset] )
+          #@e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
+          #@e_text =  email.parts[1].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
+          marker = " _q1"
         else
-          @e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', 'koi8-r' )
-          @e_text = email.body.decoded.force_encoding("UTF-8")
+          @e_text_t =  email.html_part.body.decoded.encode( 'UTF-8', email.text_part.content_type_parameters[:charset] )
+          #@e_text = email.body.decoded.force_encoding("UTF-8")
+          marker = " _q2"
         end
         @sndr = User.where("email = ? ", @e_from)
 
@@ -116,11 +119,35 @@ class MailReceiverController < ApplicationController
           ticket = TicketToUser.new()
           ticket.initiator_id = @sndr.id
           ticket.user_id = rcpt.id
-          ticket.topic = e_subj
+          ticket.topic = e_subj + marker
           ticket.text = @e_text_t
           ticket.completed = 0
           ticket.deadline = Date.today.next.next.next
           ticket.save
+
+          email.attachments.each do | attachment |
+            # Attachments is an AttachmentsList object containing a
+            # number of Part objects
+            #if (attachment.content_type.start_with?('image/'))
+              # extracting images for example...
+              filename = attachment.filename
+              begin
+                ext = File.extname(filename)
+
+                salt = pass_generate(len=7)
+                hash = Digest::MD5.hexdigest(Time.now.to_s + salt.to_s)
+                new_filename = hash+"."+filename
+
+
+                File.open("attache/" + new_filename, "w+b", 0644) {|f| f.write attachment.body.decoded}
+              rescue Exception => e
+                puts "Unable to save data for #{filename} because #{e.message}"
+              end
+            #end
+          end
+
+
+
         end
 
         if ticket_type == "group"
