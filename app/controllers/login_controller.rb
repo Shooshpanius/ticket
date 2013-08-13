@@ -10,8 +10,8 @@ class LoginController < ApplicationController
     user = User.where("auth_hash = ? and auth_last_ip = ?", cookies[:hash], ip() ).take(1)
     if user.size == 1
       session[:is_login] = true
-      session[:user_id] = user.id
-      session[:is_admin] = true if user.admin
+      session[:user_id] = user[0].id
+      session[:is_admin] = true if user[0].admin
     end
 
     if session[:is_login]
@@ -54,6 +54,7 @@ class LoginController < ApplicationController
 
   def srv_logout
     reset_session
+    cookies.delete :hash
     render text: "srv_logout"
   end
 
