@@ -6,6 +6,7 @@ class CreateAttaches < ActiveRecord::Migration
       t.integer :object_id
       t.string :original_filename
       t.string :filename
+      t.string :mime
 
       t.timestamps
     end

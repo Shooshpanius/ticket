@@ -56,7 +56,7 @@ class MailReceiverController < ApplicationController
         @e_from = email.from.to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
         e_subj = email.subject
         if email.multipart? == true
-          @e_text_t =  email.html_part.body.decoded.encode( 'UTF-8', email.text_part.content_type_parameters[:charset] )
+          @e_text_t =  email.html_part.body.decoded.encode( 'UTF-8', email.html_part.content_type_parameters[:charset] )
           #@e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
           #@e_text =  email.parts[1].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
           marker = " _q1"
@@ -133,13 +133,26 @@ class MailReceiverController < ApplicationController
               filename = attachment.filename
               begin
                 ext = File.extname(filename)
-
                 salt = pass_generate(len=7)
                 hash = Digest::MD5.hexdigest(Time.now.to_s + salt.to_s)
                 new_filename = hash+"."+filename
-
-
+                mime = MIME::Types.type_for(filename).first.content_type
                 File.open("attache/" + new_filename, "w+b", 0644) {|f| f.write attachment.body.decoded}
+
+
+
+                attach_data = {
+                    object_type: "user_ticket",
+                    object_id: ticket.id,
+                    original_filename: filename,
+                    filename: new_filename,
+                    mime: mime
+                }
+
+                attach = Attach.new(attach_data)
+                attach.save
+
+
               rescue Exception => e
                 puts "Unable to save data for #{filename} because #{e.message}"
               end
@@ -160,6 +173,40 @@ class MailReceiverController < ApplicationController
           ticket.executor = 0
           ticket.deadline = Date.today.next.next.next
           ticket.save
+
+          email.attachments.each do | attachment |
+            # Attachments is an AttachmentsList object containing a
+            # number of Part objects
+            #if (attachment.content_type.start_with?('image/'))
+            # extracting images for example...
+            filename = attachment.filename
+            begin
+              ext = File.extname(filename)
+              salt = pass_generate(len=7)
+              hash = Digest::MD5.hexdigest(Time.now.to_s + salt.to_s)
+              new_filename = hash+"."+filename
+              File.open("attache/" + new_filename, "w+b", 0644) {|f| f.write attachment.body.decoded}
+
+              attach_data = {
+                  object_type: "group_ticket",
+                  object_id: ticket.id,
+                  original_filename: filename,
+                  filename: new_filename,
+                  mime: mime
+              }
+
+              attach = Attach.new(attach_data)
+              attach.save
+
+
+            rescue Exception => e
+              puts "Unable to save data for #{filename} because #{e.message}"
+            end
+            #end
+          end
+
+
+
         end
 
 

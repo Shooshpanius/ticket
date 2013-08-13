@@ -11,12 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130805054338) do
+ActiveRecord::Schema.define(version: 20130813100651) do
 
   create_table "actual_tasks", force: true do |t|
     t.integer  "user_id"
     t.integer  "ticket_to_group_id"
     t.integer  "ticket_to_user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attaches", force: true do |t|
+    t.string   "object_type"
+    t.integer  "object_id"
+    t.string   "original_filename"
+    t.string   "filename"
+    t.string   "mime"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
