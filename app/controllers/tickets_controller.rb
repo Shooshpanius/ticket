@@ -200,6 +200,12 @@ class TicketsController < ApplicationController
   end
 
 
+
+  def download
+    send_file "public/attache/#{params[:file_name]}", :type=>MIME::Types.type_for("public/attache/#{params[:file_name]}").first.content_type
+    #send_file "#{Rails.root}/public/attache/#{params[:file_name]}", :type=>"application/zip"
+  end
+
   private
   def is_login
     if !session[:is_login]
