@@ -11,6 +11,7 @@ class LoginController < ApplicationController
     if user.size == 1
       session[:is_login] = true
       session[:user_id] = user[0].id
+      session[:user_login] = user[0].login
       session[:is_admin] = true if user[0].admin
     end
 
@@ -31,6 +32,7 @@ class LoginController < ApplicationController
     else
       session[:is_login] = true
       session[:user_id] = user.id
+      session[:user_login] = user.login
 
       salt = pass_generate(len=7)
       hash = Digest::MD5.hexdigest(Time.now.to_s + salt.to_s)
