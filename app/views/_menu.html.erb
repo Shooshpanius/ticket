@@ -3,9 +3,9 @@
     <a class="brand" href="/"><div id='menu_text' name='menu_text'>Ticket system</div></a>
 
 
-
     <% if session[:is_login] %>
         <ul class="nav pull-right">
+
           <li><a href="#"><i class="icon-user"></i> <%= session[:user_login] %></a></li>
           <li><button type="button" class="btn pull-right" onclick='logout()'>Выход</button> </li>
         </ul>
@@ -13,15 +13,20 @@
 
         <% if session[:is_admin] %>
             <ul class="nav pull-right">
-                <li class="dropdown">
+                <li class="dropdown"
+                    <%= (controller.controller_name=="users")||(controller.controller_name=="groups")?"style=background-color:#FFDAB9":""   %>
+                >
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     Администрирование
                     <b class="caret"></b>
                   </a>
                   <ul class="dropdown-menu">
-                    <li><a href="/admin/users">Пользователи</a></li>
-                    <li><a href="/admin/groups">Группы</a></li>
-
+                    <li
+                        <%= (controller.controller_name=="users")?"style=background-color:#FFDAB9":""   %>
+                    ><a href="/admin/users">Пользователи</a></li>
+                    <li
+                        <%= (controller.controller_name=="groups")?"style=background-color:#FFDAB9":""   %>
+                    ><a href="/admin/groups">Группы</a></li>
                   </ul>
                 </li>
             </ul>
@@ -30,40 +35,59 @@
         <ul class="nav">
 
           <ul class="nav pull-right">
-            <li class="dropdown">
+            <li class="dropdown"
+                <%= (controller.controller_name=="tickets")&&((controller.action_name=="arch_in")||(controller.action_name=="arch_out"))?"style=background-color:#FFDAB9":""   %>
+            >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
                 Архив
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/tickets/arch_in">Входящие</a></li>
-                <li><a href="/tickets/arch_out">Исходящие</a></li>
+                <li
+                    <%= (controller.controller_name=="tickets")&&(controller.action_name=="arch_in")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/tickets/arch_in">Входящие</a></li>
+                <li
+                    <%= (controller.controller_name=="tickets")&&(controller.action_name=="arch_out")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/tickets/arch_out">Исходящие</a></li>
               </ul>
             </li>
           </ul>
 
           <ul class="nav pull-right">
-            <li class="dropdown">
+            <li class="dropdown"
+                <%= (controller.controller_name=="problems")?"style=background-color:#FFDAB9":""   %>
+            >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
                 Проблемы
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/problems/out">Мои проблемы</a></li>
-                <li><a href="/problems/in">К рассмотрению</a></li>
+                <li
+                    <%= (controller.controller_name=="problems")&&(controller.action_name=="out")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/problems/out">Мои проблемы</a></li>
+                <li
+                    <%= (controller.controller_name=="problems")&&(controller.action_name=="in")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/problems/in">К рассмотрению</a></li>
               </ul>
             </li>
           </ul>
 
-          <ul class="nav pull-right">
-            <li class="dropdown">
+          <ul  class="nav pull-right">
+            <li
+                <%= (controller.controller_name=="tickets")&&((controller.action_name=="in")||(controller.action_name=="out"))?"style=background-color:#FFDAB9":""   %>
+            class="dropdown"
+            >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
                 Заявки
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><a href="/tickets/in">Входящие</a></li>
-                <li><a href="/tickets/out">Исходящие</a></li>
+                <li
+                    <%= (controller.controller_name=="tickets")&&(controller.action_name=="in")?"style=background-color:#FFDAB9":""   %>
+                 ><a href="/tickets/in">Входящие</a></li>
+                <li
+                    <%= (controller.controller_name=="tickets")&&(controller.action_name=="out")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/tickets/out">Исходящие</a></li>
               </ul>
             </li>
           </ul>
