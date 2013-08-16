@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+
+<h3>Пользователь <%= @mail_data[:sndr_login] %> установил процент выполнения заявки # <%= @mail_data[:type_comment] %>_<%= @mail_data[:ticket_id] %> в <%= @mail_data[:completed] %>% </h3>
+
+
+<p>
+  Чтобы войти в систему, перейдите по ссылке: <%= @mail_data[:url] %>.
+</p>
+
+</body>
+</html>

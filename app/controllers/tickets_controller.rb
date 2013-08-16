@@ -175,6 +175,35 @@ class TicketsController < ApplicationController
   end
 
   def srv_change_g_status
+
+    ticket = TicketToGroup.find(params[:ticket_id].to_i)
+    group = Group.find(ticket.group_id)
+
+
+    mail_data = {
+        url: 'http://web.wood.local/login',
+        type_comment: "g",
+        ticket_id: params[:ticket_id],
+        comment_topic: ticket.topic,
+        comment_text: ticket.text,
+        completed: params[:status],
+        sndr_login: User.find(session[:user_id]).login,
+        rcpt_email: User.find(ticket.initiator_id).email
+    }
+    TicketMailer.send_change_status(mail_data).deliver
+
+    mail_data = {
+        url: 'http://web.wood.local/login',
+        type_comment: "g",
+        ticket_id: params[:ticket_id],
+        comment_topic: ticket.topic,
+        comment_text: ticket.text,
+        completed: params[:status],
+        sndr_login: User.find(session[:user_id]).login,
+        rcpt_email: User.find(group.leader).email
+    }
+    TicketMailer.send_change_status(mail_data).deliver
+
     TicketToGroup.change_status(session[:user_id], params[:status], params[:ticket_id])
     render text: "srv_change_g_status"
   end

@@ -60,5 +60,10 @@ class TicketMailer < ActionMailer::Base
     mail(to: mail_data[:rcpt_email], subject: subj )
   end
 
+  def send_change_status(mail_data)
+    @mail_data = mail_data
+    subj = 'Изменился % выполнения заявки № g_' + @mail_data[:ticket_id].to_s
+    mail(to: mail_data[:rcpt_email], subject: subj )
+  end
 
 end
