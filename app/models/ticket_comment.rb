@@ -9,12 +9,12 @@ class TicketComment < ActiveRecord::Base
 
   def send_new_comment_email
     if ticket_to_group != nil
-      users = UserByGroup.users_in_group(self.ticket_to_group)
+      users = UserByGroup.users_in_group(self.ticket_to_group.id)
       users.each do |user|
         mail_data = {
             url: 'http://web.wood.local/login',
             type_comment: "g",
-            ticket_id: self.ticket_to_group,
+            ticket_id: self.ticket_to_group.id,
             comment_text: self.text,
             sndr_login: User.find(self.user_id).login,
             rcpt_email: User.find(user.id).email
