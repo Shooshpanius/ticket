@@ -36,5 +36,11 @@ class TicketMailer < ActionMailer::Base
   end
 
 
+  def send_new_comment_email(mail_data)
+    @mail_data = mail_data
+    subj = 'Новый комментарий к заявке № ' + @mail_data[:type_comment] + '_' + @mail_data[:ticket_id].to_s
+    mail(to: mail_data[:rcpt_email], subject: subj )
+  end
+
 
 end
