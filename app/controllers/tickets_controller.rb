@@ -180,6 +180,7 @@ class TicketsController < ApplicationController
   end
 
   def srv_change_executor_leader
+
     ticket = TicketToGroup.find(params[:ticket_id].to_i)
     group = Group.find(ticket.group_id)
     mail_data = {
@@ -198,6 +199,20 @@ class TicketsController < ApplicationController
   end
 
   def srv_change_executor_member
+
+    ticket = TicketToGroup.find(params[:ticket_id].to_i)
+    group = Group.find(ticket.group_id)
+    mail_data = {
+        url: 'http://web.wood.local/login',
+        type_comment: "g",
+        ticket_id: params[:ticket_id],
+        comment_topic: ticket.topic,
+        comment_text: ticket.text,
+        sndr_login: User.find(session[:user_id]).login,
+        rcpt_email: User.find(group.leader).email
+    }
+    TicketMailer.send_change_executor_by_member(mail_data).deliver
+
     TicketToGroup.change_executor(session[:user_id], session[:user_id], params[:ticket_id])
     render text: "srv_change_executor_member"
   end

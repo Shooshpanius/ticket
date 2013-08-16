@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+
+<h3>Пользователь <%= @mail_data[:sndr_login] %> взял ответственность за выполнение заявки # g_<%= @mail_data[:ticket_id] %> </h3>
+
+<p>
+  Тема: <%= @mail_data[:comment_topic] %> <br/>
+  Текст: <%== @mail_data[:comment_text] %> <br/>
+</p>
+
+<p>
+  Чтобы войти в систему, перейдите по ссылке: <%= @mail_data[:url] %>.
+</p>
+
+</body>
+</html>
