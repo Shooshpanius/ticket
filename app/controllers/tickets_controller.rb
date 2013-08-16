@@ -194,6 +194,18 @@ class TicketsController < ApplicationController
     }
     TicketMailer.send_change_executor_by_leader(mail_data).deliver
 
+    mail_data = {
+        url: 'http://web.wood.local/login',
+        type_comment: "g",
+        ticket_id: params[:ticket_id],
+        comment_topic: ticket.topic,
+        comment_text: ticket.text,
+        sndr_login: User.find(group.leader).login,
+        rcpt_email: User.find(ticket.initiator_id).email,
+        exec_login: User.find(params[:executor_id]).login
+    }
+    TicketMailer.send_change_executor_to_initiator(mail_data).deliver
+
     TicketToGroup.change_executor(session[:user_id], params[:executor_id], params[:ticket_id])
     render text: "srv_change_executor_leader"
   end
@@ -212,6 +224,18 @@ class TicketsController < ApplicationController
         rcpt_email: User.find(group.leader).email
     }
     TicketMailer.send_change_executor_by_member(mail_data).deliver
+
+    mail_data = {
+        url: 'http://web.wood.local/login',
+        type_comment: "g",
+        ticket_id: params[:ticket_id],
+        comment_topic: ticket.topic,
+        comment_text: ticket.text,
+        sndr_login: User.find(session[:user_id]).login,
+        rcpt_email: User.find(ticket.initiator_id).email,
+        exec_login: User.find(session[:user_id]).login
+    }
+    TicketMailer.send_change_executor_to_initiator(mail_data).deliver
 
     TicketToGroup.change_executor(session[:user_id], session[:user_id], params[:ticket_id])
     render text: "srv_change_executor_member"

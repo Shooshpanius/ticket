@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+
+
+<h3>За выполнение вашей заявки заявки # g_<%= @mail_data[:ticket_id] %> ответственным назначен <%= @mail_data[:exec_login] %> </h3>
+
+<p>
+  Тема: <%= @mail_data[:comment_topic] %> <br/>
+  Текст: <%== @mail_data[:comment_text] %> <br/>
+</p>
+
+<p>
+  Чтобы войти в систему, перейдите по ссылке: <%= @mail_data[:url] %>.
+</p>
+
+</body>
+</html>

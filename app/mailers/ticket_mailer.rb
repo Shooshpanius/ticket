@@ -54,4 +54,11 @@ class TicketMailer < ActionMailer::Base
     mail(to: mail_data[:rcpt_email], subject: subj )
   end
 
+  def send_change_executor_to_initiator(mail_data)
+    @mail_data = mail_data
+    subj = 'Назначен ответственный за выполнение вашей заявки № g_' + @mail_data[:ticket_id].to_s
+    mail(to: mail_data[:rcpt_email], subject: subj )
+  end
+
+
 end
