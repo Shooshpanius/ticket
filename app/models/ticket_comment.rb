@@ -8,6 +8,7 @@ class TicketComment < ActiveRecord::Base
 
 
   def send_new_comment_email
+
     if ticket_to_group != nil
       users = UserByGroup.users_in_group(self.ticket_to_group.id)
       users.each do |user|
@@ -23,8 +24,6 @@ class TicketComment < ActiveRecord::Base
       end
     end
 
-
-
     if ticket_to_user != nil
 
       mail_data = {
@@ -37,7 +36,6 @@ class TicketComment < ActiveRecord::Base
       }
       TicketMailer.send_new_comment_email(mail_data).deliver
 
-
       mail_data = {
           url: 'http://web.wood.local/login',
           type_comment: "g",
@@ -48,30 +46,7 @@ class TicketComment < ActiveRecord::Base
       }
       TicketMailer.send_new_comment_email(mail_data).deliver
 
-
     end
-
-
-    #mail_data_to_rcpt = {
-    #    url: 'http://web.wood.local/login',
-    #    ticket_topic: self.topic,
-    #    ticket_text: self.text,
-    #    user_login: User.find(self.user_id).login,
-    #    initiator_login: User.find(self.initiator_id).login,
-    #    user_email: User.find(self.user_id).email
-    #}
-    #TicketMailer.send_new_user_ticket_to_rctp_email(mail_data_to_rcpt).deliver
-    #
-    #
-    #mail_data_to_sndr = {
-    #    url: 'http://web.wood.local/login',
-    #    ticket_topic: self.topic,
-    #    ticket_text: self.text,
-    #    user_login: User.find(self.user_id).login,
-    #    initiator_login: User.find(self.initiator_id).login,
-    #    initiator_email: User.find(self.initiator_id).email,
-    #}
-    #TicketMailer.send_new_user_ticket_to_sndr_email(mail_data_to_sndr).deliver
 
   end
 
