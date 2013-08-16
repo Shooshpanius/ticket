@@ -28,7 +28,7 @@ class TicketComment < ActiveRecord::Base
 
       mail_data = {
           url: 'http://web.wood.local/login',
-          type_comment: "g",
+          type_comment: "u",
           ticket_id: self.ticket_to_user.id,
           comment_text: self.text,
           sndr_login: User.find(self.user_id).login,
@@ -38,7 +38,7 @@ class TicketComment < ActiveRecord::Base
 
       mail_data = {
           url: 'http://web.wood.local/login',
-          type_comment: "g",
+          type_comment: "u",
           ticket_id: self.ticket_to_user.id,
           comment_text: self.text,
           sndr_login: User.find(self.user_id).login,

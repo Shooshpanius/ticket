@@ -1,3 +1,4 @@
+# encoding: utf-8
 class TicketsController < ApplicationController
 
   before_filter :is_login
@@ -179,6 +180,19 @@ class TicketsController < ApplicationController
   end
 
   def srv_change_executor_leader
+    ticket = TicketToGroup.find(params[:ticket_id].to_i)
+    group = Group.find(ticket.group_id)
+    mail_data = {
+        url: 'http://web.wood.local/login',
+        type_comment: "g",
+        ticket_id: params[:ticket_id],
+        comment_topic: ticket.topic,
+        comment_text: ticket.text,
+        sndr_login: User.find(group.leader).login,
+        rcpt_email: User.find(params[:executor_id]).email
+    }
+    TicketMailer.send_change_executor_by_leader(mail_data).deliver
+
     TicketToGroup.change_executor(session[:user_id], params[:executor_id], params[:ticket_id])
     render text: "srv_change_executor_leader"
   end
