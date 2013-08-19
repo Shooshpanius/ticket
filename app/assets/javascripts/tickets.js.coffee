@@ -7,3 +7,12 @@
   url = "/tickets/ticket_edit/"+ticket_type+"_"+ticket_id
   location.replace(url)
 
+@group_list = (group_id) ->
+
+  $.ajax
+    url: "/tickets/srv_get_group_list"
+    type: "POST"
+    async: false
+    data: "group_id="+group_id
+    success: (msg) ->
+      $("#gr-list").html msg

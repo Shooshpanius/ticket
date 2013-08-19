@@ -1,0 +1,13 @@
+<table class="table table-hover table-bordered table-condensed">
+
+
+  <tbody>
+
+  <% @users_in_group.each_with_index do |user, i| %>
+      <tr>
+        <td><%= user.login %></td>
+      </tr>
+  <% end  %>
+
+  </tbody>
+</table>

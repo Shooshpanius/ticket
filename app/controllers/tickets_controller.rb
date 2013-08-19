@@ -281,7 +281,18 @@ class TicketsController < ApplicationController
     render text: response
   end
 
+  def srv_get_group_list
+    @users_in_group = []
 
+    if UserByGroup.is_user_in_group(session[:user_id], params[:group_id]).size != 0
+
+      @users_in_group = UserByGroup.users_in_group(params[:group_id])
+
+    end
+
+    render(:layout => false)
+
+  end
 
   def download
     send_file "public/attache/#{params[:file_name]}", :type=>MIME::Types.type_for("public/attache/#{params[:file_name]}").first.content_type

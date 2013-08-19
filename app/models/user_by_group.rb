@@ -21,4 +21,19 @@ class UserByGroup < ActiveRecord::Base
   end
 
 
+  def UserByGroup.is_user_in_group(user_id, group_id)
+    groups_query = UserByGroup.find_by_sql("SELECT group_id as id FROM user_by_groups
+
+                                        LEFT JOIN groups ON user_by_groups.id = groups.id
+                                        WHERE user_by_groups.user_id = #{user_id}
+                                          AND group_id = #{group_id}
+
+
+
+
+                                      ")
+
+    return groups_query
+  end
+
 end
