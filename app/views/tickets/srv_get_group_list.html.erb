@@ -4,10 +4,17 @@
   <tbody>
 
   <% @users_in_group.each_with_index do |user, i| %>
-      <tr>
-        <td><%= user.login %></td>
+      <tr style="cursor: pointer">
+        <td data-dismiss="modal"><%= user.login %></td>
       </tr>
   <% end  %>
 
   </tbody>
 </table>
+
+<style>
+    tbody tr:hover {
+        color:red; /* Цвет фона при наведении */
+        /*color: #fff; *//* Цвет текста при наведении */
+    }
+</style>
