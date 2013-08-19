@@ -26,7 +26,7 @@
         <%= (user_tickets.actual == 1)?"class=success":"" %>
       >
        <td><%= user_data.login %></td>
-        <td><%= user_tickets.topic %></td>
+        <td style="cursor: pointer" onclick="ticket_open('u', <%= group_tickets.id %>)" ><%= user_tickets.topic %></td>
         <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
@@ -58,7 +58,7 @@
       >
         <td><%= user_data.login %></td>
         <td><%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %></td>
-        <td><%= group_tickets.topic %></td>
+        <td style="cursor: pointer" onclick="ticket_open('g', <%= group_tickets.id %>)" ><%= group_tickets.topic %></td>
         <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
