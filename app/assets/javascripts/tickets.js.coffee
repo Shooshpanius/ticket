@@ -7,12 +7,24 @@
   url = "/tickets/ticket_edit/"+ticket_type+"_"+ticket_id
   location.replace(url)
 
-@group_list = (group_id) ->
+@group_list = (group_id, ticket_id) ->
 
   $.ajax
     url: "/tickets/srv_get_group_list"
     type: "POST"
     async: false
-    data: "group_id="+group_id
+    data: "group_id="+group_id+"&ticket_id="+ticket_id
     success: (msg) ->
       $("#gr-list").html msg
+
+
+@change_executor = (user_id, ticket_id) ->
+  $.ajax
+    url: "/tickets/srv_change_executor_leader"
+    type: "POST"
+    async: false
+    data: "executor_id="+user_id+"&ticket_id="+ticket_id
+    success: () ->
+      location.reload()
+
+

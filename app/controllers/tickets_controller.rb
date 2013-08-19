@@ -282,7 +282,9 @@ class TicketsController < ApplicationController
   end
 
   def srv_get_group_list
+
     @users_in_group = []
+    @ticket_id = params[:ticket_id]
 
     if UserByGroup.is_user_in_group(session[:user_id], params[:group_id]).size != 0
 

@@ -55,7 +55,7 @@
         <%= (group_tickets.actual == 1)?"class=success":"" %>
       >
         <td><%= user_data.login %></td>
-        <td style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>)">
+        <td style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>, <%= group_tickets.id %>)">
 
             <%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %>
 
