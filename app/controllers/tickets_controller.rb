@@ -283,14 +283,14 @@ class TicketsController < ApplicationController
 
   def srv_get_group_list
 
-    @users_in_group = []
-    @ticket_id = params[:ticket_id]
+    @form_data = {
+        users_in_group: [],
+        ticket_id: params[:ticket_id]
+    }
 
-    if UserByGroup.is_user_in_group(session[:user_id], params[:group_id]).size != 0
+    is_user_in_group = UserByGroup.is_user_in_group(session[:user_id], params[:group_id]).size
 
-      @users_in_group = UserByGroup.users_in_group(params[:group_id])
-
-    end
+    @form_data[:users_in_group] = UserByGroup.users_in_group(params[:group_id]) if is_user_in_group.size != 0
 
     render(:layout => false)
 

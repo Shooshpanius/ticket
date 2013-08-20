@@ -3,8 +3,8 @@
 
   <tbody>
 
-  <% @users_in_group.each_with_index do |user, i| %>
-      <tr style="cursor: pointer" onclick="change_executor(<%= user.id %>, <%= @ticket_id %>)">
+  <% @form_data[:users_in_group].each_with_index do |user, i| %>
+      <tr style="cursor: pointer" onclick="change_executor(<%= user.id %>, <%= @form_data[:ticket_id] %>)">
         <td data-dismiss="modal"><%= user.login %></td>
       </tr>
   <% end  %>
