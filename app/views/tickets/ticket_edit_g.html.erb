@@ -43,7 +43,7 @@
       <label class="control-label" for="inputText">Текст</label>
       <div class="controls">
         <% new_str = @ticket.text.sub( %r{<style>[^<]+</style>}, '' )
-           new_str = new_str.sub( %r{<style[^<]+/style>}, '' )
+           new_str = new_str.sub( %r{<style[^<]+>}, '' )
 
 
         %>
