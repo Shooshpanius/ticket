@@ -65,11 +65,17 @@ class MailReceiverController < ApplicationController
 
           #@e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
           #@e_text =  email.parts[1].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
-          marker = " _q1"
+          #marker = " _q1"
         else
-          @e_text_t =  email.html_part.body.decoded.encode( 'UTF-8', email.text_part.content_type_parameters[:charset] )
+          begin
+            @e_text_t =  email.html_part.body.decoded.encode( 'UTF-8', email.text_part.content_type_parameters[:charset] )
+          rescue Exception => e
+            @e_text_t =  email.body.decoded.encode( 'UTF-8', email.content_type_parameters[:charset] )
+          end
+
+
           #@e_text = email.body.decoded.force_encoding("UTF-8")
-          marker = " _q2"
+          #marker = " _q2"
         end
         @sndr = User.where("email = ? ", @e_from)
 
@@ -125,7 +131,7 @@ class MailReceiverController < ApplicationController
           ticket = TicketToUser.new()
           ticket.initiator_id = @sndr.id
           ticket.user_id = rcpt.id
-          ticket.topic = e_subj + marker
+          ticket.topic = e_subj
           ticket.text = @e_text_t
           ticket.completed = 0
           ticket.deadline = Date.today.next.next.next
