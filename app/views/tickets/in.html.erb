@@ -24,7 +24,7 @@
         <%= (user_tickets.actual == 1)?"class=success":"" %>
       >
        <td><%= user_data.login %></td>
-        <td style="cursor: pointer" onclick="ticket_open('u', <%= group_tickets.id %>)" ><%= user_tickets.topic %></td>
+        <td style="cursor: pointer" onclick="ticket_open('u', <%= user_tickets.id %>)" ><%= user_tickets.topic %></td>
         <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
