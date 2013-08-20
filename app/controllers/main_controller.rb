@@ -36,9 +36,9 @@ class MainController < ApplicationController
         z_pers_warn: TicketToUser.where("user_id = ? and completed < ? and deadline > ? and deadline <= ?", session[:user_id], 100, Date.today, Date.today.next.next.next).count,
         z_pers_red: TicketToUser.where("user_id = ? and completed < ? and deadline <= ?", session[:user_id], 100, Date.today).count,
 
-        z_group_pers_normal: 0,
-        z_group_pers_warn: 0,
-        z_group_pers_red: 0,
+        z_group_pers_normal: TicketToGroup.where("executor = ? and completed < ? and deadline > ?", session[:user_id], 100, Date.today.next.next.next).count,
+        z_group_pers_warn: TicketToGroup.where("executor = ? and completed < ? and deadline > ? and deadline <= ?", session[:user_id], 100, Date.today, Date.today.next.next.next).count,
+        z_group_pers_red: TicketToGroup.where("executor = ? and completed < ? and deadline <= ?", session[:user_id], 100, Date.today).count,
 
         z_group_other_normal: 0,
         z_group_other_warn: 0,
