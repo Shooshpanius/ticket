@@ -3,109 +3,22 @@
 
 
 
-<p>
-  <a class="btn btn-primary" type="button" href="/tickets/ticket_new/"><i class="icon-plus"></i>Создать заявку</a>
-</p>
+<table class="table table-hover table-bordered table-condensed span5">
+  <caption>Заявки</caption>
 
-
-<table class="table table-hover table-bordered table-condensed">
-  <caption>Входящие персональные (10 последних)</caption>
-  <thead>
-  <tr>
-    <th class="span3">Инициатор</th>
-    <th>Тема</th>
-    <th class="span2">Срок исполнения</th>
-    <th class="span1"></th>
-  </tr>
-  </thead>
   <tbody>
-    <% @user_tickets.each do |user_tickets| %>
-    <% user_data = User.find(user_tickets.initiator_id) %>
-        <tr
-            <%= (user_tickets.actual == 1)?"class=success":"" %>
-        >
-            <td><%= user_data.login %></td>
-            <td><%= user_tickets.topic %></td>
-            <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
-            <td>
-              <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
-            </td>
-        </tr>
-    <% end %>
+  <tr>
+    <td class="span2">Входящие
+    <td class="span1" style="background-color: #DFF0D8;">*</td>
+    <td class="span1" style="background-color: #FCF8E3;">**</td>
+    <td class="span1" style="background-color: #F2DEDE;">***</td>
+  </tr>
+  <tr>
+    <td class="span2">Исходящие</td>
+    <td class="span1" style="background-color: #DFF0D8;">*</td>
+    <td class="span1" style="background-color: #FCF8E3;">**</td>
+    <td class="span1" style="background-color: #F2DEDE;">***</td>
+  </tr>
   </tbody>
 </table>
 
-
-<table class="table table-hover table-bordered table-condensed">
-  <caption>Входящие групповые (10 последних)</caption>
-  <thead>
-  <tr>
-    <th class="span3">Инициатор</th>
-    <th class="span3">Группа / Ответственный</th>
-    <th>Тема</th>
-    <th class="span2">Срок исполнения</th>
-    <th class="span1"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @group_tickets.each do |group_tickets| %>
-      <% user_data = User.find(group_tickets.initiator_id) %>
-      <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
-      <% group_data = Group.find(group_tickets.group_id) %>
-      <tr
-        <%= (group_tickets.actual == 1)?"class=success":"" %>
-      >
-        <td><%= user_data.login %></td>
-        <td><%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %></td>
-        <td><%= group_tickets.topic %></td>
-        <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
-        <td>
-          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
-
-
-
-<table class="table table-hover table-bordered table-condensed">
-  <caption>Исходящие (10 последних)</caption>
-  <thead>
-  <tr>
-    <th class="span3">Исполнитель</th>
-    <th>Тема</th>
-    <th class="span2">Срок исполнения</th>
-    <th class="span1"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @my_tickets.each do |my_tickets| %>
-      <% if my_tickets.respond_to?(:group_id)  %>
-          <% user_data = User.find(my_tickets.initiator_id) %>
-          <% executor_data = (my_tickets.executor == 0)?"":User.find(my_tickets.executor) %>
-          <% group_data = Group.find(my_tickets.group_id) %>
-          <tr>
-            <td><%= group_data.name %><%= (my_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %></td>
-            <td><%= my_tickets.topic %></td>
-            <td><%= my_tickets.deadline.strftime("%d-%m-%Y") %></td>
-            <td>
-              <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= my_tickets.id %>"><i class="icon-edit"></i></a>
-            </td>
-          </tr>
-      <% else  %>
-          <% user_data = User.find(my_tickets.user_id) %>
-          <tr>
-            <td><%= user_data.login %></td>
-            <td><%= my_tickets.topic %></td>
-            <td><%= my_tickets.deadline.strftime("%d-%m-%Y") %></td>
-            <td>
-              <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= my_tickets.id %>"><i class="icon-edit"></i></a>
-            </td>
-          </tr>
-      <% end  %>
-
-
-  <% end %>
-  </tbody>
-</table>
