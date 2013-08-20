@@ -27,4 +27,7 @@
     success: () ->
       location.reload()
 
+$(document).ready ($) ->
 
+  $("#myModal").on "hidden", ->
+    $("#gr-list").html ""
