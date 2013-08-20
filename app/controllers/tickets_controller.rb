@@ -53,8 +53,8 @@ class TicketsController < ApplicationController
         z_pers_red: z_pers_red_array,
 
         z_group_pers_normal: z_group_pers_normal_array,
-        z_group_pers_warn: z_group_pers_warn,
-        z_group_pers_red: z_group_pers_red,
+        z_group_pers_warn: z_group_pers_warn_array,
+        z_group_pers_red: z_group_pers_red_array,
 
         z_group_other_normal: 0,
         z_group_other_warn: 0,
