@@ -56,6 +56,7 @@
     <th class="span3">Инициатор</th>
     <th class="span3">Группа</th>
     <th>Тема</th>
+    <th class="span1">Участники</th>
     <th class="span2">Срок исполнения</th>
     <th class="span1"></th>
   </tr>
@@ -77,6 +78,11 @@
             <%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %>
         </td>
         <td style="cursor: pointer" onclick="ticket_open('g', <%= group_tickets.id %>)" ><%= group_tickets.topic %></td>
+        <td>
+          <% ActualTask.where("ticket_to_group_id = ?", group_tickets.id).each do |task| %>
+              <%= User.find(task.user_id).login %> <br />
+          <% end %>
+        </td>
         <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
