@@ -37,7 +37,7 @@
       <tr
         <%= (user_tickets.actual == 1)?"class=success":"" %>
       >
-       <td><%= user_data.login %></td>
+       <td><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
         <td style="cursor: pointer" onclick="ticket_open('u', <%= user_tickets.id %>)" ><%= user_tickets.topic %></td>
         <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
         <td>
@@ -69,7 +69,7 @@
       <tr
         <%= (group_tickets.actual == 1)?"class=success":"" %>
       >
-        <td><%= user_data.login %></td>
+        <td><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
         <td
             <% if group_data.leader == session[:user_id] %>
                 style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>, <%= group_tickets.id %>)"
