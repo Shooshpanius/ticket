@@ -42,10 +42,8 @@
     <div class="control-group">
       <label class="control-label" for="inputText">Текст</label>
       <div class="controls">
-        <% new_str = @user_ticket.text.sub('style', '' )
-           new_str = new_str.sub( %r{<style[^<]+>}, '' )
-
-
+        <% new_str = @user_ticket.gsub( %r{<style[^<]+>}, '' )
+           new_str = new_str.text.gsub('style', '' )
         %>
         <div class="well" style="width:70%;"  ><%== new_str %></div>
       </div>
