@@ -29,12 +29,12 @@ class MainController < ApplicationController
     #my_tickets = my_tickets_to_users + my_tickets_to_groups
     #@my_tickets = my_tickets.take(10)
 
-
+    #TicketToUser.where("user_id = ? and completed < ? and deadline > ?", session[:user_id], 100, now.date.next.next.next)
 
     @form_data = {
-        z_pers_normal: 0,
-        z_pers_warn: 0,
-        z_pers_red: 0,
+        z_pers_normal: TicketToUser.where("user_id = ? and completed < ? and deadline > ?", session[:user_id], 100, Date.today.next.next.next).count,
+        z_pers_warn: TicketToUser.where("user_id = ? and completed < ? and deadline > ? and deadline <= ?", session[:user_id], 100, Date.today, Date.today.next.next.next).count,
+        z_pers_red: TicketToUser.where("user_id = ? and completed < ? and deadline <= ?", session[:user_id], 100, Date.today).count,
 
         z_group_pers_normal: 0,
         z_group_pers_warn: 0,
