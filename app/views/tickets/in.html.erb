@@ -55,10 +55,12 @@
         <%= (group_tickets.actual == 1)?"class=success":"" %>
       >
         <td><%= user_data.login %></td>
-        <td style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>, <%= group_tickets.id %>)">
-
+        <td
+            <% if group_data.leader == session[:user_id] %>
+                style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>, <%= group_tickets.id %>)"
+            <% end %>
+        >
             <%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %>
-
         </td>
         <td style="cursor: pointer" onclick="ticket_open('g', <%= group_tickets.id %>)" ><%= group_tickets.topic %></td>
         <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
