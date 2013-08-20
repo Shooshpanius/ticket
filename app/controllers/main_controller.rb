@@ -30,6 +30,26 @@ class MainController < ApplicationController
     #@my_tickets = my_tickets.take(10)
 
 
+
+    @form_data = {
+        z_pers_normal: 0,
+        z_pers_warn: 0,
+        z_pers_red: 0,
+
+        z_group_pers_normal: 0,
+        z_group_pers_warn: 0,
+        z_group_pers_red: 0,
+
+        z_group_other_normal: 0,
+        z_group_other_warn: 0,
+        z_group_other_red: 0,
+
+        z_out_normal: 0,
+        z_out_warn: 0,
+        z_out_red: 0
+    }
+
+
     render template: "tickets/index"
 
   end

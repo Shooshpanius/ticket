@@ -3,21 +3,33 @@
 
 
 
-<table class="table table-hover table-bordered table-condensed span5">
+<table class="table table-hover table-bordered table-condensed span6">
   <caption>Заявки</caption>
 
   <tbody>
   <tr>
-    <td class="span2">Входящие
-    <td class="span1" style="background-color: #DFF0D8;">*</td>
-    <td class="span1" style="background-color: #FCF8E3;">**</td>
-    <td class="span1" style="background-color: #F2DEDE;">***</td>
+    <td class="span3">Входящие персональные
+    <td class="span1" style="background-color: #DFF0D8;"><%= @form_data[:z_pers_normal] %></td>
+    <td class="span1" style="background-color: #FCF8E3;"><%= @form_data[:z_pers_warn] %></td>
+    <td class="span1" style="background-color: #F2DEDE;"><%= @form_data[:z_pers_red] %></td>
   </tr>
   <tr>
-    <td class="span2">Исходящие</td>
-    <td class="span1" style="background-color: #DFF0D8;">*</td>
-    <td class="span1" style="background-color: #FCF8E3;">**</td>
-    <td class="span1" style="background-color: #F2DEDE;">***</td>
+    <td class="span3">Входящие групповые (исполнитель)
+    <td class="span1" style="background-color: #DFF0D8;"><%= @form_data[:z_group_pers_normal] %></td>
+    <td class="span1" style="background-color: #FCF8E3;"><%= @form_data[:z_group_pers_warn] %></td>
+    <td class="span1" style="background-color: #F2DEDE;"><%= @form_data[:z_group_pers_red] %></td>
+  </tr>
+  <tr>
+    <td class="span3">Входящие групповые (прочее)
+    <td class="span1" style="background-color: #DFF0D8;"><%= @form_data[:z_group_other_normal] %></td>
+    <td class="span1" style="background-color: #FCF8E3;"><%= @form_data[:z_group_other_warn] %></td>
+    <td class="span1" style="background-color: #F2DEDE;"><%= @form_data[:z_group_other_red] %></td>
+  </tr>
+  <tr>
+    <td class="span3">Исходящие</td>
+    <td class="span1" style="background-color: #DFF0D8;"><%= @form_data[:z_out_normal] %></td>
+    <td class="span1" style="background-color: #FCF8E3;"><%= @form_data[:z_out_warn] %></td>
+    <td class="span1" style="background-color: #F2DEDE;"><%= @form_data[:z_out_red] %></td>
   </tr>
   </tbody>
 </table>
