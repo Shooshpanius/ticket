@@ -2,9 +2,21 @@
 <%= javascript_include_tag "tickets" %>
 
 
-<p>
-  <a class="btn btn-primary" type="button" href="/tickets/ticket_new/"><i class="icon-plus"></i>Создать заявку</a>
-</p>
+<ul class="nav nav-tabs">
+  <li>
+    <a href="/tickets/in">Входящие</a>
+  </li>
+  <li class="active">
+    <a href="/tickets/out">Исходящие</a>
+  </li>
+  <li>
+    <a href="/tickets/ticket_new/">Новая заявка</a>
+  </li>
+</ul>
+
+<!--<p>-->
+  <!--<a class="btn btn-primary" type="button" href="/tickets/ticket_new/"><i class="icon-plus"></i>Создать заявку</a>-->
+<!--</p>-->
 
 
 

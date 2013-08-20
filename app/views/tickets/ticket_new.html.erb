@@ -1,6 +1,19 @@
 <%= javascript_include_tag "main" %>
 <%= javascript_include_tag "ticket_new" %>
 
+<ul class="nav nav-tabs">
+  <li>
+    <a href="/tickets/in">Входящие</a>
+  </li>
+  <li>
+    <a href="/tickets/out">Исходящие</a>
+  </li>
+  <li class="active">
+    <a href="/tickets/ticket_new/">Новая заявка</a>
+  </li>
+</ul>
+
+
 
 <form class="form-horizontal" id="ticket_new" novalidate="">
 
