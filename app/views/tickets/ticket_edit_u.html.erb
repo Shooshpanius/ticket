@@ -25,14 +25,14 @@
     <div class="control-group">
       <label class="control-label" for="inputInit">Инициатор</label>
       <div class="controls">
-        <input type="text"  id="inputInit" name="inputInit" style="width:70%;" readonly="readonly" value="<%= @initiator.login %>" >
+        <input type="text"  id="inputInit" name="inputInit" style="width:70%;" readonly="readonly" value="<%= @initiator.f_name %> <%= @initiator.i_name %> <%= @initiator.o_name %> (<%= @initiator.login %>)" >
       </div>
     </div>
 
     <div class="control-group">
       <label class="control-label" for="inputIsp">Исполнитель</label>
       <div class="controls">
-        <input type="text"  id="inputIsp" name="inputIsp" style="width:70%;" readonly="readonly" value="<%= @user.login %>" >
+        <input type="text"  id="inputIsp" name="inputIsp" style="width:70%;" readonly="readonly" value="<%= @user.f_name %> <%= @user.i_name %> <%= @user.o_name %> (<%= @user.login %>)" >
       </div>
     </div>
 

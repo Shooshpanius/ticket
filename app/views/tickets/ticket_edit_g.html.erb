@@ -21,12 +21,12 @@
     <div class="control-group">
       <label class="control-label" for="inputInit">Инициатор</label>
       <div class="controls">
-        <input type="text"  id="inputInit" name="inputInit" style="width:70%;" readonly="readonly" value="<%= @initiator.login %>" >
+        <input type="text"  id="inputInit" name="inputInit" style="width:70%;" readonly="readonly" value="<%= @initiator.f_name %> <%= @initiator.i_name %> <%= @initiator.o_name %> (<%= @initiator.login %>)" >
       </div>
     </div>
 
     <div class="control-group">
-      <label class="control-label" for="inputIsp">Исполнитель</label>
+      <label class="control-label" for="inputIsp">Группа</label>
       <div class="controls">
         <input type="text"  id="inputIsp" name="inputIsp" style="width:70%;" readonly="readonly" value="<%= @group.name %>" >
       </div>
@@ -100,7 +100,7 @@
           <label class="control-label" for="inputCompleted">Назначить исполнителя</label>
           <div class="controls">
 
-            <%== (@ticket.executor == 0)?"<span class='label label-important'>Не назначен</span>":"" %>
+            <%== (@ticket.executor == 0)?"<span class='label label-important'>Не назначен</span>":"<span class='label label-success'>#{User.find(@ticket.executor).login}</span>" %>
             <%
               users = UserByGroup.users_in_group(@group.id)
               categores = users.map { |user| [user.login, user.id] }
@@ -124,7 +124,9 @@
             <div class="control-group">
               <label class="control-label" for="inputCompleted">Исполнитель</label>
               <div class="controls">
-                <span class='label label-important'><%= executor.login %></span>
+
+                <span class='label label-success'><%= executor.login %></span>
+                (<%= executor.f_name %> <%= executor.i_name %> <%= executor.o_name %>)
               </div>
             </div>
         <% end %>
