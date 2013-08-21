@@ -72,13 +72,22 @@ class TicketsController < ApplicationController
     user_tickets.each do |user_ticket|
       user_ticket[:actual] = ActualTask.is_actual_u(session[:user_id], user_ticket[:id])
     end
-    @user_tickets = user_tickets.sort_by{ |elem| [elem[:deadline]]}.sort_by{ |elem| [-elem[:actual]]}
+    user_tickets = user_tickets.sort_by{ |elem| [elem[:deadline]]}.sort_by{ |elem| [-elem[:actual]]}
 
     group_tickets = TicketToGroup.where("group_id in (?) and completed < ?", UserByGroup.groups_for_user(session[:user_id]) , 100)
     group_tickets.each do |group_ticket|
       group_ticket[:actual] = ActualTask.is_actual_g(session[:user_id], group_ticket[:id])
     end
-    @group_tickets = group_tickets.sort_by{ |elem| [elem[:deadline]]}.sort_by{ |elem| [-elem[:actual]]}
+    group_tickets = group_tickets.sort_by{ |elem| [elem[:deadline]]}.sort_by{ |elem| [-elem[:actual]]}
+
+
+    @form_data = {
+        user_tickets: user_tickets,
+        group_tickets: group_tickets
+    }
+
+
+
   end
 
   def out

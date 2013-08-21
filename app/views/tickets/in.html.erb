@@ -32,7 +32,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @user_tickets.each do |user_tickets| %>
+  <% @form_data[:user_tickets].each do |user_tickets| %>
       <% user_data = User.find(user_tickets.initiator_id) %>
       <tr
         <%= (user_tickets.actual == 1)?"class=success":"" %>
@@ -56,13 +56,13 @@
         <th class="span3">Инициатор</th>
         <th class="span3">Группа</th>
         <th>Тема</th>
-        <th class="span2">Участники</th>
-        <th class="span3">Срок исполнения</th>
-        <th class="span1"></th>
+        <th class="span1">Участники</th>
+        <th class="span2">Срок исполнения</th>
+        <th class="span1">...............</th>
       </tr>
   </thead>
   <tbody>
-  <% @group_tickets.each do |group_tickets| %>
+  <% @form_data[:group_tickets].each do |group_tickets| %>
       <% user_data = User.find(group_tickets.initiator_id) %>
       <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
       <% group_data = Group.find(group_tickets.group_id) %>
@@ -85,7 +85,9 @@
         </td>
         <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
         <td>
-          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
+          <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
+          <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", group_tickets.id).count %></span>
+
         </td>
       </tr>
   <% end %>
