@@ -37,7 +37,7 @@ class Admin::GroupsController < ApplicationController
     group.abbreviation = params[:inputAbbr]
     group.ticket_email = params[:inputTicketEmail]
     group.ticket_email_password = params[:inputTicketEmailPassword]
-    (params[:optionsLeader] != nil) ? @group.leader = params[:optionsLeader] : @group.leader = nil
+    (params[:optionsLeader] != nil) ? group.leader = params[:optionsLeader] : group.leader = nil
     group.save
 
     UserByGroup.delete_all(:group_id => params[:inputId] )

@@ -75,7 +75,7 @@
                 style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>, <%= group_tickets.id %>)"
             <% end %>
         >
-            <%= group_data.name %><%== (group_tickets.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
+            <%= group_data.abbreviation %><%== (group_tickets.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
         </td>
         <td style="cursor: pointer" onclick="ticket_open('g', <%= group_tickets.id %>)" ><%= group_tickets.topic %></td>
         <td>
