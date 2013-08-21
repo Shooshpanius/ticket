@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130813100651) do
+ActiveRecord::Schema.define(version: 20130821104115) do
 
   create_table "actual_tasks", force: true do |t|
     t.integer  "user_id"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20130813100651) do
     t.integer  "leader"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "abbreviation"
   end
 
   create_table "problems", force: true do |t|
@@ -126,6 +127,7 @@ ActiveRecord::Schema.define(version: 20130813100651) do
     t.string   "auth_last_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "fio"
   end
 
 end
