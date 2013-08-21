@@ -87,7 +87,6 @@
         <td>
           <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
           <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", group_tickets.id).count %></span>
-
         </td>
       </tr>
   <% end %>
