@@ -14,5 +14,6 @@
  *= require jquery.ui.datepicker
  *= require jquery.ui.slider
  *= require bootstrap-wysihtml5
+ *= require jquery-tablesorter/theme.dropbox
  *= require_tree .
  */
