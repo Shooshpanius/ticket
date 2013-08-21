@@ -53,6 +53,7 @@ gem 'net-sftp'
 gem 'net-ssh-gateway'
 gem 'mail'
 gem 'magic_encoding'
+gem "jquery-tablesorter"
 
 
 # Use ActiveModel has_secure_password
