@@ -40,7 +40,7 @@ class MainController < ApplicationController
 
     z_group_pers_normal = TicketToGroup.where("executor = ? and completed < ? and deadline > ?", session[:user_id], 100, Date.today.next.next.next)
     (z_group_pers_normal!=nil) ? z_group_pers_normal_array=z_group_pers_normal.count : z_group_pers_normal_array=0
-    z_group_pers_warn = TicketToGroup.where("executor = ? and completed < ? and deadline > ? and deadline <= ?", session[:user_id], 100, Date.today, Date.today.next.next.next),
+    z_group_pers_warn = TicketToGroup.where("executor = ? and completed < ? and deadline > ? and deadline <= ?", session[:user_id], 100, Date.today, Date.today.next.next.next)
     (z_group_pers_warn!=nil) ? z_group_pers_warn_array=z_group_pers_warn.count : z_group_pers_warn_array=0
     z_group_pers_red = TicketToGroup.where("executor = ? and completed < ? and deadline <= ?", session[:user_id], 100, Date.today)
     (z_group_pers_red!=nil) ? z_group_pers_red_array=z_group_pers_red.count : z_group_pers_red_array=0

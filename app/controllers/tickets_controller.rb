@@ -40,7 +40,7 @@ class TicketsController < ApplicationController
 
     z_group_pers_normal = TicketToGroup.where("executor = ? and completed < ? and deadline > ?", session[:user_id], 100, Date.today.next.next.next)
     (z_group_pers_normal!=nil) ? z_group_pers_normal_array=z_group_pers_normal.count : z_group_pers_normal_array=0
-    z_group_pers_warn = TicketToGroup.where("executor = ? and completed < ? and deadline > ? and deadline <= ?", session[:user_id], 100, Date.today, Date.today.next.next.next),
+    z_group_pers_warn = TicketToGroup.where("executor = ? and completed < ? and deadline > ? and deadline <= ?", session[:user_id], 100, Date.today, Date.today.next.next.next1)
     (z_group_pers_warn!=nil) ? z_group_pers_warn_array=z_group_pers_warn.count : z_group_pers_warn_array=0
     z_group_pers_red = TicketToGroup.where("executor = ? and completed < ? and deadline <= ?", session[:user_id], 100, Date.today)
     (z_group_pers_red!=nil) ? z_group_pers_red_array=z_group_pers_red.count : z_group_pers_red_array=0
@@ -72,15 +72,13 @@ class TicketsController < ApplicationController
     user_tickets.each do |user_ticket|
       user_ticket[:actual] = ActualTask.is_actual_u(session[:user_id], user_ticket[:id])
     end
-    @user_tickets = user_tickets.sort_by{ |elem| elem.actual}.reverse
+    @user_tickets = user_tickets.sort_by{ |elem| [elem[:deadline]]}.sort_by{ |elem| [-elem[:actual]]}
 
     group_tickets = TicketToGroup.where("group_id in (?) and completed < ?", UserByGroup.groups_for_user(session[:user_id]) , 100)
     group_tickets.each do |group_ticket|
       group_ticket[:actual] = ActualTask.is_actual_g(session[:user_id], group_ticket[:id])
     end
-    @group_tickets = group_tickets.sort_by{ |elem| elem.actual}.reverse
-
-
+    @group_tickets = group_tickets.sort_by{ |elem| [elem[:deadline]]}.sort_by{ |elem| [-elem[:actual]]}
   end
 
   def out
