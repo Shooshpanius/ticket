@@ -29,5 +29,7 @@
 
 $(document).ready ($) ->
 
+  $("#myTable").tablesorter()
+
   $("#myModal").on "hidden", ->
     $("#gr-list").html ""
