@@ -32,21 +32,22 @@ class Admin::GroupsController < ApplicationController
 
   def srv_group_edit
 
-    @group = Group.find(params[:inputId])
-    @group.name = params[:inputName]
-    @group.ticket_email = params[:inputTicketEmail]
-    @group.ticket_email_password = params[:inputTicketEmailPassword]
+    group = Group.find(params[:inputId])
+    group.name = params[:inputName]
+    group.abbreviation = params[:inputAbbr]
+    group.ticket_email = params[:inputTicketEmail]
+    group.ticket_email_password = params[:inputTicketEmailPassword]
     (params[:optionsLeader] != nil) ? @group.leader = params[:optionsLeader] : @group.leader = nil
-    @group.save
+    group.save
 
     UserByGroup.delete_all(:group_id => params[:inputId] )
 
     params[:user].each_with_index { |(key, value), i|
       var_pr = /\d/
-      @users_by_groups = UserByGroup.new()
-      @users_by_groups.group_id = params[:inputId]
-      @users_by_groups.user_id = key.scan(var_pr)[0]
-      @users_by_groups.save
+      users_by_groups = UserByGroup.new()
+      users_by_groups.group_id = params[:inputId]
+      users_by_groups.user_id = key.scan(var_pr)[0]
+      users_by_groups.save
     } if params[:user] != nil
 
 
@@ -55,11 +56,12 @@ class Admin::GroupsController < ApplicationController
 
 
   def srv_group_new
-    @group = Group.new()
-    @group.name = params[:inputName]
-    @group.ticket_email = params[:inputTicketEmail]
-    @group.ticket_email_password = params[:inputTicketEmailPassword]
-    @group.save
+    group = Group.new()
+    group.name = params[:inputName]
+    group.abbreviation = params[:inputAbbr]
+    group.ticket_email = params[:inputTicketEmail]
+    group.ticket_email_password = params[:inputTicketEmailPassword]
+    group.save
     render text: "srv_group_new"
   end
 
