@@ -1,7 +1,14 @@
 <%= javascript_include_tag "main" %>
 <%= javascript_include_tag "admin/user_edit" %>
 
-
+<ul class="nav nav-tabs">
+  <li>
+    <a href="/admin/users">Пользователи</a>
+  </li>
+  <li class="active">
+    <a href="/admin/users/user_new/">Редактирование</a>
+  </li>
+</ul>
 
 
 <form class="form-horizontal" id="user_edit" novalidate="">

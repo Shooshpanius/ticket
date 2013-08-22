@@ -1,7 +1,17 @@
 <%= javascript_include_tag "main" %>
 <%= javascript_include_tag "admin/user_new" %>
 
-
+<ul class="nav nav-tabs">
+  <li>
+    <a href="/admin/users">Пользователи</a>
+  </li>
+  <li class="active">
+    <a href="/admin/users/user_new/">Новый пользователь</a>
+  </li>
+  <li>
+    <a href="/admin/users/user_new_ldap/">Импорт из LDAP</a>
+  </li>
+</ul>
 
 
 <form class="form-horizontal" id="user_new" novalidate="">
