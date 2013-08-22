@@ -1,6 +1,6 @@
 # encoding: utf-8
 class TicketMailer < ActionMailer::Base
-  default from: "test@velskiyles.ru"
+  default from: "support-mirror@velskiyles.ru"
 
   require "magic_encoding"
 
