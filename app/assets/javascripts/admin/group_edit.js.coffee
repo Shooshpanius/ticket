@@ -1,7 +1,7 @@
 $(document).ready ($) ->
 
 
-  $("#menu_text").html " Ticket system / пользователи"
+#  $("#menu_text").html " Ticket system / пользователи"
 
 
   $("#group_edit").validate

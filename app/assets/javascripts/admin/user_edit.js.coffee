@@ -5,7 +5,7 @@
 $(document).ready ($) ->
 
 
-  $("#menu_text").html " Ticket system / пользователи"
+#  $("#menu_text").html " Ticket system / пользователи"
 
 
   $("#user_edit").validate
