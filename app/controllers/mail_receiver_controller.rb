@@ -173,7 +173,6 @@ class MailReceiverController < ApplicationController
           end
 
 
-
         end
 
         if ticket_type == "group"
