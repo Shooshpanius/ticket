@@ -10,7 +10,7 @@ class TicketComment < ActiveRecord::Base
   def send_new_comment_email
 
     if ticket_to_group != nil
-      users = UserByGroup.users_in_group(self.ticket_to_group.id)
+      users = UserByGroup.users_in_group(self.ticket_to_group.group_id)
       users.each do |user|
         mail_data = {
             url: 'http://web.wood.local/login',
@@ -18,7 +18,7 @@ class TicketComment < ActiveRecord::Base
             ticket_id: self.ticket_to_group.id,
             comment_text: self.text,
             sndr_login: User.find(self.user_id).login,
-            rcpt_email: User.find(user.id).email
+            rcpt_email: User.find(user.id).email,
         }
         TicketMailer.send_new_comment_email(mail_data).deliver
       end
@@ -32,7 +32,7 @@ class TicketComment < ActiveRecord::Base
           ticket_id: self.ticket_to_user.id,
           comment_text: self.text,
           sndr_login: User.find(self.user_id).login,
-          rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).user_id).email
+          rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).user_id).email,
       }
       TicketMailer.send_new_comment_email(mail_data).deliver
 
@@ -42,7 +42,7 @@ class TicketComment < ActiveRecord::Base
           ticket_id: self.ticket_to_user.id,
           comment_text: self.text,
           sndr_login: User.find(self.user_id).login,
-          rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).initiator_id).email
+          rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).initiator_id).email,
       }
       TicketMailer.send_new_comment_email(mail_data).deliver
 
