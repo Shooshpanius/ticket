@@ -218,20 +218,9 @@ class MailReceiverController < ApplicationController
             end
             #end
           end
-
-
-
         end
-
-
-
-
-        #render ("get_mail")
       end
     end
-
-
-
   end
 
 end
