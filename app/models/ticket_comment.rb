@@ -15,6 +15,7 @@ class TicketComment < ActiveRecord::Base
       initiator = User.find(TicketToGroup.find(self.ticket_to_group).initiator_id)
       ticket = self.ticket_to_group
       group = Group.find(ticket.group_id)
+
       if group.leader != nil
         leader=User.find(group.leader)
         leader_id = leader.id
@@ -22,6 +23,7 @@ class TicketComment < ActiveRecord::Base
         leader=nil
         leader_id = nil
       end
+
       if ticket.executor != 0
         executor=User.find(ticket.executor)
         executor_id = executor.id
