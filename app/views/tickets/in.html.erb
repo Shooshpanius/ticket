@@ -58,7 +58,7 @@
         <th>Тема</th>
         <th class="span1">Участники</th>
         <th class="span2">Дата заявки</th>
-        <th class="span1">..................</th>
+        <th class="span1">...........................</th>
       </tr>
   </thead>
   <tbody>
@@ -87,6 +87,7 @@
         <td>
           <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
           <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", group_tickets.id).count %></span>
+          <span class="badge" ><%= group_tickets.completed %>%</span>
         </td>
       </tr>
   <% end %>
