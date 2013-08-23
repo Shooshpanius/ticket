@@ -79,12 +79,14 @@ class TicketsController < ApplicationController
       group_ticket[:actual] = ActualTask.is_actual_g(session[:user_id], group_ticket[:id])
     end
 
-    group_tickets.sort do |a,b|
-      comp = (b.created_at <=> a.created_at)
-      comp.zero? ? (a.actual <=> b.actual) : comp
+    # group_tickets.sort! { |a,b|  [a.actual, a.actual] <=> [b.created_at,  b.created_at] }
+    # group_tickets.sort_by!{ |elem| [ -elem.actual, RevCmp.new(elem.created_at) ] }
+
+    group_tickets.sort! do |a, b|
+      (b.actual <=> a.actual).nonzero? ||
+          (b.created_at <=> a.created_at)
     end
 
-    #group_tickets = group_tickets.sort_by{ |elem| [ -elem.actual, -elem.created_at.to_s ] }
 
     @form_data = {
         user_tickets: user_tickets,
