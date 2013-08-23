@@ -186,6 +186,8 @@ class MailReceiverController < ApplicationController
           ticket.deadline = Date.today.next.next.next
           ticket.save
 
+
+
           email.attachments.each do | attachment |
             # Attachments is an AttachmentsList object containing a
             # number of Part objects
