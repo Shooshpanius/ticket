@@ -132,7 +132,7 @@ class MailReceiverController < ApplicationController
           ticket = TicketToUser.new()
           ticket.initiator_id = @sndr.id
           ticket.user_id = rcpt.id
-          (e_subj != "") ? ticket.topic = e_subj : ticket.topic = "< Без темы >"
+          ( (e_subj || '').strip != "") ? ticket.topic = e_subj : ticket.topic = "< Без темы >"
           ticket.text = @e_text_t
           ticket.completed = 0
           ticket.deadline = Date.today.next.next.next
@@ -179,7 +179,7 @@ class MailReceiverController < ApplicationController
           ticket = TicketToGroup.new()
           ticket.initiator_id = @sndr.id
           ticket.group_id = rcpt.id
-          (e_subj != "") ? ticket.topic = e_subj : ticket.topic = "< Без темы >"
+          ( (e_subj || '').strip != "") ? ticket.topic = e_subj : ticket.topic = "< Без темы >"
           ticket.text = @e_text_t
           ticket.completed = 0
           ticket.executor = 0
