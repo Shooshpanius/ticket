@@ -80,8 +80,8 @@ class TicketsController < ApplicationController
     end
 
     group_tickets.sort do |a,b|
-      comp = (a.actual <=> b.actual)
-      comp.zero? ? (b.created_at <=> a.created_at) : comp
+      comp = (b.created_at <=> a.created_at)
+      comp.zero? ? (a.actual <=> b.actual) : comp
     end
 
     #group_tickets = group_tickets.sort_by{ |elem| [ -elem.actual, -elem.created_at.to_s ] }
