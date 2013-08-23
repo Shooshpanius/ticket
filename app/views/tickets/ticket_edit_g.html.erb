@@ -151,8 +151,11 @@
 
 
   <% @comments.each do |comment| %>
+      <%
+        user_comm = User.find(comment.user_id)
+      %>
       <div class="control-group">
-        <label class="control-label" for="inputCommText"><%= User.find(comment.user_id).login %><br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
+        <label class="control-label" for="inputCommText"><%= user_comm.f_name %> <%= user_comm.i_name %> <%= user_comm.o_name %> (<%= user_comm.login %>)<br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
         <div class="controls">
           <div><%== comment.text %> </div>
         </div>
