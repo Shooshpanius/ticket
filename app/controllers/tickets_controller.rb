@@ -263,8 +263,6 @@ class TicketsController < ApplicationController
 
     if (params[:comm] || '').strip != ""
 
-
-
       ticket = TicketToGroup.find(params[:ticket_id].to_i)
       group = Group.find(ticket.group_id)
       (group.leader != nil) ? leader=User.find(group.leader) : leader=nil
@@ -303,9 +301,6 @@ class TicketsController < ApplicationController
     end
     render text: "srv_change_g_status"
   end
-
-
-
 
 
 
