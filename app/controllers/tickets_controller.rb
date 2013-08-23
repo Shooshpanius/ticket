@@ -275,7 +275,7 @@ class TicketsController < ApplicationController
           ticket_id: params[:ticket_id],
           comment_topic: ticket.topic,
           comment_text: ticket.text,
-          completed: params[:status],
+          completed: 100,
           sndr_login: User.find(session[:user_id]).login,
           rcpt_email: User.find(ticket.initiator_id).email
       }
@@ -288,7 +288,7 @@ class TicketsController < ApplicationController
             ticket_id: params[:ticket_id],
             comment_topic: ticket.topic,
             comment_text: ticket.text,
-            completed: params[:status],
+            completed: 100,
             sndr_login: User.find(session[:user_id]).login,
             rcpt_email: leader.email
         }
