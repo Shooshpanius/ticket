@@ -15,8 +15,20 @@ class TicketComment < ActiveRecord::Base
       initiator = User.find(TicketToGroup.find(self.ticket_to_group).initiator_id)
       ticket = self.ticket_to_group
       group = Group.find(ticket.group_id)
-      (group.leader != nil) ? leader=User.find(group.leader) : leader=nil
-      (ticket.executor != 0) ? executor=User.find(ticket.executor) : executor=nil
+      if group.leader != nil
+        leader=User.find(group.leader)
+        leader_id = leader.id
+      else
+        leader=nil
+        leader_id = nil
+      end
+      if ticket.executor != 0
+        executor=User.find(ticket.executor)
+        executor_id = executor.id
+      else
+        executor=nil
+        executor_id = nil
+      end
 
 
       #send to initiator
@@ -33,36 +45,40 @@ class TicketComment < ActiveRecord::Base
 
       #send to leader
       if leader != nil
-        mail_data = {
-            url: 'http://web.wood.local/login',
-            type_comment: "g",
-            user_status: "Руководитель группы",
-            ticket_id: self.ticket_to_group.id,
-            comment_text: self.text,
-            sndr_login: User.find(self.user_id).login,
-            rcpt_email: leader.email
-        }
-        TicketMailer.send_new_comment_email(mail_data).deliver
+        if leader_id != initiator.id
+          mail_data = {
+              url: 'http://web.wood.local/login',
+              type_comment: "g",
+              user_status: "Руководитель группы",
+              ticket_id: self.ticket_to_group.id,
+              comment_text: self.text,
+              sndr_login: User.find(self.user_id).login,
+              rcpt_email: leader.email
+          }
+          TicketMailer.send_new_comment_email(mail_data).deliver
+        end
       end
 
       #send to executor
       if executor != nil
-        mail_data = {
-            url: 'http://web.wood.local/login',
-            type_comment: "g",
-            user_status: "Ответственный",
-            ticket_id: self.ticket_to_group.id,
-            comment_text: self.text,
-            sndr_login: User.find(self.user_id).login,
-            rcpt_email: executor.email
-        }
-        TicketMailer.send_new_comment_email(mail_data).deliver
+        if executor_id != initiator.id && executor_id != leader_id
+            mail_data = {
+              url: 'http://web.wood.local/login',
+              type_comment: "g",
+              user_status: "Ответственный",
+              ticket_id: self.ticket_to_group.id,
+              comment_text: self.text,
+              sndr_login: User.find(self.user_id).login,
+              rcpt_email: executor.email
+          }
+          TicketMailer.send_new_comment_email(mail_data).deliver
+        end
       end
 
       #send to actual task users
       tasks = ActualTask.where("ticket_to_group_id = ?", ticket.id)
       tasks.each do |task|
-        #if task.user_id != initiator.id && task.user_id != leader.id && task.user_id != executor.id
+        if task.user_id != initiator.id && task.user_id != leader_id && task.user_id != executor_id
           mail_data = {
               url: 'http://web.wood.local/login',
               type_comment: "g",
@@ -73,7 +89,7 @@ class TicketComment < ActiveRecord::Base
               rcpt_email: User.find(task.user_id).email
           }
           TicketMailer.send_new_comment_email(mail_data).deliver
-        #end
+        end
       end
 
 
