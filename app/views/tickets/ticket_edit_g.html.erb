@@ -155,7 +155,11 @@
         user_comm = User.find(comment.user_id)
       %>
       <div class="control-group">
-        <label class="control-label" for="inputCommText"><%= user_comm.f_name %> <%= user_comm.i_name %> <%= user_comm.o_name %> (<%= user_comm.login %>)<br /><%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %></label>
+        <label class="control-label" for="inputCommText">
+          <%= user_comm.f_name %> <%= user_comm.i_name %> <%= user_comm.o_name %> (<%= user_comm.login %>)
+          <br />
+          <%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %>
+        </label>
         <div class="controls">
           <div><%== comment.text %> </div>
         </div>
@@ -166,27 +170,37 @@
 
 
 <form class="form-horizontal" id="comment_new" novalidate="">
-
   <fieldset>
-
     <input type="hidden"  id="ticket_id" name="ticket_id" value=<%= @ticket.id %> >
-
     <div class="control-group">
       <label class="control-label" for="inputCommText">Добавить комментарий</label>
       <div class="controls">
         <textarea rows="7" id="inputCommText" name="inputCommText"  style="width:70%;"></textarea>
       </div>
     </div>
-
-
-
     <div class="control-group">
       <div class="controls">
         <button type="submit" class="btn">Добавить комментарий</button>
       </div>
     </div>
-
   </fieldset>
 </form>
 
 
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Комментарий к закрытию заявки</h3>
+  </div>
+  <div class="modal-body">
+    <div id="gr-list" name="gr-list">
+      <textarea rows="7" id="inputCommCloseText" name="inputCommCloseText"  style="width:97%;"></textarea>
+    </div>
+  </div>
+  <div class="modal-footer">
+  <button class="btn btn-primary" data-dismiss="modal" onclick="change_status_100(<%= @ticket.id %>)">Отправить</button>
+  <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+  </div>
+</div>

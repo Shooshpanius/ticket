@@ -1,12 +1,28 @@
 
 @change_status = (ticket_id) ->
+  status = $("select#inputCompleted").val()
+  unless parseInt(status) is 100
+    $.ajax
+      url: "/tickets/srv_change_g_status"
+      type: "POST"
+      async: false
+      data: "status="+status+"&ticket_id="+ticket_id
+      success: () ->
+        location.reload()
+  else
+    $("#myModal").modal 'show'
+
+
+@change_status_100 = (ticket_id) ->
+  comm = $("#inputCommCloseText").val()
   $.ajax
-    url: "/tickets/srv_change_g_status"
-    type: "POST"
-    async: false
-    data: "status="+$("select#inputCompleted").val()+"&ticket_id="+ticket_id
-    success: () ->
-      location.reload()
+      url: "/tickets/srv_change_g_status_100"
+      type: "POST"
+      async: false
+      data: "comm="+comm+"&ticket_id="+ticket_id
+      success: () ->
+        location.reload()
+
 
 @change_actual = (ticket_id) ->
   $.ajax

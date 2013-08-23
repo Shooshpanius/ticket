@@ -259,6 +259,56 @@ class TicketsController < ApplicationController
     render text: "srv_change_g_status"
   end
 
+  def srv_change_g_status_100
+
+    if (params[:comm] || '').strip != ""
+
+
+
+      ticket = TicketToGroup.find(params[:ticket_id].to_i)
+      group = Group.find(ticket.group_id)
+      (group.leader != nil) ? leader=User.find(group.leader) : leader=nil
+
+      mail_data = {
+          url: 'http://web.wood.local/login',
+          type_comment: "g",
+          ticket_id: params[:ticket_id],
+          comment_topic: ticket.topic,
+          comment_text: ticket.text,
+          completed: params[:status],
+          sndr_login: User.find(session[:user_id]).login,
+          rcpt_email: User.find(ticket.initiator_id).email
+      }
+      TicketMailer.send_change_status(mail_data).deliver
+
+      if group.leader != nil
+        mail_data = {
+            url: 'http://web.wood.local/login',
+            type_comment: "g",
+            ticket_id: params[:ticket_id],
+            comment_topic: ticket.topic,
+            comment_text: ticket.text,
+            completed: params[:status],
+            sndr_login: User.find(session[:user_id]).login,
+            rcpt_email: leader.email
+        }
+        TicketMailer.send_change_status(mail_data).deliver
+      end
+
+      TicketToGroup.change_status(session[:user_id], params[:status], params[:ticket_id])
+
+      comm = "Заявка закрыта пользователем " + User.find(session[:user_id]).login + " с комментарием: <br /><br />" + params[:comm]
+      TicketToGroup.comment_new(session[:user_id], params[:ticket_id], comm)
+
+    end
+    render text: "srv_change_g_status"
+  end
+
+
+
+
+
+
   def srv_change_executor_leader
 
     ticket = TicketToGroup.find(params[:ticket_id].to_i)
