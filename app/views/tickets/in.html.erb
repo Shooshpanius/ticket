@@ -27,7 +27,7 @@
   <tr>
     <th class="span3">Инициатор</th>
     <th>Тема</th>
-    <th class="span2">Срок исполнения</th>
+    <th class="span2">Дата заявки</th>
     <th class="span1"></th>
   </tr>
   </thead>
@@ -39,7 +39,7 @@
       >
        <td><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
         <td style="cursor: pointer" onclick="ticket_open('u', <%= user_tickets.id %>)" ><%= user_tickets.topic %></td>
-        <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
+        <td><%= user_tickets.created_at.strftime("%d-%m-%Y") %></td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
         </td>
@@ -57,7 +57,7 @@
         <th class="span2">Группа</th>
         <th>Тема</th>
         <th class="span1">Участники</th>
-        <th class="span2">Срок исполнения</th>
+        <th class="span2">Дата заявки</th>
         <th class="span1">..................</th>
       </tr>
   </thead>
@@ -83,7 +83,7 @@
               <%= User.find(task.user_id).login %> <br />
           <% end %>
         </td>
-        <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
+        <td><%= group_tickets.created_at.strftime("%d-%m-%Y") %></td>
         <td>
           <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
           <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", group_tickets.id).count %></span>

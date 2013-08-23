@@ -67,6 +67,12 @@
       </div>
     </div>
 
+    <div class="control-group">
+      <label class="control-label" for="inputDateReg">Дата регистрации</label>
+      <div class="controls">
+        <input type="text" id="inputDateReg" name="inputDateReg"  readonly="readonly" value=<%= @user_ticket.created_at.strftime("%d-%m-%Y") %> >
+      </div>
+    </div>
 
     <div class="control-group">
       <label class="control-label" for="inputDateTo">Исполнить до</label>
