@@ -239,24 +239,26 @@ class TicketsController < ApplicationController
       ticket.deadline = params[:inputDateTo]
       ticket.save
 
-      if params[:inputParentType] = "g"
-        parent_data = {
-          parent_user_ticket_id: ticket.id,
-          parent_group_ticket_id: 0,
-          children_user_ticket_id: 0,
-          children_group_ticket_id: params[:inputParentId]
-        }
-        children = TicketChildren.new(parent_data)
-        children.save
-      else
-        parent_data = {
-          parent_user_ticket_id: ticket.id,
-          parent_group_ticket_id: 0,
-          children_user_ticket_id: params[:inputParentId],
-          children_group_ticket_id: 0
-        }
-        children = TicketChildren.new(parent_data)
-        children.save
+      if params[:inputParentId] != nil
+        if params[:inputParentType] = "g"
+          parent_data = {
+            parent_user_ticket_id: ticket.id,
+            parent_group_ticket_id: 0,
+            children_user_ticket_id: 0,
+            children_group_ticket_id: params[:inputParentId]
+          }
+          children = TicketChildren.new(parent_data)
+          children.save
+        else
+          parent_data = {
+            parent_user_ticket_id: ticket.id,
+            parent_group_ticket_id: 0,
+            children_user_ticket_id: params[:inputParentId],
+            children_group_ticket_id: 0
+          }
+          children = TicketChildren.new(parent_data)
+          children.save
+        end
       end
 
     end
@@ -272,24 +274,26 @@ class TicketsController < ApplicationController
       ticket.deadline = params[:inputDateTo]
       ticket.save
 
-      if params[:inputParentType] = "g"
-        parent_data = {
-            parent_user_ticket_id: 0,
-            parent_group_ticket_id: ticket.id,
-            children_user_ticket_id: 0,
-            children_group_ticket_id: params[:inputParentId]
-        }
-        children = TicketChildren.new(parent_data)
-        children.save
-      else
-        parent_data = {
-            parent_user_ticket_id: 0,
-            parent_group_ticket_id: ticket.id,
-            children_user_ticket_id: params[:inputParentId],
-            children_group_ticket_id: 0
-        }
-        children = TicketChildren.new(parent_data)
-        children.save
+      if params[:inputParentId] != nil
+        if params[:inputParentType] = "g"
+          parent_data = {
+              parent_user_ticket_id: 0,
+              parent_group_ticket_id: ticket.id,
+              children_user_ticket_id: 0,
+              children_group_ticket_id: params[:inputParentId]
+          }
+          children = TicketChildren.new(parent_data)
+          children.save
+        else
+          parent_data = {
+              parent_user_ticket_id: 0,
+              parent_group_ticket_id: ticket.id,
+              children_user_ticket_id: params[:inputParentId],
+              children_group_ticket_id: 0
+          }
+          children = TicketChildren.new(parent_data)
+          children.save
+        end
       end
 
     end
