@@ -18,14 +18,15 @@
 <form class="form-horizontal" id="ticket_new" novalidate="">
 
   <fieldset>
-
+    <% if @form_data[:main_ticket] != nil %>
         <div class="control-group">
           <label class="control-label">Основная заявка</label>
           <div class="controls">
-            <a> <%= @form_data[:main_ticket_type] %>_<%= @form_data[:main_ticket_id] %>  </a>
+            <input type="text"  id="inputTopic" name="inputTopic" style="width:65%;" value="<%= @form_data[:main_ticket].topic %>" disabled>
+            <a class="btn" href="/tickets/ticket_edit/<%= @form_data[:main_ticket_type] %>_<%= @form_data[:main_ticket].id %>" > <i class="icon-share-alt"></i> </a>
           </div>
         </div>
-
+    <% end %>
 
     <div class="control-group">
       <label class="control-label" for="inputIsp">Исполнитель</label>

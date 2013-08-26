@@ -147,11 +147,11 @@ class TicketsController < ApplicationController
 
   def ticket_new
 
-    if params[:id] = ""
+    if params[:id] == nil
       @users = User.all
       @groups = Group.all
       @form_data = {
-        main_ticket_id: nil,
+        main_ticket: nil,
         main_ticket_type: params
       }
     else
@@ -166,7 +166,7 @@ class TicketsController < ApplicationController
           @users = User.all
           @groups = Group.all
           @form_data = {
-            main_ticket_id: TicketToUser.find(ticket_id),
+            main_ticket: TicketToUser.find(ticket_id),
             main_ticket_type: "u"
           }
         end
@@ -179,7 +179,7 @@ class TicketsController < ApplicationController
           @users = User.all
           @groups = Group.all
           @form_data = {
-            main_ticket_id: TicketToUser.find(ticket_id),
+            main_ticket: TicketToGroup.find(ticket_id),
             main_ticket_type: "g"
           }
 
