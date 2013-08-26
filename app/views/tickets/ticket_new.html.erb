@@ -9,7 +9,12 @@
     <a href="/tickets/out">Исходящие</a>
   </li>
   <li class="active">
-    <a href="/tickets/ticket_new/">Новая заявка</a>
+    <% if @form_data[:main_ticket] != nil %>
+        <a href="/tickets/ticket_new/">Новая вложенная заявка</a>
+    <% else %>
+        <a href="/tickets/ticket_new/">Новая заявка</a>
+    <% end %>
+
   </li>
 </ul>
 
