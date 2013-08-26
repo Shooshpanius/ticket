@@ -72,29 +72,24 @@ class TicketsController < ApplicationController
     user_tickets.each do |user_ticket|
       user_ticket[:actual] = ActualTask.is_actual_u(session[:user_id], user_ticket[:id])
     end
-    # user_tickets = user_tickets.sort_by{ |elem| [-elem[:actual], -elem[:created_at] ]}
     user_tickets.sort! do |a, b|
       (b.actual <=> a.actual).nonzero? ||
           (b.created_at <=> a.created_at)
     end
 
-
     group_tickets = TicketToGroup.where("group_id in (?) and completed < ?", UserByGroup.groups_for_user(session[:user_id]) , 100)
     group_tickets.each do |group_ticket|
       group_ticket[:actual] = ActualTask.is_actual_g(session[:user_id], group_ticket[:id])
     end
-
     group_tickets.sort! do |a, b|
       (b.actual <=> a.actual).nonzero? ||
           (b.created_at <=> a.created_at)
     end
 
-
     @form_data = {
         user_tickets: user_tickets,
         group_tickets: group_tickets
     }
-
   end
 
   def out
@@ -111,17 +106,28 @@ class TicketsController < ApplicationController
   end
 
   def arch_in
-    user_tickets = TicketToUser.where('user_id = ? and completed = ?', session[:user_id], 100).sort_by{ |elem| [elem.actual, elem.deadline]}
+    user_tickets = TicketToUser.where('user_id = ? and completed = ?', session[:user_id], 100)
     user_tickets.each do |user_ticket|
       user_ticket[:actual] = ActualTask.is_actual_u(session[:user_id], user_ticket[:id])
     end
-    @user_tickets = user_tickets
+    user_tickets.sort! do |a, b|
+      (b.actual <=> a.actual).nonzero? ||
+          (b.created_at <=> a.created_at)
+    end
 
-    group_tickets = TicketToGroup.where("group_id in (?) and completed = ?", UserByGroup.groups_for_user(session[:user_id]) , 100).sort_by{ |elem| [elem.actual, elem.deadline]}
+    group_tickets = TicketToGroup.where("group_id in (?) and completed = ?", UserByGroup.groups_for_user(session[:user_id]) , 100)
     group_tickets.each do |group_ticket|
       group_ticket[:actual] = ActualTask.is_actual_g(session[:user_id], group_ticket[:id])
     end
-    @group_tickets = group_tickets
+    group_tickets.sort! do |a, b|
+      (b.actual <=> a.actual).nonzero? ||
+          (b.created_at <=> a.created_at)
+    end
+
+    @form_data = {
+        user_tickets: user_tickets,
+        group_tickets: group_tickets
+    }
   end
 
   def arch_out

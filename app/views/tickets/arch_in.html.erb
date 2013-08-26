@@ -2,23 +2,40 @@
 <%= javascript_include_tag "tickets" %>
 
 
+
+
+<ul class="nav nav-tabs">
+  <li class="active">
+    <a href="/tickets/arch_in">Входящие</a>
+  </li>
+  <li>
+    <a href="/tickets/arch_out">Исходящие</a>
+  </li>
+
+</ul>
+
+
+
+
 <table class="table table-hover table-bordered table-condensed">
   <caption>Входящие персональные</caption>
   <thead>
   <tr>
     <th class="span3">Инициатор</th>
     <th>Тема</th>
-    <th class="span2">Срок исполнения</th>
+    <th class="span2">Дата заявки</th>
     <th class="span1"></th>
   </tr>
   </thead>
   <tbody>
-  <% @user_tickets.each do |user_tickets| %>
+  <% @form_data[:user_tickets].each do |user_tickets| %>
       <% user_data = User.find(user_tickets.initiator_id) %>
-      <tr>
-        <td><%= user_data.login %></td>
-        <td><%= user_tickets.topic %></td>
-        <td><%= user_tickets.deadline.strftime("%d-%m-%Y") %></td>
+      <tr
+      <%= (user_tickets.actual == 1)?"class=success":"" %>
+      >
+        <td><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
+        <td style="cursor: pointer" onclick="ticket_open('u', <%= user_tickets.id %>)" ><%= user_tickets.topic %></td>
+        <td><%= user_tickets.created_at.strftime("%d-%m-%Y") %></td>
         <td>
           <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
         </td>
@@ -28,34 +45,45 @@
 </table>
 
 
-<table class="table table-hover table-bordered table-condensed">
+<table id="tbl-in-group" name="tbl-in-group" class="table table-hover table-bordered table-condensed">
   <caption>Входящие групповые</caption>
   <thead>
   <tr>
     <th class="span3">Инициатор</th>
-    <th class="span3">Группа</th>
+    <th class="span2">Группа</th>
     <th>Тема</th>
-    <th class="span2">Срок исполнения</th>
-    <th class="span1"></th>
+    <th class="span1">Участники</th>
+    <th class="span2">Дата заявки</th>
+    <th class="span1">..............................</th>
   </tr>
   </thead>
   <tbody>
-  <% @group_tickets.each do |group_tickets| %>
+  <% @form_data[:group_tickets].each do |group_tickets| %>
       <% user_data = User.find(group_tickets.initiator_id) %>
       <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
       <% group_data = Group.find(group_tickets.group_id) %>
-      <tr>
-        <td><%= user_data.login %></td>
-        <td><%= group_data.name %><%= (group_tickets.executor == 0)?" (не назначен)":" (#{executor_data.login})" %></td>
-        <td><%= group_tickets.topic %></td>
-        <td><%= group_tickets.deadline.strftime("%d-%m-%Y") %></td>
+      <tr
+      <%= (group_tickets.actual == 1)?"class=success":"" %>
+      >
+        <td><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
         <td>
-          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
+          <%= group_data.abbreviation %><%== (group_tickets.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
+        </td>
+        <td style="cursor: pointer" onclick="ticket_open('g', <%= group_tickets.id %>)" ><%= group_tickets.topic %></td>
+        <td>
+          <% ActualTask.where("ticket_to_group_id = ?", group_tickets.id).each do |task| %>
+              <%= User.find(task.user_id).login %> <br />
+          <% end %>
+        </td>
+        <td><%= group_tickets.created_at.strftime("%d-%m-%Y") %></td>
+        <td>
+          <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
+          <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", group_tickets.id).count %></span>
+          <span class="badge" ><%= group_tickets.completed %>%</span>
         </td>
       </tr>
   <% end %>
   </tbody>
 </table>
-
 
 
