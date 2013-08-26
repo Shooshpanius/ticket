@@ -242,18 +242,18 @@ class TicketsController < ApplicationController
       if params[:inputParentId] != nil
         if params[:inputParentType] = "g"
           parent_data = {
-            parent_user_ticket_id: ticket.id,
+            parent_user_ticket_id: params[:inputParentId],
             parent_group_ticket_id: 0,
             children_user_ticket_id: 0,
-            children_group_ticket_id: params[:inputParentId]
+            children_group_ticket_id: ticket.id
           }
           children = TicketChildren.new(parent_data)
           children.save
         else
           parent_data = {
-            parent_user_ticket_id: ticket.id,
+            parent_user_ticket_id: params[:inputParentId],
             parent_group_ticket_id: 0,
-            children_user_ticket_id: params[:inputParentId],
+            children_user_ticket_id: ticket.id,
             children_group_ticket_id: 0
           }
           children = TicketChildren.new(parent_data)
@@ -278,17 +278,17 @@ class TicketsController < ApplicationController
         if params[:inputParentType] = "g"
           parent_data = {
               parent_user_ticket_id: 0,
-              parent_group_ticket_id: ticket.id,
+              parent_group_ticket_id: params[:inputParentId],
               children_user_ticket_id: 0,
-              children_group_ticket_id: params[:inputParentId]
+              children_group_ticket_id: ticket.id
           }
           children = TicketChildren.new(parent_data)
           children.save
         else
           parent_data = {
               parent_user_ticket_id: 0,
-              parent_group_ticket_id: ticket.id,
-              children_user_ticket_id: params[:inputParentId],
+              parent_group_ticket_id: params[:inputParentId],
+              children_user_ticket_id: ticket.id,
               children_group_ticket_id: 0
           }
           children = TicketChildren.new(parent_data)
