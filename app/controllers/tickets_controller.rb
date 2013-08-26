@@ -163,7 +163,7 @@ class TicketsController < ApplicationController
         @user_ticket = TicketToUser.find(ticket_id)
         @initiator = User.find(@user_ticket.initiator_id)
         @user = User.find(@user_ticket.user_id)
-        @comments = TicketToUser.find(ticket_id).ticket_comments
+        @comments = TicketToUser.find(ticket_id).ticket_comments.sort_by{ |elem| elem.created_at}.reverse
         render ("ticket_edit_u")
       end
     end
@@ -175,7 +175,7 @@ class TicketsController < ApplicationController
           @ticket = TicketToGroup.find(ticket_id)
           @initiator = User.find(@ticket.initiator_id)
           @group = Group.find(@ticket.group_id)
-          @comments = TicketToGroup.find(ticket_id).ticket_comments
+          @comments = TicketToGroup.find(ticket_id).ticket_comments.sort_by{ |elem| elem.created_at}.reverse
           render "ticket_edit_g"
         else
           redirect_to "/"
