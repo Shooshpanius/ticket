@@ -152,7 +152,7 @@ class TicketsController < ApplicationController
       @groups = Group.all
       @form_data = {
         main_ticket_id: nil,
-        main_ticket_type: nil
+        main_ticket_type: "x"
       }
     else
 

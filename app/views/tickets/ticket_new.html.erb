@@ -18,6 +18,15 @@
 <form class="form-horizontal" id="ticket_new" novalidate="">
 
   <fieldset>
+
+        <div class="control-group">
+          <label class="control-label">Основная заявка</label>
+          <div class="controls">
+            <a> <%= @form_data[:main_ticket_type] %>_<%= @form_data[:main_ticket_id] %>  </a>
+          </div>
+        </div>
+
+
     <div class="control-group">
       <label class="control-label" for="inputIsp">Исполнитель</label>
       <div class="controls">
