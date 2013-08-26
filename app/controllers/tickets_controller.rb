@@ -146,8 +146,50 @@ class TicketsController < ApplicationController
 
 
   def ticket_new
-    @users = User.all
-    @groups = Group.all
+
+    if params[:id] = ""
+      @users = User.all
+      @groups = Group.all
+      @form_data = {
+        main_ticket_id: nil,
+        main_ticket_type: nil
+      }
+    else
+
+      ticket_id = params[:id].scan(/\d/).join.to_i
+
+      if params[:id].scan(/u_/)[0]
+        if TicketToUser.is_initiator(session[:user_id], ticket_id)==false && TicketToUser.is_executor(session[:user_id], ticket_id)==false
+        then
+          redirect_to "/"
+        else
+          @users = User.all
+          @groups = Group.all
+          @form_data = {
+            main_ticket_id: TicketToUser.find(ticket_id),
+            main_ticket_type: "u"
+          }
+        end
+      end
+
+      if params[:id].scan(/g_/)[0]
+        if TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
+            TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true
+        then
+          @users = User.all
+          @groups = Group.all
+          @form_data = {
+            main_ticket_id: TicketToUser.find(ticket_id),
+            main_ticket_type: "g"
+          }
+
+        else
+          redirect_to "/"
+        end
+      end
+
+    end
+
   end
 
 
