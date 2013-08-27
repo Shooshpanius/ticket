@@ -76,9 +76,12 @@ class TicketToGroup < ActiveRecord::Base
 
   def TicketToGroup.change_status(user_id, status, ticket_id)
     if TicketToGroup.is_leader(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
-      @user_ticket = TicketToGroup.find(ticket_id)
-      @user_ticket.completed = status
-      @user_ticket.save
+      user_ticket = TicketToGroup.find(ticket_id)
+      user_ticket.completed = status
+      user_ticket.save
+      if status = 100 then
+        ActualTask.where(:ticket_to_group_id => ticket_id, :user_id => user_id).delete_all
+      end
     end
   end
 
