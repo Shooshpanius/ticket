@@ -364,10 +364,10 @@ class TicketsController < ApplicationController
         TicketMailer.send_change_status(mail_data).deliver
       end
 
-      TicketToGroup.change_status(session[:user_id], 100, params[:ticket_id])
-
       comm = "Заявка закрыта пользователем " + User.find(session[:user_id]).login + " с комментарием: <br /><br />" + params[:comm]
       TicketToGroup.comment_new(session[:user_id], params[:ticket_id], comm)
+
+      TicketToGroup.change_status(session[:user_id], 100, params[:ticket_id])
 
     end
     render text: "srv_change_g_status"
