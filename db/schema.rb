@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827114724) do
+ActiveRecord::Schema.define(version: 20130827123615) do
 
   create_table "actual_tasks", force: true do |t|
     t.integer  "user_id"
@@ -84,6 +84,7 @@ ActiveRecord::Schema.define(version: 20130827114724) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "root"
   end
 
   create_table "ticket_roots", force: true do |t|

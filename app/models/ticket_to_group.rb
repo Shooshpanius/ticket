@@ -106,14 +106,14 @@ class TicketToGroup < ActiveRecord::Base
 
   def TicketToGroup.change_executor(user_id, executor_id, ticket_id)
     if TicketToGroup.is_leader(user_id, ticket_id)
-      @user_ticket = TicketToGroup.find(ticket_id)
-      @user_ticket.executor = executor_id
-      @user_ticket.save
+      user_ticket = TicketToGroup.find(ticket_id)
+      user_ticket.executor = executor_id
+      user_ticket.save
     else
       if TicketToGroup.is_member(user_id, ticket_id)
-        @user_ticket = TicketToGroup.find(ticket_id)
-        @user_ticket.executor = user_id
-        @user_ticket.save
+        user_ticket = TicketToGroup.find(ticket_id)
+        user_ticket.executor = user_id
+        user_ticket.save
       end
     end
   end
@@ -121,13 +121,16 @@ class TicketToGroup < ActiveRecord::Base
 
   def TicketToGroup.comment_new(user_id, ticket_id, inputCommText)
     if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_member(user_id, ticket_id)
+
+      ticket = TicketToGroup.find(ticket_id)
+
       user_comment = TicketComment.new()
       user_comment.user_id = user_id
       user_comment.ticket_to_group_id = ticket_id
       user_comment.text = inputCommText
+      user_comment.root = ticket.root
       user_comment.save()
 
-      ticket = TicketToGroup.find(ticket_id)
       if ticket.completed = 100
           ticket.completed = 90
           ticket.save()
