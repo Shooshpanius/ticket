@@ -3,7 +3,7 @@ class TicketToUser < ActiveRecord::Base
   has_many :ticket_comments, dependent: :destroy
 
 
-  after_create :send_new_user_ticket_email
+  after_create :send_new_user_ticket_email, :create_root
 
   def send_new_user_ticket_email
 
@@ -28,6 +28,22 @@ class TicketToUser < ActiveRecord::Base
         initiator_email: User.find(self.initiator_id).email,
     }
     TicketMailer.send_new_user_ticket_to_sndr_email(mail_data_to_sndr).deliver
+
+  end
+
+  def create_root
+
+    root_array = {
+        ticket_type: "u",
+        ticket_id: self.id,
+        from_id: self.initiator_id,
+        to_id: self.user_id
+    }
+    root = TicketRoot.new(root_array)
+    root.save
+
+    self.root = root.id
+    self.save
 
   end
 
