@@ -62,6 +62,11 @@ class TicketsController < ApplicationController
         user_tickets: user_tickets,
         group_tickets: group_tickets
     }
+
+    @test = get_tree(group_tickets)
+
+    #render ("test")
+
   end
 
   def out
@@ -483,6 +488,14 @@ class TicketsController < ApplicationController
     end
   end
 
+  def get_tree(tickets)
+
+
+
+
+     return tickets
+
+  end
 
 
 end
