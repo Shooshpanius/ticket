@@ -467,6 +467,15 @@ class TicketsController < ApplicationController
     #send_file "#{Rails.root}/public/attache/#{params[:file_name]}", :type=>"application/zip"
   end
 
+  def srv_close_ticket_comment_form
+    @modal_form = {
+      ticket_id: params[:ticket_id]
+    }
+    render(:layout => false)
+  end
+
+
+
   private
   def is_login
     if !session[:is_login]

@@ -10,6 +10,14 @@
       success: () ->
         location.reload()
   else
+    $.ajax
+      url: "/tickets/srv_close_ticket_comment_form"
+      type: "get"
+      async: false
+      data: "ticket_id="+ticket_id
+      success: (msg) ->
+        $("#srv_close_ticket_comment_form").html msg
+
     $("#myModal").modal 'show'
 
 

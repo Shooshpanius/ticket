@@ -1,0 +1,40 @@
+<!-- Modal -->
+
+
+
+<% children_group_ticket_count = TicketChildren.children_group_ticket_count(@modal_form[:ticket_id]) %>
+
+<% if children_group_ticket_count != 0 %>
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Невозможно закрыть заявку</h3>
+      </div>
+      <div class="modal-body">
+        <div id="gr-list" name="gr-list">
+           <p>Не закрыто подчиненных заявок: <%= children_group_ticket_count %> </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+      </div>
+    </div>
+<% else %>
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">Комментарий к закрытию заявки</h3>
+      </div>
+      <div class="modal-body">
+        <div id="gr-list" name="gr-list">
+          <textarea rows="7" id="inputCommCloseText" name="inputCommCloseText"  style="width:97%;"></textarea>
+          <button class="btn" onclick="$('#inputCommCloseText').val('Готово')">Готово</button>
+          <button class="btn" onclick="$('#inputCommCloseText').val('Ок')">Ок</button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" onclick="change_status_100(<%= @modal_form[:ticket_id] %>)">Отправить</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+      </div>
+    </div>
+<% end %>
