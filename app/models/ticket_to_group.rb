@@ -102,11 +102,18 @@ class TicketToGroup < ActiveRecord::Base
 
   def TicketToGroup.comment_new(user_id, ticket_id, inputCommText)
     if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_member(user_id, ticket_id)
-      @user_comment = TicketComment.new()
-      @user_comment.user_id = user_id
-      @user_comment.ticket_to_group_id = ticket_id
-      @user_comment.text = inputCommText
-      @user_comment.save()
+      user_comment = TicketComment.new()
+      user_comment.user_id = user_id
+      user_comment.ticket_to_group_id = ticket_id
+      user_comment.text = inputCommText
+      user_comment.save()
+
+      ticket = TicketToGroup.find(ticket_id)
+      if ticket.completed = 100
+          ticket.completed = 90
+          ticket.save()
+      end
+
     end
   end
 
