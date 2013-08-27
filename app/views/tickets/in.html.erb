@@ -90,6 +90,17 @@
           <span class="badge" ><%= group_tickets.completed %>%</span>
         </td>
       </tr>
+
+    <% childrens = TicketChildren.where("parent_group_ticket_id = ?", group_tickets.id) %>
+      <% childrens.each do |children| %>
+          <% if children.children_group_ticket_id != 0 %>
+
+          <% end %>
+
+          <% if children.children_user_ticket_id != 0 %>
+
+          <% end %>
+      <% end %>
   <% end %>
   </tbody>
 </table>
