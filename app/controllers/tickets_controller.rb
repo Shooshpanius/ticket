@@ -174,6 +174,9 @@ class TicketsController < ApplicationController
 
     ticket_id = params[:id].scan(/\d/).join.to_i
 
+
+
+
     if params[:id].scan(/u_/)[0]
       if TicketToUser.is_initiator(session[:user_id], ticket_id)==false && TicketToUser.is_executor(session[:user_id], ticket_id)==false
       then
@@ -195,6 +198,11 @@ class TicketsController < ApplicationController
           @initiator = User.find(@ticket.initiator_id)
           @group = Group.find(@ticket.group_id)
           @comments = TicketToGroup.find(ticket_id).ticket_comments.sort_by{ |elem| elem.created_at}.reverse
+
+
+          @test =  TicketRoot.find(@ticket.id).children
+
+
           render "ticket_edit_g"
         else
           redirect_to "/"
