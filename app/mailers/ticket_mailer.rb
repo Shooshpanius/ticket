@@ -19,7 +19,7 @@ class TicketMailer < ActionMailer::Base
 
   def send_new_group_ticket_to_sndr_email(mail_data)
     @mail_data = mail_data
-    subj = "Ваша заявка на группу " + mail_data[:group_name] + " зарегистрирована"
+    subj = "Заявка \''" + mail_data[:ticket_topic] + "\' зарегистрирована"
     mail(to: mail_data[:initiator_email], subject: subj )
   end
 

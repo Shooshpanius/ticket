@@ -6,17 +6,10 @@
 <body>
 
 
-<h3>Ваша заявка для группы <%= @mail_data[:group_name] %> принята</h3>
+<h3>Заявка '<%= @mail_data[:ticket_topic] %>' зарегистрирована</h3>
 <p>
-  От вас на группу <%= @mail_data[:group_name] %> была выставлена заявка<br/>
-
-  Тема: <%= @mail_data[:ticket_topic] %> <br/>
-  Текст: <%== @mail_data[:ticket_text] %> <br/>
+  Текст: <%== @mail_data[:ticket_text] %>
   <br/>
-  Текущий состав группы (возможные исполнители):<br/>
-  <% @mail_data[:members].each do |member| %>
-      - <%= member.login %> (<%= member.f_name %> <%=member.i_name %> <%=member.o_name %>)<br/>
-  <% end %>
 </p>
 
 <p>
