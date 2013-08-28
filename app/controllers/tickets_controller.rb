@@ -457,7 +457,7 @@ class TicketsController < ApplicationController
 
   def srv_refactor_tickets_root
 
-    tickets = TicketToGroup.where("root = ?", "NULL")
+    tickets = TicketToGroup.where("root = ?", "")
     tickets.each do |ticket|
       root_array = {
           ticket_type: "g",
@@ -473,7 +473,7 @@ class TicketsController < ApplicationController
     end
 
 
-    tickets = TicketToUser.where("root = ?", "NULL")
+    tickets = TicketToUser.where("root = ?", "")
     tickets.each do |ticket|
       root_array = {
           ticket_type: "u",
