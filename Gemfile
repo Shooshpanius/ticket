@@ -54,7 +54,7 @@ gem 'net-ssh-gateway'
 gem 'mail'
 gem 'magic_encoding'
 gem "jquery-tablesorter"
-
+gem "acts_as_tree"
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

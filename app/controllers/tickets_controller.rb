@@ -217,12 +217,18 @@ class TicketsController < ApplicationController
       ticket.save
 
       if params[:inputRootTicket] != nil
-          parent_data = {
+        parent_data = {
             parent_id: params[:inputRootTicket],
             child_id: ticket.root
-          }
-          children = TicketChildren.new(parent_data)
-          children.save
+        }
+        children = TicketChildren.new(parent_data)
+        children.save
+
+        parent_root = TicketRoot.find(params[:inputRootTicket])
+        ticket_root = TicketRoot.find(ticket.root)
+        ticket_root.parent_id = parent_root.id
+        ticket_root.save
+
       end
 
     end
@@ -245,6 +251,12 @@ class TicketsController < ApplicationController
         }
         children = TicketChildren.new(parent_data)
         children.save
+
+        parent_root = TicketRoot.find(params[:inputRootTicket])
+        ticket_root = TicketRoot.find(ticket.root)
+        ticket_root.parent_id = parent_root.id
+        ticket_root.save
+
       end
 
     end
