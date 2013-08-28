@@ -31,8 +31,7 @@
           </div>
         </div>
 
-        <input type="hidden"  id="inputParentType" name="inputParentType" value="<%= @form_data[:main_ticket_type] %>" >
-        <input type="hidden"  id="inputParentId" name="inputParentId" value="<%= @form_data[:main_ticket].id %>" >
+        <input type="hidden"  id="inputParentId" name="inputParentId" value="<%= @form_data[:root_ticket] %>" >
 
     <% end %>
 
