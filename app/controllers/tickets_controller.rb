@@ -143,7 +143,8 @@ class TicketsController < ApplicationController
           @users = User.all
           @groups = Group.all
           @form_data = {
-            root_ticket: TicketToUser.find(ticket_id).root
+            root_ticket: TicketRoot.find( TicketToUser.find(ticket_id).root ),
+            ticket: TicketToUser.find(ticket_id)
           }
         end
       end
@@ -155,7 +156,8 @@ class TicketsController < ApplicationController
           @users = User.all
           @groups = Group.all
           @form_data = {
-            root_ticket: TicketToGroup.find(ticket_id).root
+            root_ticket: TicketRoot.find( TicketToGroup.find(ticket_id).root ),
+            ticket: TicketToGroup.find(ticket_id)
           }
 
         else
@@ -214,9 +216,9 @@ class TicketsController < ApplicationController
       ticket.deadline = params[:inputDateTo]
       ticket.save
 
-      if params[:root_ticket] != nil
+      if params[:inputRootTicket] != nil
           parent_data = {
-            parent_id: params[:root_ticket],
+            parent_id: params[:inputRootTicket],
             child_id: ticket.root
           }
           children = TicketChildren.new(parent_data)
@@ -236,9 +238,9 @@ class TicketsController < ApplicationController
       ticket.deadline = params[:inputDateTo]
       ticket.save
 
-      if params[:root_ticket] != nil
+      if params[:inputRootTicket] != nil
         parent_data = {
-            parent_id: params[:root_ticket],
+            parent_id: params[:inputRootTicket],
             child_id: ticket.root
         }
         children = TicketChildren.new(parent_data)
