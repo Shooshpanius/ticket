@@ -92,48 +92,7 @@
         </td>
       </tr>
 
-    <% childrens = TicketChildren.where("parent_group_ticket_id = ?", group_tickets.id) %>
-      <% childrens.each do |children| %>
-          <% if children.children_group_ticket_id != 0 %>
-            <% children_ticket = TicketToGroup.find(children.children_group_ticket_id) %>
 
-
-              <% user_data = User.find(children_ticket.initiator_id) %>
-              <% executor_data = (children_ticket.executor == 0)?"":User.find(children_ticket.executor) %>
-              <% group_data = Group.find(children_ticket.group_id) %>
-              <tr
-                <%= (children_ticket.actual == 1)?"class=success":"" %>
-              >
-                <td><i class="icon-share-alt"></i></td>
-                <td><small><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</small></td>
-                <td
-                <% if group_data.leader == session[:user_id] %>
-                style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= children_ticket.group_id %>, <%= children_ticket.id %>)"
-                <% end %>
-                ><small>
-                  <%= group_data.abbreviation %><%== (children_ticket.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
-                </small></td>
-                <td style="cursor: pointer" onclick="ticket_open('g', <%= children_ticket.id %>)" ><small><%= children_ticket.topic %></small></td>
-                <td><small>
-                  <% ActualTask.where("ticket_to_group_id = ?", children_ticket.id).each do |task| %>
-                      <%= User.find(task.user_id).login %> <br />
-                  <% end %>
-                  </small>
-                </td>
-                <td><small><%= children_ticket.created_at.strftime("%d-%m-%Y") %></small></td>
-                <td><small>
-                  <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= children_ticket.id %>"><i class="icon-edit"></i></a>
-                  <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", children_ticket.id).count %></span>
-                  <span class="badge" ><%= children_ticket.completed %>%</span>
-                </small></td>
-              </tr>
-
-          <% end %>
-
-          <% if children.children_user_ticket_id != 0 %>
-            <% TicketToUser.find(children.children_user_ticket_id) %>
-          <% end %>
-      <% end %>
   <% end %>
   </tbody>
 </table>
