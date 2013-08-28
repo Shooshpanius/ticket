@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130827123615) do
+ActiveRecord::Schema.define(version: 20130828045154) do
 
   create_table "actual_tasks", force: true do |t|
     t.integer  "user_id"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20130827123615) do
     t.integer  "children_group_ticket_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "parent_id"
+    t.integer  "child_id"
   end
 
   create_table "ticket_comments", force: true do |t|
