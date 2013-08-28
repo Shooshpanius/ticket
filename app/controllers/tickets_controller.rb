@@ -455,41 +455,41 @@ class TicketsController < ApplicationController
 
 
 
-  def srv_refactor_tickets_root
-
-    tickets = TicketToGroup.where("root is ?", nil)
-    tickets.each do |ticket|
-      root_array = {
-          ticket_type: "g",
-          ticket_id: ticket.id,
-          from_id: ticket.initiator_id,
-          to_id: ticket.group_id
-      }
-      root = TicketRoot.new(root_array)
-      root.save
-
-      ticket.root = root.id
-      ticket.save
-    end
-
-    tickets = TicketToUser.where("root is ?", nil)
-    tickets.each do |ticket|
-      root_array = {
-          ticket_type: "u",
-          ticket_id: ticket.id,
-          from_id: ticket.initiator_id,
-          to_id: ticket.user_id
-      }
-      root = TicketRoot.new(root_array)
-      root.save
-
-      ticket.root = root.id
-      ticket.save
-    end
-
-    render text: "srv_refactor_tickets_root"
-
-  end
+  #def srv_refactor_tickets_root
+  #
+  #  tickets = TicketToGroup.where("root is ?", nil)
+  #  tickets.each do |ticket|
+  #    root_array = {
+  #        ticket_type: "g",
+  #        ticket_id: ticket.id,
+  #        from_id: ticket.initiator_id,
+  #        to_id: ticket.group_id
+  #    }
+  #    root = TicketRoot.new(root_array)
+  #    root.save
+  #
+  #    ticket.root = root.id
+  #    ticket.save
+  #  end
+  #
+  #  tickets = TicketToUser.where("root is ?", nil)
+  #  tickets.each do |ticket|
+  #    root_array = {
+  #        ticket_type: "u",
+  #        ticket_id: ticket.id,
+  #        from_id: ticket.initiator_id,
+  #        to_id: ticket.user_id
+  #    }
+  #    root = TicketRoot.new(root_array)
+  #    root.save
+  #
+  #    ticket.root = root.id
+  #    ticket.save
+  #  end
+  #
+  #  render text: "srv_refactor_tickets_root"
+  #
+  #end
 
 
 
