@@ -39,7 +39,8 @@ class TicketToGroup < ActiveRecord::Base
         ticket_type: "g",
         ticket_id: self.id,
         from_id: self.initiator_id,
-        to_id: self.group_id
+        to_id: self.group_id,
+        parent_id: 0
     }
     root = TicketRoot.new(root_array)
     root.save
