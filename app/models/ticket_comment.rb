@@ -43,7 +43,10 @@ class TicketComment < ActiveRecord::Base
           sndr_login: User.find(self.user_id).login,
           rcpt_email: initiator.email
       }
-      TicketMailer.send_new_comment_email(mail_data).deliver
+
+      if initiator.email.strip != ""
+        TicketMailer.send_new_comment_email(mail_data).deliver
+      end
 
       #send to leader
       if leader != nil
@@ -57,7 +60,10 @@ class TicketComment < ActiveRecord::Base
               sndr_login: User.find(self.user_id).login,
               rcpt_email: leader.email
           }
-          TicketMailer.send_new_comment_email(mail_data).deliver
+
+          if leader.email.strip != ""
+            TicketMailer.send_new_comment_email(mail_data).deliver
+          end
         end
       end
 
@@ -73,7 +79,10 @@ class TicketComment < ActiveRecord::Base
               sndr_login: User.find(self.user_id).login,
               rcpt_email: executor.email
           }
-          TicketMailer.send_new_comment_email(mail_data).deliver
+
+            if executor.email.strip != ""
+              TicketMailer.send_new_comment_email(mail_data).deliver
+            end
         end
       end
 
@@ -90,7 +99,10 @@ class TicketComment < ActiveRecord::Base
               sndr_login: User.find(self.user_id).login,
               rcpt_email: User.find(task.user_id).email
           }
-          TicketMailer.send_new_comment_email(mail_data).deliver
+
+          if User.find(task.user_id).email.strip != ""
+            TicketMailer.send_new_comment_email(mail_data).deliver
+          end
         end
       end
 
@@ -108,7 +120,10 @@ class TicketComment < ActiveRecord::Base
           sndr_login: User.find(self.user_id).login,
           rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).user_id).email
       }
-      TicketMailer.send_new_comment_email(mail_data).deliver
+
+      if User.find(TicketToUser.find(self.ticket_to_user).user_id).email.strip != ""
+        TicketMailer.send_new_comment_email(mail_data).deliver
+      end
 
       mail_data = {
           url: 'http://web.wood.local/login',
@@ -119,7 +134,10 @@ class TicketComment < ActiveRecord::Base
           sndr_login: User.find(self.user_id).login,
           rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).initiator_id).email
       }
-      TicketMailer.send_new_comment_email(mail_data).deliver
+
+      if User.find(TicketToUser.find(self.ticket_to_user).initiator_id).email.strip != ""
+        TicketMailer.send_new_comment_email(mail_data).deliver
+      end
 
     end
 
