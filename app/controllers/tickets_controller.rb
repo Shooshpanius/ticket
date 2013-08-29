@@ -304,7 +304,10 @@ class TicketsController < ApplicationController
         sndr_login: User.find(session[:user_id]).login,
         rcpt_email: User.find(ticket.initiator_id).email
     }
-    TicketMailer.send_change_status(mail_data).deliver
+
+    if User.find(ticket.initiator_id).email.strip != ""
+      TicketMailer.send_change_status(mail_data).deliver
+    end
 
     if group.leader != nil
       mail_data = {
@@ -317,7 +320,10 @@ class TicketsController < ApplicationController
           sndr_login: User.find(session[:user_id]).login,
           rcpt_email: leader.email
       }
-      TicketMailer.send_change_status(mail_data).deliver
+
+      if leader.email.strip != ""
+        TicketMailer.send_change_status(mail_data).deliver
+      end
     end
 
     TicketToGroup.change_status(session[:user_id], params[:status], params[:ticket_id])
@@ -342,7 +348,10 @@ class TicketsController < ApplicationController
           sndr_login: User.find(session[:user_id]).login,
           rcpt_email: User.find(ticket.initiator_id).email
       }
-      TicketMailer.send_change_status(mail_data).deliver
+
+      if User.find(ticket.initiator_id).email.strip != ""
+        TicketMailer.send_change_status(mail_data).deliver
+      end
 
       if group.leader != nil
         mail_data = {
@@ -359,7 +368,10 @@ class TicketsController < ApplicationController
       end
 
       comm = "Заявка закрыта пользователем " + User.find(session[:user_id]).login + " с комментарием: <br /><br />" + params[:comm]
-      TicketToGroup.comment_new(session[:user_id], params[:ticket_id], comm)
+
+      if leader.email.strip != ""
+        TicketToGroup.comment_new(session[:user_id], params[:ticket_id], comm)
+      end
 
       TicketToGroup.change_status(session[:user_id], 100, params[:ticket_id])
 
@@ -382,7 +394,10 @@ class TicketsController < ApplicationController
         sndr_login: User.find(group.leader).login,
         rcpt_email: User.find(params[:executor_id]).email
     }
-    TicketMailer.send_change_executor_by_leader(mail_data).deliver
+
+    if User.find(params[:executor_id]).email.strip != ""
+      TicketMailer.send_change_executor_by_leader(mail_data).deliver
+    end
 
     mail_data = {
         url: 'http://web.wood.local/login',
@@ -394,7 +409,10 @@ class TicketsController < ApplicationController
         rcpt_email: User.find(ticket.initiator_id).email,
         exec_login: User.find(params[:executor_id]).login
     }
-    TicketMailer.send_change_executor_to_initiator(mail_data).deliver
+
+    if User.find(ticket.initiator_id).email.strip != ""
+      TicketMailer.send_change_executor_to_initiator(mail_data).deliver
+    end
 
     TicketToGroup.change_executor(session[:user_id], params[:executor_id], params[:ticket_id])
     render text: "srv_change_executor_leader"
