@@ -364,7 +364,10 @@ class TicketsController < ApplicationController
             sndr_login: User.find(session[:user_id]).login,
             rcpt_email: leader.email
         }
-        TicketMailer.send_change_status(mail_data).deliver
+
+        if leader.email.strip != ""
+          TicketMailer.send_change_status(mail_data).deliver
+        end
       end
 
       comm = "Заявка закрыта пользователем " + User.find(session[:user_id]).login + " с комментарием: <br /><br />" + params[:comm]
