@@ -99,7 +99,7 @@ class TicketToGroup < ActiveRecord::Base
       user_ticket = TicketToGroup.find(ticket_id)
       user_ticket.completed = status
       user_ticket.save
-      if status = 100 then
+      if status == 100 then
         ActualTask.where(:ticket_to_group_id => ticket_id, :user_id => user_id).delete_all
       end
     end
@@ -132,7 +132,7 @@ class TicketToGroup < ActiveRecord::Base
       user_comment.root = ticket.root
       user_comment.save()
 
-      if ticket.completed = 100
+      if ticket.completed == 100
           ticket.completed = 90
           ticket.save()
       end

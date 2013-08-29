@@ -87,7 +87,7 @@ class TicketToUser < ActiveRecord::Base
       user_comment.root = ticket.root
       user_comment.save()
 
-      if ticket.completed = 100
+      if ticket.completed == 100
         ticket.completed = 90
         ticket.save()
       end
