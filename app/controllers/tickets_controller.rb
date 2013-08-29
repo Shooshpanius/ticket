@@ -462,6 +462,9 @@ class TicketsController < ApplicationController
   end
 
 
+
+
+
   def srv_change_g_actual
     response = ActualTask.change_g_active(session[:user_id], params[:status], params[:ticket_id])
     render text: response
