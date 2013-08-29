@@ -53,8 +53,8 @@
   <caption>Входящие групповые</caption>
   <thead>
       <tr>
-        <th style="width: 20px" ></th>
-        <th class="span3">Инициатор</th>
+        <th style="width: 10px" ></th>
+        <th class="span4">Инициатор</th>
         <th class="span2">Группа</th>
         <th>Тема</th>
         <th class="span1">Участники</th>
@@ -64,33 +64,140 @@
   </thead>
   <tbody>
   <% @form_data[:group_tickets].each do |group_tickets| %>
-      <% user_data = User.find(group_tickets.initiator_id) %>
-      <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
-      <% group_data = Group.find(group_tickets.group_id) %>
+    <% user_data = User.find(group_tickets.initiator_id) %>
+    <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
+    <% group_data = Group.find(group_tickets.group_id) %>
+    <tr
+    <%= (group_tickets.actual == 1)?"class=success":"" %>
+    >
+    <td colspan="2"><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
+    <td
+        <% if group_data.leader == session[:user_id] %>
+            style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>, <%= group_tickets.id %>)"
+        <% end %>
+    >
+        <%= group_data.abbreviation %><%== (group_tickets.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
+    </td>
+    <td style="cursor: pointer" onclick="ticket_open('g', <%= group_tickets.id %>)" ><%= group_tickets.topic %></td>
+    <td>
+      <% ActualTask.where("ticket_to_group_id = ?", group_tickets.id).each do |task| %>
+          <%= User.find(task.user_id).login %> <br />
+      <% end %>
+    </td>
+    <td><%= group_tickets.created_at.strftime("%d-%m-%Y") %></td>
+    <td>
+      <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
+      <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", group_tickets.id).count %></span>
+      <span class="badge" ><%= group_tickets.completed %>%</span>
+    </td>
+    </tr>
+
+    <!--level 1-->
+    <% TicketRoot.find(group_tickets.root).children.each do |child_root_1| %>
+      <% child_1 = TicketToGroup.find(child_root_1.ticket_id) %>
+      <% user_data = User.find(child_1.initiator_id) %>
+      <% executor_data = (child_1.executor == 0)?"":User.find(child_1.executor) %>
+      <% group_data = Group.find(child_1.group_id) %>
       <tr
-        <%= (group_tickets.actual == 1)?"class=success":"" %>
+      <%= (child_1.actual == 1)?"class=success":"" %>
       >
-        <td colspan="2"><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
+        <td></td>
+        <td>-<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
         <td
-            <% if group_data.leader == session[:user_id] %>
-                style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>, <%= group_tickets.id %>)"
-            <% end %>
+        <% if group_data.leader == session[:user_id] %>
+        style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= child_1.group_id %>, <%= child_1.id %>)"
+        <% end %>
         >
-            <%= group_data.abbreviation %><%== (group_tickets.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
+          <%= group_data.abbreviation %><%== (child_1.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
         </td>
-        <td style="cursor: pointer" onclick="ticket_open('g', <%= group_tickets.id %>)" ><%= group_tickets.topic %></td>
+        <td style="cursor: pointer" onclick="ticket_open('g', <%= child_1.id %>)" ><%= child_1.topic %></td>
         <td>
-          <% ActualTask.where("ticket_to_group_id = ?", group_tickets.id).each do |task| %>
+          <% ActualTask.where("ticket_to_group_id = ?", child_1.id).each do |task| %>
               <%= User.find(task.user_id).login %> <br />
           <% end %>
         </td>
-        <td><%= group_tickets.created_at.strftime("%d-%m-%Y") %></td>
+        <td><%= child_1.created_at.strftime("%d-%m-%Y") %></td>
         <td>
-          <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
-          <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", group_tickets.id).count %></span>
-          <span class="badge" ><%= group_tickets.completed %>%</span>
+          <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= child_1.id %>"><i class="icon-edit"></i></a>
+          <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", child_1.id).count %></span>
+          <span class="badge" ><%= child_1.completed %>%</span>
         </td>
       </tr>
+
+          <!--level 2-->
+          <% TicketRoot.find(child_1.root).children.each do |child_root_2| %>
+              <% child_2 = TicketToGroup.find(child_root_2.ticket_id) %>
+              <% user_data = User.find(child_2.initiator_id) %>
+              <% executor_data = (child_2.executor == 0)?"":User.find(child_2.executor) %>
+              <% group_data = Group.find(child_2.group_id) %>
+              <tr
+              <%= (child_2.actual == 1)?"class=success":"" %>
+              >
+                <td></td>
+                <td>--<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
+                <td
+                <% if group_data.leader == session[:user_id] %>
+                style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= child_2.group_id %>, <%= child_2.id %>)"
+                <% end %>
+                >
+                  <%= group_data.abbreviation %><%== (child_2.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
+                </td>
+                <td style="cursor: pointer" onclick="ticket_open('g', <%= child_2.id %>)" ><%= child_2.topic %></td>
+                <td>
+                  <% ActualTask.where("ticket_to_group_id = ?", child_2.id).each do |task| %>
+                      <%= User.find(task.user_id).login %> <br />
+                  <% end %>
+                </td>
+                <td><%= child_2.created_at.strftime("%d-%m-%Y") %></td>
+                <td>
+                  <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= child_2.id %>"><i class="icon-edit"></i></a>
+                  <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", child_2.id).count %></span>
+                  <span class="badge" ><%= child_2.completed %>%</span>
+                </td>
+              </tr>
+
+
+              <!--level 3-->
+              <% TicketRoot.find(child_2.root).children.each do |child_root_3| %>
+                  <% child_3 = TicketToGroup.find(child_root_3.ticket_id) %>
+                  <% user_data = User.find(child_3.initiator_id) %>
+                  <% executor_data = (child_3.executor == 0)?"":User.find(child_3.executor) %>
+                  <% group_data = Group.find(child_3.group_id) %>
+                  <tr
+                  <%= (child_3.actual == 1)?"class=success":"" %>
+                  >
+                    <td></td>
+                    <td>---<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
+                    <td
+                    <% if group_data.leader == session[:user_id] %>
+                    style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= child_3.group_id %>, <%= child_3.id %>)"
+                    <% end %>
+                    >
+                      <%= group_data.abbreviation %><%== (child_3.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
+                    </td>
+                    <td style="cursor: pointer" onclick="ticket_open('g', <%= child_3.id %>)" ><%= child_3.topic %></td>
+                    <td>
+                      <% ActualTask.where("ticket_to_group_id = ?", child_3.id).each do |task| %>
+                          <%= User.find(task.user_id).login %> <br />
+                      <% end %>
+                    </td>
+                    <td><%= child_3.created_at.strftime("%d-%m-%Y") %></td>
+                    <td>
+                      <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= child_3.id %>"><i class="icon-edit"></i></a>
+                      <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", child_3.id).count %></span>
+                      <span class="badge" ><%= child_3.completed %>%</span>
+                    </td>
+                  </tr>
+              <% end %>
+
+
+
+  <% end %>
+
+
+
+    <% end %>
+
 
 
   <% end %>

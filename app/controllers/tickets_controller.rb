@@ -63,7 +63,7 @@ class TicketsController < ApplicationController
         group_tickets: group_tickets
     }
 
-    @test = get_tree(group_tickets)
+    #@test = get_tree(group_tickets)
 
     #render ("test")
 
@@ -200,7 +200,7 @@ class TicketsController < ApplicationController
           @comments = TicketToGroup.find(ticket_id).ticket_comments.sort_by{ |elem| elem.created_at}.reverse
 
 
-          @test =  TicketRoot.find(@ticket.id).children
+          @test =  TicketRoot.find(@ticket.id).ancestors
 
 
           render "ticket_edit_g"
@@ -416,7 +416,7 @@ class TicketsController < ApplicationController
           sndr_login: User.find(session[:user_id]).login,
           rcpt_email: leader.email
       }
-      TicketMailer.send_change_executor_by_member(mail_data).deliver
+      {TicketMailer.send_change_executor_by_member(mail_data).deliver} if leader.email != nil
     end
 
     mail_data = {
@@ -429,7 +429,7 @@ class TicketsController < ApplicationController
         rcpt_email: User.find(ticket.initiator_id).email,
         exec_login: User.find(session[:user_id]).login
     }
-    TicketMailer.send_change_executor_to_initiator(mail_data).deliver
+    {TicketMailer.send_change_executor_to_initiator(mail_data).deliver} if User.find(ticket.initiator_id).email != nil
 
     TicketToGroup.change_executor(session[:user_id], session[:user_id], params[:ticket_id])
     render text: "srv_change_executor_member"
