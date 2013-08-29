@@ -416,7 +416,10 @@ class TicketsController < ApplicationController
           sndr_login: User.find(session[:user_id]).login,
           rcpt_email: leader.email
       }
-      {TicketMailer.send_change_executor_by_member(mail_data).deliver} if leader.email != nil
+      if leader.email != nil
+        TicketMailer.send_change_executor_by_member(mail_data).deliver
+      end
+
     end
 
     mail_data = {
@@ -429,7 +432,9 @@ class TicketsController < ApplicationController
         rcpt_email: User.find(ticket.initiator_id).email,
         exec_login: User.find(session[:user_id]).login
     }
-    {TicketMailer.send_change_executor_to_initiator(mail_data).deliver} if User.find(ticket.initiator_id).email != nil
+    if leader.email != nil
+      TicketMailer.send_change_executor_to_initiator(mail_data).deliver
+    end
 
     TicketToGroup.change_executor(session[:user_id], session[:user_id], params[:ticket_id])
     render text: "srv_change_executor_member"
