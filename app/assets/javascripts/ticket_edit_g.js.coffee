@@ -27,7 +27,10 @@
       url: "/tickets/srv_change_g_status_100"
       type: "POST"
       async: false
-      data: "comm="+comm+"&ticket_id="+ticket_id
+      data: {
+        comm: comm,
+        ticket_id: ticket_id
+      }
       success: () ->
         location.reload()
 
