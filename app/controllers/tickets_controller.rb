@@ -416,7 +416,7 @@ class TicketsController < ApplicationController
           sndr_login: User.find(session[:user_id]).login,
           rcpt_email: leader.email
       }
-      if leader.email != nil
+      if leader.email.strip != ""
         TicketMailer.send_change_executor_by_member(mail_data).deliver
       end
 
@@ -432,7 +432,7 @@ class TicketsController < ApplicationController
         rcpt_email: User.find(ticket.initiator_id).email,
         exec_login: User.find(session[:user_id]).login
     }
-    if leader.email != nil
+    if User.find(ticket.initiator_id).email.strip != ""
       TicketMailer.send_change_executor_to_initiator(mail_data).deliver
     end
 
