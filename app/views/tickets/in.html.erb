@@ -20,6 +20,10 @@
   <!--<a class="btn btn-primary" type="button" href="/tickets/ticket_new/"><i class="icon-plus"></i>Создать заявку</a>-->
 <!--</p>-->
 
+<% group_tickets_map = @form_data[:group_tickets].map{ |group_ticket| group_ticket.root } %>
+<% user_tickets_map = @form_data[:user_tickets].map{ |group_ticket| group_ticket.root } %>
+<% tickets_map = group_tickets_map + user_tickets_map %>
+
 
 <table class="table table-hover table-bordered table-condensed">
   <caption>Входящие персональные</caption>
@@ -63,7 +67,29 @@
       </tr>
   </thead>
   <tbody>
+
   <% @form_data[:group_tickets].each do |group_tickets| %>
+
+    <% ancestors = TicketRoot.find(group_tickets.root).ancestors %>
+    <% if ancestors.size != 0  %>
+        <% @visual = 1 %>
+        <% ancestors.each do |ancestor| %>
+            <%
+               if  tickets_map.include?  ancestor.id
+                 @visual = 0
+               end
+            %>
+            <% end %>
+        <% if @visual == 0 %>
+          <% next %>
+        <% end %>
+    <% end %>
+
+
+
+
+
+
     <% user_data = User.find(group_tickets.initiator_id) %>
     <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
     <% group_data = Group.find(group_tickets.group_id) %>
