@@ -101,8 +101,8 @@
       <tr
       <%= (child_1.actual == 1)?"class=success":"" %>
       >
-        <td></td>
-        <td>-<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
+
+        <td colspan="2"><i class="icon-arrow-right"></i>&nbsp;&nbsp;<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
         <td
         <% if group_data.leader == session[:user_id] %>
         style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= child_1.group_id %>, <%= child_1.id %>)"
@@ -133,8 +133,8 @@
               <tr
               <%= (child_2.actual == 1)?"class=success":"" %>
               >
-                <td></td>
-                <td>--<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
+
+                <td colspan="2"><i class="icon-minus"></i><i class="icon-arrow-right"></i>&nbsp;&nbsp;<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
                 <td
                 <% if group_data.leader == session[:user_id] %>
                 style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= child_2.group_id %>, <%= child_2.id %>)"
@@ -166,8 +166,8 @@
                   <tr
                   <%= (child_3.actual == 1)?"class=success":"" %>
                   >
-                    <td></td>
-                    <td>---<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
+
+                    <td colspan="2"><i class="icon-minus"></i><i class="icon-minus"></i><i class="icon-arrow-right"></i>&nbsp;&nbsp;<%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
                     <td
                     <% if group_data.leader == session[:user_id] %>
                     style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= child_3.group_id %>, <%= child_3.id %>)"
