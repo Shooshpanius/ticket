@@ -123,7 +123,7 @@
 
         <% if child_root_1.ticket_type == "g" %>
             <% child_1 = TicketToGroup.find(child_root_1.ticket_id) %>
-            <tr <%= (child_1.actual == 1)?"class=success":"" %> >
+            <tr <%= ( ActualTask.is_actual_g(session[:user_id], child_1.id) == 1)?"class=success":"" %> >
             <%
                 @tpl_str_data = {
                    child: TicketToGroup.find(child_root_1.ticket_id),
@@ -136,7 +136,7 @@
             <%= render template: "tickets/tpl_row_group_ticket" %>
         <% else %>
             <% child_1 = TicketToUser.find(child_root_1.ticket_id) %>
-            <tr <%= (child_1.actual == 1)?"class=success":"" %> >
+            <tr <%= ( ActualTask.is_actual_u(session[:user_id], child_1.id) == 1)?"class=success":"" %> >
             <%
                @tpl_str_data = {
                        child: TicketToUser.find(child_root_1.ticket_id),
@@ -152,7 +152,7 @@
 
               <% if child_root_2.ticket_type == "g" %>
                 <% child_2 = TicketToGroup.find(child_root_2.ticket_id) %>
-                <tr <%= (child_2.actual == 1)?"class=success":"" %> >
+                <tr <%= ( ActualTask.is_actual_g(session[:user_id], child_2.id) == 1)?"class=success":"" %> >
                 <%
                     @tpl_str_data = {
                            child: TicketToGroup.find(child_root_2.ticket_id),
@@ -165,7 +165,7 @@
                 <%= render template: "tickets/tpl_row_group_ticket" %>
               <% else %>
                   <% child_2 = TicketToUser.find(child_root_2.ticket_id) %>
-                  <tr <%= (child_2.actual == 1)?"class=success":"" %> >
+                  <tr <%= ( ActualTask.is_actual_u(session[:user_id], child_2.id) == 1)?"class=success":"" %> >
                     <%
                        @tpl_str_data = {
                                child: TicketToUser.find(child_root_2.ticket_id),
@@ -181,7 +181,7 @@
             <% TicketRoot.find(child_2.root).children.each do |child_root_3| %>
                   <% if child_root_3.ticket_type == "g" %>
                       <% child_3 = TicketToGroup.find(child_root_3.ticket_id) %>
-                      <tr <%= (child_3.actual == 1)?"class=success":"" %> >
+                      <tr <%= ( ActualTask.is_actual_g(session[:user_id], child_3.id) == 1)?"class=success":"" %> >
                          <%
                            @tpl_str_data = {
                                    child: TicketToGroup.find(child_root_3.ticket_id),
@@ -194,7 +194,7 @@
                         <%= render template: "tickets/tpl_row_group_ticket" %>
                   <% else %>
                       <% child_3 = TicketToUser.find(child_root_3.ticket_id) %>
-                      <tr <%= (child_3.actual == 1)?"class=success":"" %> >
+                      <tr <%= ( ActualTask.is_actual_u(session[:user_id], child_3.id) == 1)?"class=success":"" %> >
                         <%
                            @tpl_str_data = {
                                    child: TicketToUser.find(child_root_3.ticket_id),
