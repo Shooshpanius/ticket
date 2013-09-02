@@ -5,18 +5,15 @@
 </head>
 <body>
 
+<h3><%= @mail_data[:created_at] %> <%= @mail_data[:sndr_fio] %> написал:</h3>
 
-<h3>Новый комментарий к заявке # <%= @mail_data[:type_comment] %>_<%= @mail_data[:ticket_id] %></h3>
 <p>
-  Отправитель: <%= @mail_data[:sndr_login] %> <br/>
   Текст: <%== @mail_data[:comment_text] %> <br/>
 </p>
 
 <p>
   Чтобы войти в систему, перейдите по ссылке: <%= @mail_data[:url] %>.
-</p>
 
-<p>
   Вы получили данное письмо, т.к. ваш статус в данной заявке: <%= @mail_data[:user_status] %>.
 </p>
 

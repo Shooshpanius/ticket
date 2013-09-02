@@ -15,6 +15,11 @@ class TicketComment < ActiveRecord::Base
       initiator = User.find(TicketToGroup.find(self.ticket_to_group).initiator_id)
       ticket = self.ticket_to_group
       group = Group.find(ticket.group_id)
+      header = (self.text.split("<br>").first[0...100].gsub("<div>", "")  || "Новый комментарий")
+      created_at = self.created_at
+      sndr = User.find(self.user_id)
+      sndr_login = sndr.login
+      sndr_fio = (sndr.f_name || "") + " " + (sndr.i_name || "") + " " + (sndr.o_name || "")
 
       if group.leader != nil
         leader=User.find(group.leader)
@@ -33,6 +38,7 @@ class TicketComment < ActiveRecord::Base
       end
 
 
+
       #send to initiator
       mail_data = {
           url: 'http://web.wood.local/login',
@@ -40,13 +46,14 @@ class TicketComment < ActiveRecord::Base
           user_status: "Инициатор",
           ticket_id: self.ticket_to_group.id,
           comment_text: self.text,
-          sndr_login: User.find(self.user_id).login,
-          rcpt_email: initiator.email
+          sndr_login: sndr_login,
+          rcpt_email: initiator.email,
+          header: header,
+          created_at: created_at,
+          sndr_fio: sndr_fio
       }
 
-      if initiator.email.strip != ""
-        TicketMailer.send_new_comment_email(mail_data).deliver
-      end
+      TicketMailer.send_new_comment_email(mail_data).deliver
 
       #send to leader
       if leader != nil
@@ -57,13 +64,14 @@ class TicketComment < ActiveRecord::Base
               user_status: "Руководитель группы",
               ticket_id: self.ticket_to_group.id,
               comment_text: self.text,
-              sndr_login: User.find(self.user_id).login,
-              rcpt_email: leader.email
+              sndr_login: sndr_login,
+              rcpt_email: leader.email,
+              header: header,
+              created_at: created_at,
+              sndr_fio: sndr_fio
           }
 
-          if leader.email.strip != ""
-            TicketMailer.send_new_comment_email(mail_data).deliver
-          end
+          TicketMailer.send_new_comment_email(mail_data).deliver
         end
       end
 
@@ -76,13 +84,14 @@ class TicketComment < ActiveRecord::Base
               user_status: "Ответственный",
               ticket_id: self.ticket_to_group.id,
               comment_text: self.text,
-              sndr_login: User.find(self.user_id).login,
-              rcpt_email: executor.email
+              sndr_login: sndr_login,
+              rcpt_email: executor.email,
+              header: header,
+              created_at: created_at,
+              sndr_fio: sndr_fio
           }
 
-            if executor.email.strip != ""
-              TicketMailer.send_new_comment_email(mail_data).deliver
-            end
+          TicketMailer.send_new_comment_email(mail_data).deliver
         end
       end
 
@@ -96,13 +105,14 @@ class TicketComment < ActiveRecord::Base
               user_status: "Участник",
               ticket_id: self.ticket_to_group.id,
               comment_text: self.text,
-              sndr_login: User.find(self.user_id).login,
-              rcpt_email: User.find(task.user_id).email
+              sndr_login: sndr_login,
+              rcpt_email: User.find(task.user_id).email,
+              header: header,
+              created_at: created_at,
+              sndr_fio: sndr_fio
           }
 
-          if User.find(task.user_id).email.strip != ""
-            TicketMailer.send_new_comment_email(mail_data).deliver
-          end
+          TicketMailer.send_new_comment_email(mail_data).deliver
         end
       end
 
@@ -117,13 +127,14 @@ class TicketComment < ActiveRecord::Base
           user_status: "Исполнитель",
           ticket_id: self.ticket_to_user.id,
           comment_text: self.text,
-          sndr_login: User.find(self.user_id).login,
-          rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).user_id).email
+          sndr_login: sndr_login,
+          rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).user_id).email,
+          header: header,
+          created_at: created_at,
+          sndr_fio: sndr_fio
       }
 
-      if User.find(TicketToUser.find(self.ticket_to_user).user_id).email.strip != ""
-        TicketMailer.send_new_comment_email(mail_data).deliver
-      end
+      TicketMailer.send_new_comment_email(mail_data).deliver
 
       mail_data = {
           url: 'http://web.wood.local/login',
@@ -131,13 +142,14 @@ class TicketComment < ActiveRecord::Base
           user_status: "Инициатор",
           ticket_id: self.ticket_to_user.id,
           comment_text: self.text,
-          sndr_login: User.find(self.user_id).login,
-          rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).initiator_id).email
+          sndr_login: sndr_login,
+          rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).initiator_id).email,
+          header: header,
+          created_at: created_at,
+          sndr_fio: sndr_fio
       }
 
-      if User.find(TicketToUser.find(self.ticket_to_user).initiator_id).email.strip != ""
-        TicketMailer.send_new_comment_email(mail_data).deliver
-      end
+      TicketMailer.send_new_comment_email(mail_data).deliver
 
     end
 
