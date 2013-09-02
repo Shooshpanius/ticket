@@ -120,58 +120,90 @@
 
     <!--level 1-->
     <% TicketRoot.find(group_tickets.root).children.each do |child_root_1| %>
-        <% child_1 = TicketToGroup.find(child_root_1.ticket_id) %>
-        <% user_data = User.find(child_1.initiator_id) %>
-        <% executor_data = (child_1.executor == 0)?"":User.find(child_1.executor) %>
-        <% group_data = Group.find(child_1.group_id) %>
-        <tr <%= (child_1.actual == 1)?"class=success":"" %> >
-        <%
-        @tpl_str_data = {
-               child: TicketToGroup.find(child_root_1.ticket_id),
-               user_data: User.find(child_1.initiator_id),
-               executor_data: (child_1.executor == 0)?"":User.find(child_1.executor),
-               group_data: Group.find(child_1.group_id),
-               icon_incl: "<i class='icon-arrow-right'></i>"
-        }
-        %>
-        <%= render template: "tickets/tpl_row_group_ticket" %>
+
+        <% if child_root_1.ticket_type == "g" %>
+            <% child_1 = TicketToGroup.find(child_root_1.ticket_id) %>
+            <tr <%= (child_1.actual == 1)?"class=success":"" %> >
+            <%
+                @tpl_str_data = {
+                   child: TicketToGroup.find(child_root_1.ticket_id),
+                   user_data: User.find(child_1.initiator_id),
+                   executor_data: (child_1.executor == 0)?"":User.find(child_1.executor),
+                   group_data: Group.find(child_1.group_id),
+                   icon_incl: "<i class='icon-arrow-right'></i>"
+            }
+            %>
+            <%= render template: "tickets/tpl_row_group_ticket" %>
+        <% else %>
+            <% child_1 = TicketToUser.find(child_root_1.ticket_id) %>
+            <tr <%= (child_1.actual == 1)?"class=success":"" %> >
+            <%
+               @tpl_str_data = {
+                       child: TicketToUser.find(child_root_1.ticket_id),
+                       user_data: User.find(child_1.initiator_id),
+                       icon_incl: "<i class='icon-arrow-right'></i>"
+               }
+            %>
+            <%= render template: "tickets/tpl_row_user_ticket" %>
+        <% end %>
 
           <!--level 2-->
           <% TicketRoot.find(child_1.root).children.each do |child_root_2| %>
-            <% child_2 = TicketToGroup.find(child_root_2.ticket_id) %>
-            <% user_data = User.find(child_2.initiator_id) %>
-            <% executor_data = (child_2.executor == 0)?"":User.find(child_2.executor) %>
-            <% group_data = Group.find(child_2.group_id) %>
-            <tr <%= (child_2.actual == 1)?"class=success":"" %> >
-            <%
-               @tpl_str_data = {
-                       child: TicketToGroup.find(child_root_2.ticket_id),
-                       user_data: User.find(child_2.initiator_id),
-                       executor_data: (child_2.executor == 0)?"":User.find(child_2.executor),
-                       group_data: Group.find(child_2.group_id),
-                       icon_incl: "<i class='icon-minus'></i><i class='icon-arrow-right'></i>"
-               }
-            %>
-            <%= render template: "tickets/tpl_row_group_ticket" %>
+
+              <% if child_root_2.ticket_type == "g" %>
+                <% child_2 = TicketToGroup.find(child_root_2.ticket_id) %>
+                <tr <%= (child_2.actual == 1)?"class=success":"" %> >
+                <%
+                    @tpl_str_data = {
+                           child: TicketToGroup.find(child_root_2.ticket_id),
+                           user_data: User.find(child_2.initiator_id),
+                           executor_data: (child_2.executor == 0)?"":User.find(child_2.executor),
+                           group_data: Group.find(child_2.group_id),
+                           icon_incl: "<i class='icon-minus'></i><i class='icon-arrow-right'></i>"
+                    }
+                %>
+                <%= render template: "tickets/tpl_row_group_ticket" %>
+              <% else %>
+                  <% child_2 = TicketToUser.find(child_root_2.ticket_id) %>
+                  <tr <%= (child_2.actual == 1)?"class=success":"" %> >
+                    <%
+                       @tpl_str_data = {
+                               child: TicketToUser.find(child_root_2.ticket_id),
+                               user_data: User.find(child_2.initiator_id),
+                               icon_incl: "<i class='icon-arrow-right'></i>"
+                       }
+                    %>
+                    <%= render template: "tickets/tpl_row_user_ticket" %>
+              <% end %>
 
 
             <!--level 3-->
             <% TicketRoot.find(child_2.root).children.each do |child_root_3| %>
-              <% child_3 = TicketToGroup.find(child_root_3.ticket_id) %>
-              <% user_data = User.find(child_3.initiator_id) %>
-              <% executor_data = (child_3.executor == 0)?"":User.find(child_3.executor) %>
-              <% group_data = Group.find(child_3.group_id) %>
-              <tr <%= (child_3.actual == 1)?"class=success":"" %> >
-                 <%
-                   @tpl_str_data = {
-                           child: TicketToGroup.find(child_root_3.ticket_id),
-                           user_data: User.find(child_3.initiator_id),
-                           executor_data: (child_3.executor == 0)?"":User.find(child_3.executor),
-                           group_data: Group.find(child_3.group_id),
-                           icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
-                   }
-                %>
-                <%= render template: "tickets/tpl_row_group_ticket" %>
+                  <% if child_root_3.ticket_type == "g" %>
+                      <% child_3 = TicketToGroup.find(child_root_3.ticket_id) %>
+                      <tr <%= (child_3.actual == 1)?"class=success":"" %> >
+                         <%
+                           @tpl_str_data = {
+                                   child: TicketToGroup.find(child_root_3.ticket_id),
+                                   user_data: User.find(child_3.initiator_id),
+                                   executor_data: (child_3.executor == 0)?"":User.find(child_3.executor),
+                                   group_data: Group.find(child_3.group_id),
+                                   icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
+                           }
+                        %>
+                        <%= render template: "tickets/tpl_row_group_ticket" %>
+                  <% else %>
+                      <% child_3 = TicketToUser.find(child_root_3.ticket_id) %>
+                      <tr <%= (child_3.actual == 1)?"class=success":"" %> >
+                        <%
+                           @tpl_str_data = {
+                                   child: TicketToUser.find(child_root_3.ticket_id),
+                                   user_data: User.find(child_3.initiator_id),
+                                   icon_incl: "<i class='icon-arrow-right'></i>"
+                           }
+                        %>
+                        <%= render template: "tickets/tpl_row_user_ticket" %>
+                  <% end %>
 
              <% end %>
         <% end %>
