@@ -16,7 +16,7 @@ class TicketComment < ActiveRecord::Base
       ticket = self.ticket_to_group
       group = Group.find(ticket.group_id)
       header = (self.text.split("<br>").first[0...100].gsub("<div>", "")  || "Новый комментарий")
-      created_at = self.created_at
+      created_at = self.created_at.strftime("%Y-%m-%d %H:%M:%S")
       sndr = User.find(self.user_id)
       sndr_login = sndr.login
       sndr_fio = (sndr.f_name || "") + " " + (sndr.i_name || "") + " " + (sndr.o_name || "")
