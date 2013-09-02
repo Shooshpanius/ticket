@@ -170,7 +170,7 @@
                        @tpl_str_data = {
                                child: TicketToUser.find(child_root_2.ticket_id),
                                user_data: User.find(child_2.initiator_id),
-                               icon_incl: "<i class='icon-arrow-right'></i>"
+                               icon_incl: "<i class='icon-minus'></i><i class='icon-arrow-right'></i>"
                        }
                     %>
                     <%= render template: "tickets/tpl_row_user_ticket" %>
@@ -199,7 +199,7 @@
                            @tpl_str_data = {
                                    child: TicketToUser.find(child_root_3.ticket_id),
                                    user_data: User.find(child_3.initiator_id),
-                                   icon_incl: "<i class='icon-arrow-right'></i>"
+                                   icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
                            }
                         %>
                         <%= render template: "tickets/tpl_row_user_ticket" %>

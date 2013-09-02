@@ -17,9 +17,7 @@ class TicketToUser < ActiveRecord::Base
         user_email: User.find(self.user_id).email
     }
 
-    if User.find(self.user_id).email.strip != ""
       TicketMailer.send_new_user_ticket_to_rctp_email(mail_data_to_rcpt).deliver
-    end
 
 
     mail_data_to_sndr = {
@@ -31,9 +29,7 @@ class TicketToUser < ActiveRecord::Base
         initiator_email: User.find(self.initiator_id).email
     }
 
-    if User.find(self.initiator_id).email != ""
       TicketMailer.send_new_user_ticket_to_sndr_email(mail_data_to_sndr).deliver
-    end
 
   end
 
