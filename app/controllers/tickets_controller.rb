@@ -59,6 +59,15 @@ class TicketsController < ApplicationController
     #end
 
     my_tickets = TicketRoot.my_tickets(session[:user_id])
+    #user_tickets.each do |user_ticket|
+    #  user_ticket[:actual] = ActualTask.is_actual_u(session[:user_id], user_ticket[:id])
+    #end
+    #my_tickets.sort! do |a, b|
+    #  (b.actual <=> a.actual).nonzero? ||
+    #      (b.created_at <=> a.created_at)
+    #end
+
+
     other_tickets = TicketRoot.other_tickets(session[:user_id])
 
 
