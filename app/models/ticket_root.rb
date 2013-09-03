@@ -42,12 +42,12 @@ class TicketRoot < ActiveRecord::Base
 
     my_groups = my_groups.gsub(/(\,\))/,'')
 
-    #if UserByGroup.groups_for_user(user_id).size == 0 then
-    #
-    #  return []
-    #
-    #
-    #end
+    if UserByGroup.groups_for_user(user_id).size == 0 then
+
+      return []
+
+
+    end
 
 
     group_tickets = TicketRoot.find_by_sql("SELECT ticket_roots.*, ticket_to_groups.root as t_root, ticket_to_groups.executor as t_executor
