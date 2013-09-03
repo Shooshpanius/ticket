@@ -2,6 +2,7 @@ class TicketToGroup < ActiveRecord::Base
   belongs_to :group
   has_many :ticket_comments, dependent: :destroy
 
+
   after_create :send_new_group_ticket_email, :create_root
 
   def send_new_group_ticket_email

@@ -1,8 +1,9 @@
 <%= javascript_include_tag "main" %>
 <%= javascript_include_tag "tickets" %>
 
-
-
+<%=
+    #debug @test
+%>
 
 <ul class="nav nav-tabs">
   <li class="active">
@@ -23,6 +24,65 @@
 <% group_tickets_map = @form_data[:group_tickets].map{ |group_ticket| group_ticket.root } %>
 <% user_tickets_map = @form_data[:user_tickets].map{ |group_ticket| group_ticket.root } %>
 <% tickets_map = group_tickets_map + user_tickets_map %>
+
+<% my_tickets_map = @form_data[:my_tickets].map{ |ticket| ticket.id } %>
+
+
+
+<table id="tbl-in-group" name="tbl-in-group" class="table table-hover table-bordered table-condensed table-striped">
+<caption>Моя работа</caption>
+<thead>
+<tr>
+  <th style="width: 10px" ></th>
+  <th class="span4">Инициатор</th>
+  <th class="span2">Ответственный</th>
+  <th>Тема</th>
+  <th class="span1">Участники</th>
+  <th class="span2">Дата заявки</th>
+  <th class="span1">..............................</th>
+</tr>
+</thead>
+<tbody>
+
+<% @form_data[:my_tickets].each do |my_ticket| %>
+
+    <% ancestors = my_ticket.ancestors %>
+    <% if ancestors.size != 0  %>
+        <% @visual = 1 %>
+        <% ancestors.each do |ancestor| %>
+            <%
+               if  tickets_map.include?  ancestor.id
+                 @visual = 0
+               end
+            %>
+        <% end %>
+        <% if @visual == 0 %>
+            <% next %>
+        <% end %>
+    <% end %>
+
+    <%=
+        @my_ticket = my_ticket
+        render template: "tickets/tpl_row_ticket"
+    %>
+
+
+<% end %>
+
+
+
+
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
 
 
 <table class="table table-hover table-bordered table-condensed table-striped">

@@ -1,0 +1,67 @@
+<!--LEVEL 0-->
+<% if @my_ticket.ticket_type == "g" %>
+    <% child = TicketToGroup.find(@my_ticket.ticket_id) %>
+    <tr <%= ( ActualTask.is_actual_g(session[:user_id], child.id) == 1)?"class=success":"" %> >
+      <%
+         @tpl_str_data = {
+                 child: TicketToGroup.find(@my_ticket.ticket_id),
+                 user_data: User.find(child.initiator_id),
+                 executor_data: (child.executor == 0)?"":User.find(child.executor),
+                 group_data: Group.find(child.group_id),
+                 icon_incl: ""
+         }
+      %>
+      <%= render template: "tickets/tpl_row_group_ticket" %>
+<% else %>
+    <% child = TicketToUser.find(@my_ticket.ticket_id) %>
+    <tr <%= ( ActualTask.is_actual_u(session[:user_id], child.id) == 1)?"class=success":"" %> >
+      <%
+         @tpl_str_data = {
+                 child: TicketToUser.find(@my_ticket.ticket_id),
+                 user_data: User.find(child.initiator_id),
+                 icon_incl: ""
+         }
+      %>
+      <%= render template: "tickets/tpl_row_user_ticket" %>
+<% end %>
+
+
+<%=
+    debug @my_ticket
+%>
+<%=
+    debug @my_ticket.children
+%>
+<!--LEVEL 1-->
+<% @my_ticket.children.each do |child_root| %>
+
+    <% if child_root.ticket_type == "g" %>
+        <% child = TicketToGroup.find(child_root.ticket_id) %>
+        <tr <%= ( ActualTask.is_actual_g(session[:user_id], child.id) == 1)?"class=success":"" %> >
+          <%
+             @tpl_str_data = {
+                     child: child,
+                     user_data: User.find(child.initiator_id),
+                     executor_data: (child.executor == 0)?"":User.find(child.executor),
+                     group_data: Group.find(child.group_id),
+                     icon_incl: "<i class='icon-arrow-right'></i>"
+             }
+          %>
+          <%= render template: "tickets/tpl_row_group_ticket" %>
+    <% else %>
+        <% child = TicketToUser.find(child_root.ticket_id) %>
+        <tr <%= ( ActualTask.is_actual_u(session[:user_id], child.id) == 1)?"class=success":"" %> >
+          <%
+             @tpl_str_data = {
+                     child: child,
+                     user_data: User.find(child.initiator_id),
+                     icon_incl: "<i class='icon-arrow-right'></i>"
+             }
+          %>
+          <%= render template: "tickets/tpl_row_user_ticket" %>
+    <% end %>
+
+
+
+
+<% end %>

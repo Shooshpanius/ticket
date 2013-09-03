@@ -58,12 +58,20 @@ class TicketsController < ApplicationController
           (b.created_at <=> a.created_at)
     end
 
+    my_tickets = TicketRoot.my_tickets(session[:user_id])
+
+
     @form_data = {
         user_tickets: user_tickets,
-        group_tickets: group_tickets
+        group_tickets: group_tickets,
+        my_tickets: my_tickets
     }
 
-    #@test = get_tree(group_tickets)
+
+
+
+
+    #@test = my_tickets
 
     #render ("test")
 
@@ -398,9 +406,7 @@ class TicketsController < ApplicationController
         rcpt_email: User.find(params[:executor_id]).email
     }
 
-    if User.find(params[:executor_id]).email.strip != ""
       TicketMailer.send_change_executor_by_leader(mail_data).deliver
-    end
 
     mail_data = {
         url: 'http://web.wood.local/login',
@@ -413,9 +419,7 @@ class TicketsController < ApplicationController
         exec_login: User.find(params[:executor_id]).login
     }
 
-    if User.find(ticket.initiator_id).email.strip != ""
       TicketMailer.send_change_executor_to_initiator(mail_data).deliver
-    end
 
     TicketToGroup.change_executor(session[:user_id], params[:executor_id], params[:ticket_id])
     render text: "srv_change_executor_leader"
@@ -437,9 +441,7 @@ class TicketsController < ApplicationController
           sndr_login: User.find(session[:user_id]).login,
           rcpt_email: leader.email
       }
-      if leader.email.strip != ""
         TicketMailer.send_change_executor_by_member(mail_data).deliver
-      end
 
     end
 
@@ -453,9 +455,7 @@ class TicketsController < ApplicationController
         rcpt_email: User.find(ticket.initiator_id).email,
         exec_login: User.find(session[:user_id]).login
     }
-    if User.find(ticket.initiator_id).email.strip != ""
       TicketMailer.send_change_executor_to_initiator(mail_data).deliver
-    end
 
     TicketToGroup.change_executor(session[:user_id], session[:user_id], params[:ticket_id])
     render text: "srv_change_executor_member"

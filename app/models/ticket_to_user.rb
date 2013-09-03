@@ -1,6 +1,7 @@
 class TicketToUser < ActiveRecord::Base
   belongs_to :user
   has_many :ticket_comments, dependent: :destroy
+  belongs_to :ticket_root, foreign_key: "ticket_id"
 
 
   after_create :send_new_user_ticket_email, :create_root
