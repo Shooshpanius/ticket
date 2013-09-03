@@ -2,7 +2,8 @@
 <%= javascript_include_tag "tickets" %>
 
 <%=
-    #debug @form_data[:other_tickets]
+   #debug  UserByGroup.groups_for_user(session[:user_id]).map{ |x| x.id}
+   #debug @form_data[:other_tickets]
 %>
 
 <ul class="nav nav-tabs">
@@ -21,11 +22,16 @@
   <!--<a class="btn btn-primary" type="button" href="/tickets/ticket_new/"><i class="icon-plus"></i>Создать заявку</a>-->
 <!--</p>-->
 
-<% group_tickets_map = @form_data[:group_tickets].map{ |group_ticket| group_ticket.root } %>
-<% user_tickets_map = @form_data[:user_tickets].map{ |group_ticket| group_ticket.root } %>
-<% tickets_map = group_tickets_map + user_tickets_map %>
+<%
+
+ #  group_tickets_map = @form_data[:group_tickets].map{ |group_ticket| group_ticket.root }
+ #user_tickets_map = @form_data[:user_tickets].map{ |group_ticket| group_ticket.root }
+ # tickets_map = group_tickets_map + user_tickets_map
+
+%>
 
 <% my_tickets_map = @form_data[:my_tickets].map{ |ticket| ticket.id } %>
+<% other_tickets_map = @form_data[:other_tickets].map{ |ticket| ticket.id } %>
 
 
 
@@ -51,7 +57,7 @@
                 <% @visual = 1 %>
                 <% ancestors.each do |ancestor| %>
                     <%
-                       if  tickets_map.include?  ancestor.id
+                       if  my_tickets_map.include?  ancestor.id
                          @visual = 0
                        end
                     %>
@@ -96,7 +102,7 @@
           <% @visual = 1 %>
           <% ancestors.each do |ancestor| %>
               <%
-                 if  tickets_map.include?  ancestor.id
+                 if  other_tickets_map.include?  ancestor.id
                    @visual = 0
                  end
               %>
