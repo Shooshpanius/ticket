@@ -59,12 +59,14 @@ class TicketsController < ApplicationController
     end
 
     my_tickets = TicketRoot.my_tickets(session[:user_id])
+    other_tickets = TicketRoot.other_tickets(session[:user_id])
 
 
     @form_data = {
         user_tickets: user_tickets,
         group_tickets: group_tickets,
-        my_tickets: my_tickets
+        my_tickets: my_tickets,
+        other_tickets: other_tickets
     }
 
 

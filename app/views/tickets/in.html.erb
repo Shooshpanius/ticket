@@ -2,7 +2,7 @@
 <%= javascript_include_tag "tickets" %>
 
 <%=
-    #debug @test
+    #debug @form_data[:other_tickets]
 %>
 
 <ul class="nav nav-tabs">
@@ -30,250 +30,93 @@
 
 
 <table id="tbl-in-group" name="tbl-in-group" class="table table-hover table-bordered table-condensed table-striped">
-<caption>Моя работа</caption>
-<thead>
-<tr>
-  <th style="width: 10px" ></th>
-  <th class="span4">Инициатор</th>
-  <th class="span2">Ответственный</th>
-  <th>Тема</th>
-  <th class="span1">Участники</th>
-  <th class="span2">Дата заявки</th>
-  <th class="span1">..............................</th>
-</tr>
-</thead>
-<tbody>
+    <caption>Моя работа</caption>
+    <thead>
+    <tr>
+      <th style="width: 10px" ></th>
+      <th class="span4">Инициатор</th>
+      <th class="span2">Ответственный</th>
+      <th>Тема</th>
+      <th class="span1">Участники</th>
+      <th class="span2">Дата заявки</th>
+      <th class="span1">..............................</th>
+    </tr>
+    </thead>
+    <tbody>
 
-<% @form_data[:my_tickets].each do |my_ticket| %>
+        <% @form_data[:my_tickets].each do |my_ticket| %>
 
-    <% ancestors = my_ticket.ancestors %>
-    <% if ancestors.size != 0  %>
-        <% @visual = 1 %>
-        <% ancestors.each do |ancestor| %>
-            <%
-               if  tickets_map.include?  ancestor.id
-                 @visual = 0
-               end
+            <% ancestors = my_ticket.ancestors %>
+            <% if ancestors.size != 0  %>
+                <% @visual = 1 %>
+                <% ancestors.each do |ancestor| %>
+                    <%
+                       if  tickets_map.include?  ancestor.id
+                         @visual = 0
+                       end
+                    %>
+                <% end %>
+                <% if @visual == 0 %>
+                    <% next %>
+                <% end %>
+            <% end %>
+
+            <%=
+                @my_ticket = my_ticket
+                render template: "tickets/tpl_row_ticket"
             %>
+
+
         <% end %>
-        <% if @visual == 0 %>
-            <% next %>
-        <% end %>
-    <% end %>
 
-    <%=
-        @my_ticket = my_ticket
-        render template: "tickets/tpl_row_ticket"
-    %>
-
-
-<% end %>
-
-
-
-
-</tbody>
+    </tbody>
 </table>
 
-
-
-
-
-
-
-
-
-
-
-<table class="table table-hover table-bordered table-condensed table-striped">
-  <caption>Входящие персональные</caption>
-  <thead>
-  <tr>
-    <th class="span3">Инициатор</th>
-    <th>Тема</th>
-    <th class="span2">Дата заявки</th>
-    <th class="span1"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @form_data[:user_tickets].each do |user_tickets| %>
-      <% user_data = User.find(user_tickets.initiator_id) %>
-      <tr
-        <%= (user_tickets.actual == 1)?"class=success":"" %>
-      >
-       <td><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
-        <td style="cursor: pointer" onclick="ticket_open('u', <%= user_tickets.id %>)" ><%= user_tickets.topic %></td>
-        <td><%= user_tickets.created_at.strftime("%d-%m-%Y") %></td>
-        <td>
-          <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= user_tickets.id %>"><i class="icon-edit"></i></a>
-        </td>
-      </tr>
-  <% end %>
-  </tbody>
-</table>
 
 
 <table id="tbl-in-group" name="tbl-in-group" class="table table-hover table-bordered table-condensed table-striped">
-  <caption>Входящие групповые</caption>
+  <caption>Прочие заявки</caption>
   <thead>
-      <tr>
-        <th style="width: 10px" ></th>
-        <th class="span4">Инициатор</th>
-        <th class="span2">Ответственный</th>
-        <th>Тема</th>
-        <th class="span1">Участники</th>
-        <th class="span2">Дата заявки</th>
-        <th class="span1">..............................</th>
-      </tr>
+  <tr>
+    <th style="width: 10px" ></th>
+    <th class="span4">Инициатор</th>
+    <th class="span2">Ответственный</th>
+    <th>Тема</th>
+    <th class="span1">Участники</th>
+    <th class="span2">Дата заявки</th>
+    <th class="span1">..............................</th>
+  </tr>
   </thead>
   <tbody>
 
-  <% @form_data[:group_tickets].each do |group_tickets| %>
+  <% @form_data[:other_tickets].each do |my_ticket| %>
 
-    <% ancestors = TicketRoot.find(group_tickets.root).ancestors %>
-    <% if ancestors.size != 0  %>
-        <% @visual = 1 %>
-        <% ancestors.each do |ancestor| %>
-            <%
-               if  tickets_map.include?  ancestor.id
-                 @visual = 0
-               end
-            %>
-            <% end %>
-        <% if @visual == 0 %>
-          <% next %>
-        <% end %>
-    <% end %>
-
-
-
-
-
-
-    <% user_data = User.find(group_tickets.initiator_id) %>
-    <% executor_data = (group_tickets.executor == 0)?"":User.find(group_tickets.executor) %>
-    <% group_data = Group.find(group_tickets.group_id) %>
-    <tr
-    <%= (group_tickets.actual == 1)?"class=success":"" %>
-    >
-    <td colspan="2"><%= user_data.f_name %> <%= user_data.i_name %> <%= user_data.o_name %> (<%= user_data.login %>)</td>
-    <td
-        <% if group_data.leader == session[:user_id] %>
-            style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= group_tickets.group_id %>, <%= group_tickets.id %>)"
-        <% end %>
-    >
-        <%= group_data.abbreviation %><%== (group_tickets.executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{executor_data.login}</span>" %>
-    </td>
-    <td style="cursor: pointer" onclick="ticket_open('g', <%= group_tickets.id %>)" ><%= group_tickets.topic %></td>
-    <td>
-      <% ActualTask.where("ticket_to_group_id = ?", group_tickets.id).each do |task| %>
-          <%= User.find(task.user_id).login %> <br />
+      <% ancestors = my_ticket.ancestors %>
+      <% if ancestors.size != 0  %>
+          <% @visual = 1 %>
+          <% ancestors.each do |ancestor| %>
+              <%
+                 if  tickets_map.include?  ancestor.id
+                   @visual = 0
+                 end
+              %>
+          <% end %>
+          <% if @visual == 0 %>
+              <% next %>
+          <% end %>
       <% end %>
-    </td>
-    <td><%= group_tickets.created_at.strftime("%d-%m-%Y") %></td>
-    <td>
-      <a  class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/g_<%= group_tickets.id %>"><i class="icon-edit"></i></a>
-      <span class="badge" ><%= TicketComment.where("ticket_to_group_id = ?", group_tickets.id).count %></span>
-      <span class="badge" ><%= group_tickets.completed %>%</span>
-    </td>
-    </tr>
 
-    <!--level 1-->
-    <% TicketRoot.find(group_tickets.root).children.each do |child_root_1| %>
-
-        <% if child_root_1.ticket_type == "g" %>
-            <% child_1 = TicketToGroup.find(child_root_1.ticket_id) %>
-            <tr <%= ( ActualTask.is_actual_g(session[:user_id], child_1.id) == 1)?"class=success":"" %> >
-            <%
-                @tpl_str_data = {
-                   child: TicketToGroup.find(child_root_1.ticket_id),
-                   user_data: User.find(child_1.initiator_id),
-                   executor_data: (child_1.executor == 0)?"":User.find(child_1.executor),
-                   group_data: Group.find(child_1.group_id),
-                   icon_incl: "<i class='icon-arrow-right'></i>"
-            }
-            %>
-            <%= render template: "tickets/tpl_row_group_ticket" %>
-        <% else %>
-            <% child_1 = TicketToUser.find(child_root_1.ticket_id) %>
-            <tr <%= ( ActualTask.is_actual_u(session[:user_id], child_1.id) == 1)?"class=success":"" %> >
-            <%
-               @tpl_str_data = {
-                       child: TicketToUser.find(child_root_1.ticket_id),
-                       user_data: User.find(child_1.initiator_id),
-                       icon_incl: "<i class='icon-arrow-right'></i>"
-               }
-            %>
-            <%= render template: "tickets/tpl_row_user_ticket" %>
-        <% end %>
-
-          <!--level 2-->
-          <% TicketRoot.find(child_1.root).children.each do |child_root_2| %>
-
-              <% if child_root_2.ticket_type == "g" %>
-                <% child_2 = TicketToGroup.find(child_root_2.ticket_id) %>
-                <tr <%= ( ActualTask.is_actual_g(session[:user_id], child_2.id) == 1)?"class=success":"" %> >
-                <%
-                    @tpl_str_data = {
-                           child: TicketToGroup.find(child_root_2.ticket_id),
-                           user_data: User.find(child_2.initiator_id),
-                           executor_data: (child_2.executor == 0)?"":User.find(child_2.executor),
-                           group_data: Group.find(child_2.group_id),
-                           icon_incl: "<i class='icon-minus'></i><i class='icon-arrow-right'></i>"
-                    }
-                %>
-                <%= render template: "tickets/tpl_row_group_ticket" %>
-              <% else %>
-                  <% child_2 = TicketToUser.find(child_root_2.ticket_id) %>
-                  <tr <%= ( ActualTask.is_actual_u(session[:user_id], child_2.id) == 1)?"class=success":"" %> >
-                    <%
-                       @tpl_str_data = {
-                               child: TicketToUser.find(child_root_2.ticket_id),
-                               user_data: User.find(child_2.initiator_id),
-                               icon_incl: "<i class='icon-minus'></i><i class='icon-arrow-right'></i>"
-                       }
-                    %>
-                    <%= render template: "tickets/tpl_row_user_ticket" %>
-              <% end %>
-
-
-            <!--level 3-->
-            <% TicketRoot.find(child_2.root).children.each do |child_root_3| %>
-                  <% if child_root_3.ticket_type == "g" %>
-                      <% child_3 = TicketToGroup.find(child_root_3.ticket_id) %>
-                      <tr <%= ( ActualTask.is_actual_g(session[:user_id], child_3.id) == 1)?"class=success":"" %> >
-                         <%
-                           @tpl_str_data = {
-                                   child: TicketToGroup.find(child_root_3.ticket_id),
-                                   user_data: User.find(child_3.initiator_id),
-                                   executor_data: (child_3.executor == 0)?"":User.find(child_3.executor),
-                                   group_data: Group.find(child_3.group_id),
-                                   icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
-                           }
-                        %>
-                        <%= render template: "tickets/tpl_row_group_ticket" %>
-                  <% else %>
-                      <% child_3 = TicketToUser.find(child_root_3.ticket_id) %>
-                      <tr <%= ( ActualTask.is_actual_u(session[:user_id], child_3.id) == 1)?"class=success":"" %> >
-                        <%
-                           @tpl_str_data = {
-                                   child: TicketToUser.find(child_root_3.ticket_id),
-                                   user_data: User.find(child_3.initiator_id),
-                                   icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
-                           }
-                        %>
-                        <%= render template: "tickets/tpl_row_user_ticket" %>
-                  <% end %>
-
-             <% end %>
-        <% end %>
-    <% end %>
-
+      <%=
+          @my_ticket = my_ticket
+          render template: "tickets/tpl_row_ticket"
+      %>
 
 
   <% end %>
+
   </tbody>
 </table>
+
 
 
 
