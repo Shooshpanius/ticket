@@ -11,14 +11,14 @@ class TicketRoot < ActiveRecord::Base
                                            FROM ticket_roots
                                               LEFT JOIN ticket_to_users ON ticket_roots.id = ticket_to_users.root
                                            WHERE
-                                              ticket_roots.ticket_type = 'u' AND ticket_to_users.user_id = #{user_id}
+                                              ticket_roots.ticket_type = 'u' AND ticket_to_users.user_id = #{user_id} AND ticket_to_users.completed != '100'
                                           ")
 
     group_tickets = TicketRoot.find_by_sql("SELECT ticket_roots.*, ticket_to_groups.root as t_root, ticket_to_groups.executor as t_executor
                                             FROM ticket_roots
                                               LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
                                             WHERE
-                                            ticket_roots.ticket_type = 'g' AND ticket_to_groups.executor = #{user_id}
+                                            ticket_roots.ticket_type = 'g' AND ticket_to_groups.executor = #{user_id} AND ticket_to_groups.completed != '100'
                                             ")
 
     return user_tickets + group_tickets
@@ -54,7 +54,7 @@ class TicketRoot < ActiveRecord::Base
                                             FROM ticket_roots
                                               LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
                                             WHERE
-                                            ticket_roots.ticket_type = 'g' AND ticket_to_groups.executor != #{user_id} AND ticket_to_groups.group_id in (#{my_groups})
+                                            ticket_roots.ticket_type = 'g' AND ticket_to_groups.executor != #{user_id} AND ticket_to_groups.group_id in (#{my_groups}) AND ticket_to_groups.completed != '100'
                                            ")
 
     return group_tickets
