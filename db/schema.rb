@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130904115509) do
+ActiveRecord::Schema.define(version: 20130904120417) do
 
   create_table "actual_tasks", force: true do |t|
     t.integer  "user_id"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20130904115509) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "abbreviation"
+    t.integer  "processing"
   end
 
   create_table "problems", force: true do |t|
