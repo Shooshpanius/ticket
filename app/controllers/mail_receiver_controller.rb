@@ -13,7 +13,7 @@ class MailReceiverController < ApplicationController
       get_mail_process(user, i, ticket_type)
     end
 
-    groups = Group.all
+    groups = Group.where("ticket_email != ?", "")
     ticket_type = 'group'
     groups.each_with_index do |user, i|
       get_mail_process(user, i, ticket_type)
@@ -39,7 +39,7 @@ class MailReceiverController < ApplicationController
                              :password => "ticket"
                          }
 
-    if (user.ticket_email.size > 3) && (user.processing != 1)
+    if user.ticket_email.size > 3
       rcpt = user
       Mail.defaults do
         retriever_method :pop3, :address    => "192.168.0.207",
@@ -79,6 +79,7 @@ class MailReceiverController < ApplicationController
           #marker = " _q2"
         end
         @sndr = User.where("email = ? ", @e_from)
+        @aaa = @sndr
 
         if @sndr.size() != 1
           @sndr = @sndr[0]
@@ -127,6 +128,8 @@ class MailReceiverController < ApplicationController
           end
 
         end
+
+        @sndr = @sndr[0]
 
         if ticket_type == "user"
           ticket = TicketToUser.new()
@@ -220,6 +223,8 @@ class MailReceiverController < ApplicationController
             #end
           end
         end
+        #render "tickets/test"
+
       end
     end
   end
