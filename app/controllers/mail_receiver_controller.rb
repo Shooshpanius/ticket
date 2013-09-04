@@ -39,7 +39,7 @@ class MailReceiverController < ApplicationController
                              :password => "ticket"
                          }
 
-    if user.ticket_email.size > 3
+    if user.ticket_email.size > 3 && user.processing != 0
       rcpt = user
       Mail.defaults do
         retriever_method :pop3, :address    => "192.168.0.207",
