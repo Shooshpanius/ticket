@@ -57,12 +57,24 @@ class TicketRoot < ActiveRecord::Base
       return []
     end
 
-    group_tickets = TicketRoot.find_by_sql("SELECT ticket_roots.*, ticket_to_groups.root as t_root, ticket_to_groups.executor as t_executor
+    group_tickets = TicketRoot.find_by_sql("SELECT
+                                              ticket_roots.*,
+                                              ticket_to_groups.root as t_root,
+                                              ticket_to_groups.executor as t_executor,
+                                              ticket_to_groups.actual as actual
                                             FROM ticket_roots
                                               LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
                                             WHERE
                                             ticket_roots.ticket_type = 'g' AND ticket_to_groups.executor != #{user_id} AND ticket_to_groups.group_id in (#{my_groups}) AND ticket_to_groups.completed != '100'
                                            ")
+
+    group_tickets.each do |my_ticket|
+      my_ticket[:actual] = ActualTask.is_actual_g(user_id, my_ticket.ticket_id)
+    end
+    group_tickets.sort! do |a, b|
+      (b.actual <=> a.actual).nonzero? ||
+          (b.created_at <=> a.created_at)
+    end
 
     return group_tickets
 
