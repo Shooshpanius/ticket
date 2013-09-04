@@ -14,13 +14,13 @@ class TicketMailer < ActionMailer::Base
   def send_new_group_ticket_to_rctp_email(mail_data)
     @mail_data = mail_data
     subj = "Новая заявка на группу " + mail_data[:group_name]
-    mail(to: mail_data[:user_email], subject: subj ) if mail_data[:user_email].to_s.strip != ""
+    mail(to: mail_data[:user_email], subject: subj ) if mail_data[:user_email].to_s.strip != "" && mail_data[:rcpt_email].rcpt_processing != 1
   end
 
   def send_new_group_ticket_to_sndr_email(mail_data)
     @mail_data = mail_data
     subj = "Заявка \''" + mail_data[:ticket_topic] + "\' зарегистрирована"
-    mail(to: mail_data[:initiator_email], subject: subj ) if mail_data[:initiator_email].to_s.strip != ""
+    mail(to: mail_data[:initiator_email], subject: subj ) if mail_data[:initiator_email].to_s.strip != "" && mail_data[:rcpt_email].rcpt_processing != 1
   end
 
   def send_new_user_ticket_to_rctp_email(mail_data)

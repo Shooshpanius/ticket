@@ -15,7 +15,8 @@ class TicketToGroup < ActiveRecord::Base
           ticket_text: self.text,
           group_name: Group.find(self.group_id).name,
           initiator_login: User.find(self.initiator_id).login,
-          user_email: User.find(member.user_id).email
+          user_email: User.find(member.user_id).email,
+          rcpt_processing: User.find(member.user_id).processing
       }
       TicketMailer.send_new_group_ticket_to_rctp_email(mail_data_to_rcpt).deliver
     end
@@ -27,7 +28,8 @@ class TicketToGroup < ActiveRecord::Base
         group_name: Group.find(self.group_id).name,
         initiator_login: User.find(self.initiator_id).login,
         initiator_email: User.find(self.initiator_id).email,
-        members: UserByGroup.users_in_group(self.group_id)
+        members: UserByGroup.users_in_group(self.group_id),
+        rcpt_processing: User.find(self.initiator_id).processing
     }
     TicketMailer.send_new_group_ticket_to_sndr_email(mail_data_to_sndr).deliver
 
