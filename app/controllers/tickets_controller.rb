@@ -275,6 +275,7 @@ class TicketsController < ApplicationController
     ticket = TicketToGroup.find(params[:ticket_id].to_i)
     group = Group.find(ticket.group_id)
     (group.leader != nil) ? leader=User.find(group.leader) : leader=nil
+    user = User.find(session[:user_id])
 
     mail_data = {
         url: 'http://web.wood.local/login',
@@ -283,7 +284,10 @@ class TicketsController < ApplicationController
         comment_topic: ticket.topic,
         comment_text: ticket.text,
         completed: params[:status],
-        sndr_login: User.find(session[:user_id]).login,
+        sndr_login: user.login,
+        sndr_f_name: user.f_name,
+        sndr_i_name: user.i_name,
+        sndr_o_name: user.o_name,
         rcpt_email: User.find(ticket.initiator_id).email
     }
     TicketMailer.send_change_status(mail_data).deliver
@@ -296,7 +300,10 @@ class TicketsController < ApplicationController
           comment_topic: ticket.topic,
           comment_text: ticket.text,
           completed: params[:status],
-          sndr_login: User.find(session[:user_id]).login,
+          sndr_login: user.login,
+          sndr_f_name: user.f_name,
+          sndr_i_name: user.i_name,
+          sndr_o_name: user.o_name,
           rcpt_email: leader.email
       }
       TicketMailer.send_change_status(mail_data).deliver
@@ -312,6 +319,7 @@ class TicketsController < ApplicationController
 
       ticket = TicketToGroup.find(params[:ticket_id].to_i)
       group = Group.find(ticket.group_id)
+      user = User.find(session[:user_id])
       (group.leader != nil) ? leader=User.find(group.leader) : leader=nil
 
       mail_data = {
@@ -321,7 +329,10 @@ class TicketsController < ApplicationController
           comment_topic: ticket.topic,
           comment_text: ticket.text,
           completed: 100,
-          sndr_login: User.find(session[:user_id]).login,
+          sndr_login: user.login,
+          sndr_f_name: user.f_name,
+          sndr_i_name: user.i_name,
+          sndr_o_name: user.o_name,
           rcpt_email: User.find(ticket.initiator_id).email
       }
       TicketMailer.send_change_status(mail_data).deliver
@@ -334,7 +345,10 @@ class TicketsController < ApplicationController
             comment_topic: ticket.topic,
             comment_text: ticket.text,
             completed: 100,
-            sndr_login: User.find(session[:user_id]).login,
+            sndr_login: user.login,
+            sndr_f_name: user.f_name,
+            sndr_i_name: user.i_name,
+            sndr_o_name: user.o_name,
             rcpt_email: leader.email
         }
         TicketMailer.send_change_status(mail_data).deliver

@@ -5,9 +5,11 @@
 </head>
 <body>
 
-
-<h3>Пользователь <%= @mail_data[:sndr_login] %> установил процент выполнения заявки # <%= @mail_data[:type_comment] %>_<%= @mail_data[:ticket_id] %> в <%= @mail_data[:completed] %>% </h3>
-
+<p>
+    Пользователь <%= @mail_data[:sndr_f_name] %> <%= @mail_data[:sndr_i_name] %> <%= @mail_data[:sndr_o_name] %> (<%= @mail_data[:sndr_login] %>) <br />
+    установил процент выполнения заявки '<%= @mail_data[:comment_topic] %>' (#<%= @mail_data[:type_comment] %>_<%= @mail_data[:ticket_id] %>) <br />
+    в <%= @mail_data[:completed] %>%
+</p>
 
 <p>
   Чтобы войти в систему, перейдите по ссылке: <%= @mail_data[:url] %>.
