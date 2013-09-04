@@ -80,7 +80,7 @@ class MailReceiverController < ApplicationController
         end
         @sndr = User.where("email = ? ", @e_from)
 
-        if @sndr.size() != 0
+        if @sndr.size() != 1
           @sndr = @sndr[0]
 
         else
