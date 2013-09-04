@@ -50,7 +50,8 @@ class TicketComment < ActiveRecord::Base
           rcpt_email: initiator.email,
           header: header,
           created_at: created_at,
-          sndr_fio: sndr_fio
+          sndr_fio: sndr_fio,
+          rcpt_processing: initiator.processing
       }
 
       TicketMailer.send_new_comment_email(mail_data).deliver
@@ -68,7 +69,8 @@ class TicketComment < ActiveRecord::Base
               rcpt_email: leader.email,
               header: header,
               created_at: created_at,
-              sndr_fio: sndr_fio
+              sndr_fio: sndr_fio,
+              rcpt_processing: leader.processing
           }
 
           TicketMailer.send_new_comment_email(mail_data).deliver
@@ -88,7 +90,8 @@ class TicketComment < ActiveRecord::Base
               rcpt_email: executor.email,
               header: header,
               created_at: created_at,
-              sndr_fio: sndr_fio
+              sndr_fio: sndr_fio,
+              rcpt_processing: executor.processing
           }
 
           TicketMailer.send_new_comment_email(mail_data).deliver
@@ -109,7 +112,8 @@ class TicketComment < ActiveRecord::Base
               rcpt_email: User.find(task.user_id).email,
               header: header,
               created_at: created_at,
-              sndr_fio: sndr_fio
+              sndr_fio: sndr_fio,
+              rcpt_processing: User.find(task.user_id).processing
           }
 
           TicketMailer.send_new_comment_email(mail_data).deliver
@@ -131,7 +135,8 @@ class TicketComment < ActiveRecord::Base
           rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).user_id).email,
           header: header,
           created_at: created_at,
-          sndr_fio: sndr_fio
+          sndr_fio: sndr_fio,
+          rcpt_processing: User.find(TicketToUser.find(self.ticket_to_user).user_id).processing
       }
 
       TicketMailer.send_new_comment_email(mail_data).deliver
@@ -146,7 +151,8 @@ class TicketComment < ActiveRecord::Base
           rcpt_email: User.find(TicketToUser.find(self.ticket_to_user).initiator_id).email,
           header: header,
           created_at: created_at,
-          sndr_fio: sndr_fio
+          sndr_fio: sndr_fio,
+          rcpt_processing: User.find(TicketToUser.find(self.ticket_to_user).initiator_id).processing
       }
 
       TicketMailer.send_new_comment_email(mail_data).deliver

@@ -39,7 +39,7 @@ class TicketMailer < ActionMailer::Base
   def send_new_comment_email(mail_data)
     @mail_data = mail_data
     subj = @mail_data[:header].to_s
-    mail(to: mail_data[:rcpt_email], subject: subj ) if mail_data[:rcpt_email].to_s.strip != ""
+    mail(to: mail_data[:rcpt_email], subject: subj ) if mail_data[:rcpt_email].to_s.strip != "" && mail_data[:rcpt_email].rcpt_processing != 1
   end
 
   def send_change_executor_by_leader(mail_data)
