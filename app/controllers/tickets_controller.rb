@@ -40,44 +40,14 @@ class TicketsController < ApplicationController
   end
 
   def in
-    #user_tickets = TicketToUser.where('user_id = ? and completed < ?', session[:user_id], 100)
-    #user_tickets.each do |user_ticket|
-    #  user_ticket[:actual] = ActualTask.is_actual_u(session[:user_id], user_ticket[:id])
-    #end
-    #user_tickets.sort! do |a, b|
-    #  (b.actual <=> a.actual).nonzero? ||
-    #      (b.created_at <=> a.created_at)
-    #end
-    #
-    #group_tickets = TicketToGroup.where("group_id in (?) and completed < ?", UserByGroup.groups_for_user(session[:user_id]) , 100)
-    #group_tickets.each do |group_ticket|
-    #  group_ticket[:actual] = ActualTask.is_actual_g(session[:user_id], group_ticket[:id])
-    #end
-    #group_tickets.sort! do |a, b|
-    #  (b.actual <=> a.actual).nonzero? ||
-    #      (b.created_at <=> a.created_at)
-    #end
 
     my_tickets = TicketRoot.my_tickets(session[:user_id])
-
-
     other_tickets = TicketRoot.other_tickets(session[:user_id])
 
-
     @form_data = {
-        #user_tickets: user_tickets,
-        #group_tickets: group_tickets,
         my_tickets: my_tickets,
         other_tickets: other_tickets
     }
-
-
-
-
-
-    #@test = my_tickets
-
-    #render ("test")
 
   end
 
