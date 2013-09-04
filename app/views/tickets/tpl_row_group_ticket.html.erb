@@ -1,4 +1,4 @@
-<td colspan="2"> <%== @tpl_str_data[:icon_incl] %> &nbsp;&nbsp;<%= @tpl_str_data[:user_data].f_name %> <%= @tpl_str_data[:user_data].i_name %> <%= @tpl_str_data[:user_data].o_name %> (<%= @tpl_str_data[:user_data].login %>)</td>
+<td> <%== @tpl_str_data[:icon_incl] %><%= @tpl_str_data[:user_data].f_name %> <%= @tpl_str_data[:user_data].i_name %> <%= @tpl_str_data[:user_data].o_name %> (<%= @tpl_str_data[:user_data].login %>)</td>
 <td
 <% if @tpl_str_data[:group_data].leader == session[:user_id] %>
 style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= @tpl_str_data[:child].group_id %>, <%= @tpl_str_data[:child].id %>)"

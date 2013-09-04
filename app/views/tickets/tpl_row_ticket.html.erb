@@ -45,7 +45,7 @@
                      user_data: User.find(child.initiator_id),
                      executor_data: (child.executor == 0)?"":User.find(child.executor),
                      group_data: Group.find(child.group_id),
-                     icon_incl: "<i class='icon-arrow-right'></i>"
+                     icon_incl: "&nbsp;<i class='icon-arrow-right'></i>&nbsp;&nbsp;"
              }
           %>
           <%= render template: "tickets/tpl_row_group_ticket" %>
@@ -57,7 +57,7 @@
                      child: child,
                      user_data: User.find(child.initiator_id),
                      executor_data: User.find(child.user_id),
-                     icon_incl: "<i class='icon-arrow-right'></i>"
+                     icon_incl: "&nbsp;<i class='icon-arrow-right'></i>&nbsp;&nbsp;"
              }
           %>
           <%= render template: "tickets/tpl_row_user_ticket" %>
@@ -74,7 +74,7 @@
                          user_data: User.find(child.initiator_id),
                          executor_data: (child.executor == 0)?"":User.find(child.executor),
                          group_data: Group.find(child.group_id),
-                         icon_incl: "<i class='icon-minus'></i><i class='icon-arrow-right'></i>"
+                         icon_incl: "&nbsp;<i class='icon-minus'></i><i class='icon-arrow-right'></i>&nbsp;&nbsp;"
                  }
               %>
               <%= render template: "tickets/tpl_row_group_ticket" %>
@@ -86,7 +86,7 @@
                          child: child,
                          user_data: User.find(child.initiator_id),
                          executor_data: User.find(child.user_id),
-                         icon_incl: "<i class='icon-minus'></i><i class='icon-arrow-right'></i>"
+                         icon_incl: "&nbsp;<i class='icon-minus'></i><i class='icon-arrow-right'></i>&nbsp;&nbsp;"
                  }
               %>
               <%= render template: "tickets/tpl_row_user_ticket" %>
@@ -103,7 +103,7 @@
                              user_data: User.find(child.initiator_id),
                              executor_data: (child.executor == 0)?"":User.find(child.executor),
                              group_data: Group.find(child.group_id),
-                             icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
+                             icon_incl: "&nbsp;<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>&nbsp;&nbsp;"
                      }
                   %>
                   <%= render template: "tickets/tpl_row_group_ticket" %>
@@ -115,7 +115,7 @@
                              child: child,
                              user_data: User.find(child.initiator_id),
                              executor_data: User.find(child.user_id),
-                             icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
+                             icon_incl: "&nbsp;<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>&nbsp;&nbsp;"
                      }
                   %>
                   <%= render template: "tickets/tpl_row_user_ticket" %>
@@ -132,7 +132,7 @@
                                  user_data: User.find(child.initiator_id),
                                  executor_data: (child.executor == 0)?"":User.find(child.executor),
                                  group_data: Group.find(child.group_id),
-                                 icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
+                                 icon_incl: "&nbsp;<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>&nbsp;&nbsp;"
                          }
                       %>
                       <%= render template: "tickets/tpl_row_group_ticket" %>
@@ -144,7 +144,7 @@
                                  child: child,
                                  user_data: User.find(child.initiator_id),
                                  executor_data: User.find(child.user_id),
-                                 icon_incl: "<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>"
+                                 icon_incl: "&nbsp;<i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-minus'></i><i class='icon-arrow-right'></i>&nbsp;&nbsp;"
                          }
                       %>
                       <%= render template: "tickets/tpl_row_user_ticket" %>

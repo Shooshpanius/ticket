@@ -1,4 +1,4 @@
-<td colspan="2"> <%== @tpl_str_data[:icon_incl] %> &nbsp;&nbsp;<%= @tpl_str_data[:user_data].f_name %> <%= @tpl_str_data[:user_data].i_name %> <%= @tpl_str_data[:user_data].o_name %> (<%= @tpl_str_data[:user_data].login %>)</td>
+<td> <%== @tpl_str_data[:icon_incl] %><%= @tpl_str_data[:user_data].f_name %> <%= @tpl_str_data[:user_data].i_name %> <%= @tpl_str_data[:user_data].o_name %> (<%= @tpl_str_data[:user_data].login %>)</td>
 
 <td>  <span class='label label-info'><%= @tpl_str_data[:executor_data].login %></span>   </td>
   <td style="cursor: pointer" onclick="ticket_open('u', <%= @tpl_str_data[:child].id %>)" ><%= @tpl_str_data[:child].topic %></td>
