@@ -288,7 +288,8 @@ class TicketsController < ApplicationController
         sndr_f_name: user.f_name,
         sndr_i_name: user.i_name,
         sndr_o_name: user.o_name,
-        rcpt_email: User.find(ticket.initiator_id).email
+        rcpt_email: User.find(ticket.initiator_id).email,
+        rcpt_processing: User.find(ticket.initiator_id).processing
     }
     TicketMailer.send_change_status(mail_data).deliver
 
@@ -304,7 +305,8 @@ class TicketsController < ApplicationController
           sndr_f_name: user.f_name,
           sndr_i_name: user.i_name,
           sndr_o_name: user.o_name,
-          rcpt_email: leader.email
+          rcpt_email: leader.email,
+          rcpt_processing: leader.processing
       }
       TicketMailer.send_change_status(mail_data).deliver
     end
@@ -333,7 +335,8 @@ class TicketsController < ApplicationController
           sndr_f_name: user.f_name,
           sndr_i_name: user.i_name,
           sndr_o_name: user.o_name,
-          rcpt_email: User.find(ticket.initiator_id).email
+          rcpt_email: User.find(ticket.initiator_id).email,
+          rcpt_processing: User.find(ticket.initiator_id).processing
       }
       TicketMailer.send_change_status(mail_data).deliver
 
@@ -349,7 +352,8 @@ class TicketsController < ApplicationController
             sndr_f_name: user.f_name,
             sndr_i_name: user.i_name,
             sndr_o_name: user.o_name,
-            rcpt_email: leader.email
+            rcpt_email: leader.email,
+            rcpt_processing: leader.processing
         }
         TicketMailer.send_change_status(mail_data).deliver
       end

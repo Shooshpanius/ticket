@@ -63,7 +63,7 @@ class TicketMailer < ActionMailer::Base
   def send_change_status(mail_data)
     @mail_data = mail_data
     subj = 'Изменился % выполнения заявки ' + @mail_data[:comment_topic].to_s + ' (№ ' + @mail_data[:type_comment].to_s + '_' + @mail_data[:ticket_id].to_s + ')'
-    mail(to: mail_data[:rcpt_email], subject: subj ) if mail_data[:rcpt_email].to_s.strip != ""
+    mail(to: mail_data[:rcpt_email], subject: subj ) if mail_data[:rcpt_email].to_s.strip != "" && mail_data[:rcpt_processing] != 1
   end
 
 end
