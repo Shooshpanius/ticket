@@ -6,5 +6,8 @@
   <td><%= @tpl_str_data[:child].created_at.strftime("%d-%m-%Y") %></td>
   <td>
     <a class="btn btn-mini btn-primary" type="button" href="/tickets/ticket_edit/u_<%= @tpl_str_data[:child].id %>"><i class="icon-edit"></i></a>
+    <span class="badge" ><%= TicketComment.where("ticket_to_user_id = ?", @tpl_str_data[:child].id).count %></span>
+    <span class="badge" ><%= @tpl_str_data[:child].completed %>%</span>
+
   </td>
 </tr>
