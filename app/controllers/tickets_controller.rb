@@ -381,7 +381,8 @@ class TicketsController < ApplicationController
         comment_topic: ticket.topic,
         comment_text: ticket.text,
         sndr_login: User.find(group.leader).login,
-        rcpt_email: User.find(params[:executor_id]).email
+        rcpt_email: User.find(params[:executor_id]).email,
+        rcpt_processing: User.find(params[:executor_id]).processing
     }
     TicketMailer.send_change_executor_by_leader(mail_data).deliver
 
@@ -393,7 +394,8 @@ class TicketsController < ApplicationController
         comment_text: ticket.text,
         sndr_login: User.find(group.leader).login,
         rcpt_email: User.find(ticket.initiator_id).email,
-        exec_login: User.find(params[:executor_id]).login
+        exec_login: User.find(params[:executor_id]).login,
+        rcpt_processing: User.find(ticket.initiator_id).processing
     }
     TicketMailer.send_change_executor_to_initiator(mail_data).deliver
 
@@ -415,7 +417,8 @@ class TicketsController < ApplicationController
           comment_topic: ticket.topic,
           comment_text: ticket.text,
           sndr_login: User.find(session[:user_id]).login,
-          rcpt_email: leader.email
+          rcpt_email: leader.email,
+          rcpt_processing: leader.processing
       }
       TicketMailer.send_change_executor_by_member(mail_data).deliver
 
@@ -429,7 +432,8 @@ class TicketsController < ApplicationController
         comment_text: ticket.text,
         sndr_login: User.find(session[:user_id]).login,
         rcpt_email: User.find(ticket.initiator_id).email,
-        exec_login: User.find(session[:user_id]).login
+        exec_login: User.find(session[:user_id]).login,
+        rcpt_processing: User.find(ticket.initiator_id).processing
     }
     TicketMailer.send_change_executor_to_initiator(mail_data).deliver
 
