@@ -89,11 +89,10 @@ class MailReceiverController < ApplicationController
         @sndr = User.where("email = ? ", @e_from)
         @aaa = @sndr
 
-        if @sndr.size() != 1
+        if @sndr.size() != 0
           @sndr = @sndr[0]
 
         else
-
           filter = Net::LDAP::Filter.eq("mail", @e_from)
           attrs = ["givenName", "sn", "physicalDeliveryOfficeName", "sAMAccountName", "mail", "title", "department"]
           i = 0
@@ -118,8 +117,9 @@ class MailReceiverController < ApplicationController
             if new_user.new_record?
               new_user.save
               @check = i
-              @entry = entry
+              #@entry = entry
               @sndr = new_user
+
             end
 
           end
@@ -131,13 +131,14 @@ class MailReceiverController < ApplicationController
           if new_user.new_record?
             new_user.save
             @check = "q"
-            @entry = entry
+            #@entry = entry
             @sndr = new_user
+
           end
 
         end
 
-        @sndr = @sndr[0]
+
 
         if ticket_type == "user"
           ticket = TicketToUser.new()
