@@ -64,7 +64,7 @@ class MailReceiverController < ApplicationController
             begin
               @e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
             rescue Exception => ee
-
+              @e_text_t = ""
             end
           end
 
@@ -78,7 +78,7 @@ class MailReceiverController < ApplicationController
             begin
               @e_text_t =  email.body.decoded.encode( 'UTF-8', email.content_type_parameters[:charset] )
             rescue Exception => ee
-
+              @e_text_t = ""
             end
           end
 
