@@ -108,7 +108,7 @@ class MailReceiverController < ApplicationController
             department = entry.try(:department).to_s.strip.sub(/(\[\")/,'').sub(/(\"\])/,'')
 
             new_user = User.find_or_initialize_by(email: @e_from)
-            new_user.login = sAMAccountName
+            (sAMAccountName != "") ? new_user.login = sAMAccountName : new_user.login = @e_from
             new_user.f_name = sn
             new_user.i_name = givenName
             new_user.position = title
