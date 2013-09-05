@@ -6,7 +6,7 @@ style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list
 >
   <%= @tpl_str_data[:group_data].abbreviation %><%== (@tpl_str_data[:child].executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{@tpl_str_data[:executor_data].login}</span>" %>
 </td>
-<td style="cursor: pointer" onclick="ticket_open('g', <%= @tpl_str_data[:child].id %>)" ><%= @tpl_str_data[:child].topic %></td>
+<td style="cursor: pointer" onclick="ticket_open('g', <%= @tpl_str_data[:child].id %>)" ><%== @tpl_str_data[:icon_incl] %><%= @tpl_str_data[:child].topic %></td>
 <td>
   <% ActualTask.where("ticket_to_group_id = ?", @tpl_str_data[:child].id).each do |task| %>
       <%= User.find(task.user_id).login %> <br />
