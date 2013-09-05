@@ -61,7 +61,11 @@ class MailReceiverController < ApplicationController
           begin
             @e_text_t =  email.html_part.body.decoded.encode( 'UTF-8', email.html_part.content_type_parameters[:charset] )
           rescue Exception => e
-            @e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
+            begin
+              @e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
+            rescue Exception => ee
+
+            end
           end
 
           #@e_text_t =  email.parts[0].body.decoded.encode( 'UTF-8', email.parts[0].content_type_parameters[:charset] )
@@ -71,7 +75,11 @@ class MailReceiverController < ApplicationController
           begin
             @e_text_t =  email.html_part.body.decoded.encode( 'UTF-8', email.text_part.content_type_parameters[:charset] )
           rescue Exception => e
-            @e_text_t =  email.body.decoded.encode( 'UTF-8', email.content_type_parameters[:charset] )
+            begin
+              @e_text_t =  email.body.decoded.encode( 'UTF-8', email.content_type_parameters[:charset] )
+            rescue Exception => ee
+
+            end
           end
 
 
