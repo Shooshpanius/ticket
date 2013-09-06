@@ -90,7 +90,8 @@ class TicketRoot < ActiveRecord::Base
 
       if TicketToGroup.is_leader(delay_data[:user_id], root.ticket_id) == true || TicketToGroup.is_executor(delay_data[:user_id], root.ticket_id) == true  then
 
-        root.delay = delay_data[:delay_date] + delay_data[:delay_time]
+        #root.delay = delay_data[:delay_date] + delay_data[:delay_time]
+        root.delay = "1000-01-01 12:00:00"
         root.save
 
 
