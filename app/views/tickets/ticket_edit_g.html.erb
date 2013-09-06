@@ -27,7 +27,7 @@
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a onclick="set_delay(<%= @ticket_root.id %>)" >Отложить</a>
+        <a onclick="show_set_delay()" >Отложить</a>
       </li>      <!-- links -->
     </ul>
   </li>
@@ -217,3 +217,18 @@
 <div id="srv_close_ticket_comment_form" name="srv_close_ticket_comment_form">
 </div>
 
+<div id="setDelay" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="setDelayLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="setDelayLabel">Отложить заявку</h3>
+  </div>
+  <div class="modal-body">
+    <div>
+      <input type="text" id="inputDelayDate" name="inputDelayDate"  > :
+      <input type="text" id="inputDelayTime" name="inputDelayTime"  >
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+  </div>
+</div>

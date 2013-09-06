@@ -1,4 +1,19 @@
 
+@show_set_delay = () ->
+  $("#setDelay").modal 'show'
+
+@set_delay = (root_id, delay_datetime) ->
+  $.ajax
+    url: "/tickets/srv_set_delay"
+    type: "POST"
+    async: false
+    data: {
+      root_id: root_id,
+      delay_datetime: delay_datetime
+    }
+    success: () ->
+      location.reload()
+
 @change_status = (ticket_id) ->
   status = $("select#inputCompleted").val()
   unless parseInt(status) is 100
@@ -68,6 +83,9 @@ $(document).ready ($) ->
 
   $('#inputCommText').wysihtml5()
 
+  $("#inputDelayDate").datepicker
+    firstDay: 1
+    dateFormat: "dd-mm-yy"
 
   $("#comment_new").validate
     rules:

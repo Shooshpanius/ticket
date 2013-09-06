@@ -484,6 +484,12 @@ class TicketsController < ApplicationController
   end
 
 
+  def srv_set_delay
+
+    render text: "srv_set_delay"
+  end
+
+
 
   #def srv_refactor_tickets_root
   #
