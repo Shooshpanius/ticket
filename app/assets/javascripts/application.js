@@ -21,4 +21,5 @@
 //= require jquery-hotkeys
 //= require bootstrap-wysihtml5
 //= require jquery-tablesorter
+//= require jquery.maskedinput
 //= require_self
