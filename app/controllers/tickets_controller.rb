@@ -486,6 +486,14 @@ class TicketsController < ApplicationController
 
   def srv_set_delay
 
+    delay_data = {
+        user_id: session[:user_id],
+        root_id: params[:root_id],
+        delay_date: params[:delay_date],
+        delay_time: params[:delay_time]
+    }
+    TicketRoot.set_delay(delay_data)
+
     render text: "srv_set_delay"
   end
 

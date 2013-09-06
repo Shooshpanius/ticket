@@ -80,6 +80,31 @@ class TicketRoot < ActiveRecord::Base
 
   end
 
+
+
+  def TicketRoot.set_delay(delay_data)
+    root = TicketRoot.find(delay_data[:root_id])
+    ticket_type = root.ticket_type
+
+    if ticket_type = "g"
+      if TicketToGroup.is_leader(delay_data[:user_id], delay_data[:ticket_id]) == true ||
+          TicketToGroup.is_executor(delay_data[:user_id], delay_data[:ticket_id]) == true
+
+
+
+
+      end
+
+
+
+    end
+
+
+
+
+  end
+
+
 end
 
 # AND ticket_to_groups.group_id IN #{my_groups}
