@@ -2,14 +2,15 @@
 @show_set_delay = () ->
   $("#setDelay").modal 'show'
 
-@set_delay = (root_id, delay_datetime) ->
+@set_delay = (root_id, delay_date, delay_time) ->
   $.ajax
     url: "/tickets/srv_set_delay"
     type: "POST"
     async: false
     data: {
       root_id: root_id,
-      delay_datetime: delay_datetime
+      delay_date: $("#inputDelayDate").val(),
+      delay_time: $("#inputDelayTime").val()
     }
     success: () ->
       location.reload()
