@@ -492,50 +492,10 @@ class TicketsController < ApplicationController
         delay_date: params[:delay_date],
         delay_time: params[:delay_time]
     }
-    TicketRoot.set_delay(delay_data)
+    a = TicketRoot.set_delay(delay_data)
 
-    render text: "srv_set_delay"
+    render text: a
   end
-
-
-
-  #def srv_refactor_tickets_root
-  #
-  #  tickets = TicketToGroup.where("root is ?", nil)
-  #  tickets.each do |ticket|
-  #    root_array = {
-  #        ticket_type: "g",
-  #        ticket_id: ticket.id,
-  #        from_id: ticket.initiator_id,
-  #        to_id: ticket.group_id
-  #    }
-  #    root = TicketRoot.new(root_array)
-  #    root.save
-  #
-  #    ticket.root = root.id
-  #    ticket.save
-  #  end
-  #
-  #  tickets = TicketToUser.where("root is ?", nil)
-  #  tickets.each do |ticket|
-  #    root_array = {
-  #        ticket_type: "u",
-  #        ticket_id: ticket.id,
-  #        from_id: ticket.initiator_id,
-  #        to_id: ticket.user_id
-  #    }
-  #    root = TicketRoot.new(root_array)
-  #    root.save
-  #
-  #    ticket.root = root.id
-  #    ticket.save
-  #  end
-  #
-  #  render text: "srv_refactor_tickets_root"
-  #
-  #end
-
-
 
 
 

@@ -87,15 +87,16 @@ class TicketRoot < ActiveRecord::Base
     ticket_type = root.ticket_type
 
     if ticket_type = "g"
-      if TicketToGroup.is_leader(delay_data[:user_id], delay_data[:ticket_id]) == true ||
-          TicketToGroup.is_executor(delay_data[:user_id], delay_data[:ticket_id]) == true
 
+      if TicketToGroup.is_leader(delay_data[:user_id], root.ticket_id) == true || TicketToGroup.is_executor(delay_data[:user_id], root.ticket_id) == true  then
 
+        root.delay = delay_data[:delay_date] + delay_data[:delay_time]
+        root.save
 
 
       end
 
-
+      return TicketToGroup.is_leader(delay_data[:user_id], root.ticket_id).to_s + "___" + TicketToGroup.is_executor(delay_data[:user_id], root.ticket_id).to_s
 
     end
 

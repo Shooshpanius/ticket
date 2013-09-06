@@ -2,7 +2,7 @@
 @show_set_delay = () ->
   $("#setDelay").modal 'show'
 
-@set_delay = (root_id, delay_date, delay_time) ->
+@set_delay = (root_id) ->
   $.ajax
     url: "/tickets/srv_set_delay"
     type: "POST"
