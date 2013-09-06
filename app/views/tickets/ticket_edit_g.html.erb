@@ -15,7 +15,25 @@
   </li>
   <li>
   <a href="/tickets/ticket_new/g_<%= @ticket.id %>">Новая вложенная заявка</a>
-</li>
+  </li>
+
+
+  <li class="nav  pull-right dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">
+      Действия
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a onclick="set_delay(<%= @ticket_root.id %>)" >Отложить</a>
+      </li>      <!-- links -->
+    </ul>
+  </li>
+
+
+
 </ul>
 
 

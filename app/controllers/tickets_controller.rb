@@ -177,6 +177,7 @@ class TicketsController < ApplicationController
           TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true
         then
           @ticket = TicketToGroup.find(ticket_id)
+          @ticket_root = TicketRoot.where("ticket_type = ? AND ticket_id = ?", "g", ticket_id)[0]
           @initiator = User.find(@ticket.initiator_id)
           @group = Group.find(@ticket.group_id)
           @comments = TicketToGroup.find(ticket_id).ticket_comments.sort_by{ |elem| elem.created_at}.reverse
