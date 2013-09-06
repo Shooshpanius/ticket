@@ -221,10 +221,26 @@
     <h3 id="setDelayLabel">Отложить заявку</h3>
   </div>
   <div class="modal-body">
-    <div>
-      <input type="text" id="inputDelayDate" name="inputDelayDate"  > :
-      <input type="text" id="inputDelayTime" name="inputDelayTime"  >
-    </div>
+
+    <form class="form-horizontal" id="comment_new" novalidate="">
+      <fieldset>
+
+        <div class="control-group">
+          <label class="control-label" for="inputDelayDate">Дата</label>
+          <div class="controls">
+            <input type="text" id="inputDelayDate" name="inputDelayDate" class="input-small" >
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="inputDelayTime">Время</label>
+          <div class="controls">
+            <input type="text" id="inputDelayTime" name="inputDelayTime" class="input-small" >
+          </div>
+        </div>
+      </fieldset>
+    </form>
+
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary" data-dismiss="modal" onclick="set_delay()">Применить</button>
