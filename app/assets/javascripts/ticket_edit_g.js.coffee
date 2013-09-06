@@ -83,6 +83,7 @@ $(document).ready ($) ->
 
   $('#inputCommText').wysihtml5()
 
+
   $("#inputDelayDate").datepicker
     firstDay: 1
     dateFormat: "dd-mm-yy"
