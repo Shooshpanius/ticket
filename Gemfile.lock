@@ -58,7 +58,6 @@ GEM
     jbuilder (1.5.1)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
-    jquery-datetimepicker (1.0.3)
     jquery-hotkeys-rails (0.7.9.1)
       railties (>= 3.1)
     jquery-rails (3.0.4)
@@ -165,7 +164,6 @@ DEPENDENCIES
   execjs
   highline
   jbuilder (~> 1.2)
-  jquery-datetimepicker
   jquery-hotkeys-rails
   jquery-rails
   jquery-tablesorter

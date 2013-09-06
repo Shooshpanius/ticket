@@ -88,7 +88,7 @@ $(document).ready ($) ->
     firstDay: 1
     dateFormat: "dd-mm-yy"
 
-  $('#inputDelayTime').mask "99:99:99"
+  $('#inputDelayTime').mask "99:99"
 
   $("#comment_new").validate
     rules:
