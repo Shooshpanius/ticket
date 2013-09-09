@@ -46,8 +46,7 @@
 <form class="form-horizontal" id="ticket_edit_g" novalidate="">
 
   <fieldset>
-    Заявка отложена до <span class='label label-important'><%= (TicketRoot.find(@ticket.id).delay || "1000-01-01 00:00:00") %></span>
-    <%= Time.now  %>
+
     <% if Time.now < (TicketRoot.find(@ticket.id).delay || "1000-01-01 00:00:00") %>
        <div class="control-group">
           <label class="control-label" for="inputStatusDelay"></label>
@@ -282,3 +281,5 @@
 
 
 
+<%= (TicketRoot.find(@ticket.id).delay) %> <br />
+<%= Time.now  %> <br />
