@@ -8,7 +8,7 @@
 
 <ul class="nav nav-tabs">
   <li>
-    <a href="/tickets/in">Входящие</a>
+    <a href="/tickets/in">Входящие <span class='label label-info'><%= @form_data[:my_tickets_cnt] %></a>
   </li>
   <li>
     <a href="/tickets/out">Исходящие</a>
@@ -17,7 +17,7 @@
     <a href="/tickets/ticket_new/">Новая заявка</a>
   </li>
   <li class="nav  pull-right dropdown active">
-    <a href="/tickets/in_delay/">Отложенные заявки</a>
+    <a href="/tickets/in_delay/">Отложенные заявки <span class='label label-info'><%= @form_data[:my_tickets_delay_cnt] %></a>
   </li>
 </ul>
 

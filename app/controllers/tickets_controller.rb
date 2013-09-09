@@ -44,11 +44,14 @@ class TicketsController < ApplicationController
     my_tickets = TicketRoot.my_tickets(session[:user_id])
     my_tickets_cnt = TicketRoot.my_tickets_cnt(session[:user_id])
     other_tickets = TicketRoot.other_tickets(session[:user_id])
+    my_tickets_delay_cnt = TicketRoot.my_tickets_delay_cnt(session[:user_id])
+
 
     @form_data = {
         my_tickets: my_tickets,
         my_tickets_cnt: my_tickets_cnt,
-        other_tickets: other_tickets
+        other_tickets: other_tickets,
+        my_tickets_delay_cnt: my_tickets_delay_cnt,
     }
 
   end
@@ -56,24 +59,38 @@ class TicketsController < ApplicationController
   def in_delay
 
     my_tickets_delay = TicketRoot.my_tickets_delay(session[:user_id])
+    my_tickets_cnt = TicketRoot.my_tickets_cnt(session[:user_id])
+    my_tickets_delay_cnt = TicketRoot.my_tickets_delay_cnt(session[:user_id])
 
     @form_data = {
         my_tickets: my_tickets_delay,
+        my_tickets_cnt: my_tickets_cnt,
+        my_tickets_delay_cnt: my_tickets_delay_cnt,
     }
 
   end
 
   def out
-    my_tickets_to_users = TicketToUser.where("initiator_id = ? and completed < ?", session[:user_id], 100).sort_by{ |elem| [elem.actual, elem.deadline]}.take(10)
+    my_tickets_to_users = TicketToUser.where("initiator_id = ? and completed < ?", session[:user_id], 100).sort_by{ |elem| [elem.actual, elem.deadline]}
     my_tickets_to_users.each do |user_ticket|
       user_ticket[:actual] = ActualTask.is_actual_u(session[:user_id], user_ticket[:id])
     end
-    my_tickets_to_groups = TicketToGroup.where("initiator_id = ? and completed < ?", session[:user_id], 100).sort_by{ |elem| [elem.actual, elem.deadline]}.take(10)
+    my_tickets_to_groups = TicketToGroup.where("initiator_id = ? and completed < ?", session[:user_id], 100).sort_by{ |elem| [elem.actual, elem.deadline]}
     my_tickets_to_groups.each do |group_ticket|
       group_ticket[:actual] = ActualTask.is_actual_g(session[:user_id], group_ticket[:id])
     end
     my_tickets = my_tickets_to_users + my_tickets_to_groups
     @my_tickets = my_tickets
+
+    my_tickets_cnt = TicketRoot.my_tickets_cnt(session[:user_id])
+    my_tickets_delay_cnt = TicketRoot.my_tickets_delay_cnt(session[:user_id])
+
+    @form_data = {
+        my_tickets_cnt: my_tickets_cnt,
+        my_tickets_delay_cnt: my_tickets_delay_cnt,
+    }
+
+
   end
 
   def arch_in

@@ -5,6 +5,9 @@ class TicketRoot < ActiveRecord::Base
   has_one :ticket_to_user, foreign_key: "root"
   has_one :ticket_to_group, foreign_key: "root"
 
+  #
+  #  TicketRoot.my_tickets(user_id)
+  #
   def TicketRoot.my_tickets(user_id)
 
     user_tickets = TicketRoot.find_by_sql("SELECT
@@ -50,6 +53,9 @@ class TicketRoot < ActiveRecord::Base
 
 
 
+  #
+  #  TicketRoot.my_tickets_cnt(user_id)
+  #
   def TicketRoot.my_tickets_cnt(user_id)
 
     user_tickets = TicketRoot.find_by_sql("SELECT SQL_CALC_FOUND_ROWS
@@ -86,6 +92,9 @@ class TicketRoot < ActiveRecord::Base
   end
 
 
+  #
+  #  TicketRoot.other_tickets(user_id)
+  #
   def TicketRoot.other_tickets(user_id)
 
     my_groups = ""
@@ -123,7 +132,9 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-
+  #
+  #  TicketRoot.my_tickets_delay(user_id)
+  #
   def TicketRoot.my_tickets_delay(user_id)
 
     user_tickets = TicketRoot.find_by_sql("SELECT
@@ -163,6 +174,46 @@ class TicketRoot < ActiveRecord::Base
       (b.actual <=> a.actual).nonzero? ||
           (b.created_at <=> a.created_at)
     end
+
+    return my_tickets
+  end
+
+
+
+  #
+  #  TicketRoot.my_tickets_delay_cnt(user_id)
+  #
+  def TicketRoot.my_tickets_delay_cnt(user_id)
+
+    user_tickets = TicketRoot.find_by_sql("SELECT SQL_CALC_FOUND_ROWS
+                                            ticket_roots.*,
+                                            ticket_to_users.root as t_root,
+                                            ticket_to_users.user_id as t_user_id,
+                                            ticket_to_users.actual as actual
+                                           FROM ticket_roots
+                                              LEFT JOIN ticket_to_users ON ticket_roots.id = ticket_to_users.root
+                                           WHERE
+                                              ticket_roots.ticket_type = 'u' AND
+                                              ticket_to_users.user_id = #{user_id} AND
+                                              ticket_to_users.completed != '100' AND
+                                              ticket_roots.delay > '#{Time.now}'
+                                          ")
+
+    group_tickets = TicketRoot.find_by_sql("SELECT SQL_CALC_FOUND_ROWS
+                                              ticket_roots.*,
+                                              ticket_to_groups.root as t_root,
+                                              ticket_to_groups.executor as t_executor,
+                                              ticket_to_groups.actual as actual
+                                            FROM ticket_roots
+                                              LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
+                                            WHERE
+                                              ticket_roots.ticket_type = 'g' AND
+                                              ticket_to_groups.executor = #{user_id} AND
+                                              ticket_to_groups.completed != '100' AND
+                                              ticket_roots.delay > '#{Time.now}'
+                                            ")
+
+    my_tickets = user_tickets.size + group_tickets.size
 
     return my_tickets
   end
