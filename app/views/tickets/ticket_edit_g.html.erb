@@ -51,7 +51,7 @@
        <div class="control-group">
           <label class="control-label" for="inputStatusDelay"></label>
           <div class="controls">
-            Заявка отложена до <span class='label label-important'><%= TicketRoot.find(@ticket.id).delay.strftime("%d-%m-%Y %H:%M") %></span>
+            Заявка отложена до <span class='label label-important'><%= TicketRoot.find(@ticket.root).delay.strftime("%d-%m-%Y %H:%M") %></span>
           </div>
         </div>
     <% end %>
@@ -278,8 +278,3 @@
   </div>
 
 </div>
-
-
-
-<%= (TicketRoot.find(@ticket.root).delay) %> <br />
-<%= Time.now  %> <br />
