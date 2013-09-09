@@ -31,6 +31,13 @@
     <ul class="dropdown-menu">
       <li>
         <a onclick="show_set_delay()" >Отложить</a>
+        <% if Time.now < (TicketRoot.find(@ticket.root).delay || "1000-01-01 00:00:00") %>
+            <a onclick="set_delay_off()" >Вернуть из отложенных</a>
+        <% end %>
+
+
+
+
       </li>      <!-- links -->
     </ul>
   </li>
