@@ -87,7 +87,7 @@ $(document).ready ($) ->
 
   $("#inputDelayDate").datepicker
     firstDay: 1
-    dateFormat: "dd-mm-yy"
+    dateFormat: "yy-mm-dd"
 
   $('#inputDelayTime').mask "99:99"
 
