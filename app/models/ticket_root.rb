@@ -220,6 +220,106 @@ class TicketRoot < ActiveRecord::Base
 
 
 
+  #
+  #  TicketRoot.out_tickets(user_id)
+  #
+  def TicketRoot.out_tickets(user_id)
+
+    user_tickets = TicketRoot.find_by_sql("SELECT
+                                            ticket_roots.*,
+                                            ticket_to_users.root as t_root,
+                                            ticket_to_users.initiator_id as t_initiator_id 	,
+                                            ticket_to_users.actual as actual
+                                           FROM ticket_roots
+                                              LEFT JOIN ticket_to_users ON ticket_roots.id = ticket_to_users.root
+                                           WHERE
+                                              ticket_roots.ticket_type = 'u' AND
+                                              ticket_to_users.initiator_id = #{user_id} AND
+                                              ticket_to_users.completed != '100'
+                                          ")
+
+    group_tickets = TicketRoot.find_by_sql("SELECT
+                                              ticket_roots.*,
+                                              ticket_to_groups.root as t_root,
+                                              ticket_to_groups.initiator_id as t_initiator_id,
+                                              ticket_to_groups.actual as actual
+                                            FROM ticket_roots
+                                              LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
+                                            WHERE
+                                              ticket_roots.ticket_type = 'g' AND
+                                              ticket_to_groups.initiator_id = #{user_id} AND
+                                              ticket_to_groups.completed != '100'
+                                            ")
+
+    my_tickets = user_tickets + group_tickets
+
+    my_tickets.each do |my_ticket|
+      my_ticket[:actual] = (my_ticket.ticket_type == "g") ? ActualTask.is_actual_g(user_id, my_ticket.ticket_id) : ActualTask.is_actual_u(user_id, my_ticket.ticket_id)
+    end
+    my_tickets.sort! do |a, b|
+      (b.actual <=> a.actual).nonzero? ||
+          (b.created_at <=> a.created_at)
+    end
+
+    return my_tickets
+  end
+
+
+
+  #
+  #  TicketRoot.out_tickets_cnt(user_id)
+  #
+  def TicketRoot.out_tickets_cnt(user_id)
+
+    user_tickets = TicketRoot.find_by_sql("SELECT SQL_CALC_FOUND_ROWS
+                                            ticket_roots.*,
+                                            ticket_to_users.root as t_root,
+                                            ticket_to_users.initiator_id as t_initiator_id 	,
+                                            ticket_to_users.actual as actual
+                                           FROM ticket_roots
+                                              LEFT JOIN ticket_to_users ON ticket_roots.id = ticket_to_users.root
+                                           WHERE
+                                              ticket_roots.ticket_type = 'u' AND
+                                              ticket_to_users.initiator_id = #{user_id} AND
+                                              ticket_to_users.completed != '100'
+                                          ")
+
+    group_tickets = TicketRoot.find_by_sql("SELECT SQL_CALC_FOUND_ROWS
+                                              ticket_roots.*,
+                                              ticket_to_groups.root as t_root,
+                                              ticket_to_groups.initiator_id as t_initiator_id,
+                                              ticket_to_groups.actual as actual
+                                            FROM ticket_roots
+                                              LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
+                                            WHERE
+                                              ticket_roots.ticket_type = 'g' AND
+                                              ticket_to_groups.initiator_id = #{user_id} AND
+                                              ticket_to_groups.completed != '100'
+                                            ")
+
+    my_tickets = user_tickets.size + group_tickets.size
+
+    return my_tickets
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   def TicketRoot.set_delay(delay_data)
     root = TicketRoot.find(delay_data[:root_id])
     ticket_type = root.ticket_type
