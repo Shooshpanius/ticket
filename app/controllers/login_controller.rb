@@ -49,7 +49,7 @@ class LoginController < ApplicationController
       session[:is_admin] = true
     end
 
-    render text: "srv_check_login"
+    render :nothing => true
 
   end
 
@@ -57,7 +57,7 @@ class LoginController < ApplicationController
   def srv_logout
     reset_session
     cookies.delete :hash
-    render text: "srv_logout"
+    render :nothing => true
   end
 
 

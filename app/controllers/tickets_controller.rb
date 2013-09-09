@@ -262,23 +262,23 @@ class TicketsController < ApplicationController
 
     end
 
-    render text: "srv_ticket_new"
+    render :nothing => true
   end
 
   def srv_comment_u_new
     TicketToUser.comment_new(session[:user_id], params[:ticket_id], params[:inputCommText])
-    render text: "srv_comment_new"
+    render :nothing => true
   end
 
   def srv_comment_g_new
     TicketToGroup.comment_new(session[:user_id], params[:ticket_id], params[:inputCommText])
-    render text: "srv_comment_new"
+    render :nothing => true
   end
 
 
   def srv_change_u_status
     TicketToUser.change_status(session[:user_id], params[:status], params[:ticket_id])
-    render text: "srv_change_u_status"
+    render :nothing => true
   end
 
   def srv_change_g_status
@@ -323,7 +323,7 @@ class TicketsController < ApplicationController
     end
 
     TicketToGroup.change_status(session[:user_id], params[:status], params[:ticket_id])
-    render text: "srv_change_g_status"
+    render :nothing => true
   end
 
   def srv_change_g_status_100
@@ -376,7 +376,7 @@ class TicketsController < ApplicationController
       TicketToGroup.change_status(session[:user_id], 100, params[:ticket_id])
 
     end
-    render text: "srv_change_g_status"
+    render :nothing => true
   end
 
 
@@ -411,7 +411,7 @@ class TicketsController < ApplicationController
     TicketMailer.send_change_executor_to_initiator(mail_data).deliver
 
     TicketToGroup.change_executor(session[:user_id], params[:executor_id], params[:ticket_id])
-    render text: "srv_change_executor_leader"
+    render :nothing => true
   end
 
   def srv_change_executor_member
@@ -449,7 +449,7 @@ class TicketsController < ApplicationController
     TicketMailer.send_change_executor_to_initiator(mail_data).deliver
 
     TicketToGroup.change_executor(session[:user_id], session[:user_id], params[:ticket_id])
-    render text: "srv_change_executor_member"
+    render :nothing => true
   end
 
 

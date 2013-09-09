@@ -30,14 +30,14 @@ class ProblemsController < ApplicationController
       problem.status = 0
       problem.save
 
-    render text: "srv_ticket_new"
+      render :nothing => true
   end
 
 
 
   def srv_comment_new
     Problem.comment_new(session[:user_id], params[:problem_id], params[:inputCommText])
-    render text: "srv_comment_new"
+    render :nothing => true
   end
 
 end
