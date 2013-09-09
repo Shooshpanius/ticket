@@ -544,13 +544,15 @@ class TicketsController < ApplicationController
 
     delay_data = {
         user_id: session[:user_id],
-        root_id: params[:root_id],
-        delay_date: params[:delay_date],
-        delay_time: params[:delay_time]
+        root_id: params[:inputDelayRoot],
+        delay_date: params[:inputDelayDate],
+        delay_time: params[:inputDelayTime],
+        delay_comment: params[:inputDelayComment]
     }
-    a = TicketRoot.set_delay(delay_data)
+    TicketRoot.set_delay(delay_data)
 
-    render text: a
+    #render text: a
+    render :nothing => true
   end
 
 

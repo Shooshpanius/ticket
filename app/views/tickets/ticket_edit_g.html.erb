@@ -237,8 +237,11 @@
   </div>
   <div class="modal-body">
 
-    <form class="form-horizontal" id="comment_new" novalidate="">
+    <form class="form-horizontal" id="setDelayForm" name="setDelayForm">
       <fieldset>
+
+        <input type="hidden"  id="inputDelayRoot" name="inputDelayRoot" value=<%= @ticket.root %> >
+        <input type="hidden"  id="inputDelayTicket" name="inputDelayTicket" value=<%= @ticket.id %> >
 
         <div class="control-group">
           <label class="control-label" for="inputDelayDate">Дата</label>
@@ -253,14 +256,27 @@
             <input type="text" id="inputDelayTime" name="inputDelayTime" class="input-small" value="00:00">
           </div>
         </div>
+
+
+        <div class="control-group">
+          <label class="control-label" for="inputDelayComment">Комментарий</label>
+          <div class="controls">
+            <textarea rows="7" id="inputDelayComment" name="inputDelayComment"  style="width:95%;"></textarea>
+          </div>
+        </div>
+
+
       </fieldset>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Применить1</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
+      </div>
+
     </form>
 
   </div>
-  <div class="modal-footer">
-    <button class="btn btn-primary" data-dismiss="modal" onclick="set_delay(<%= @ticket.root %>)">Применить</button>
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Отмена</button>
-  </div>
+
 </div>
 
 

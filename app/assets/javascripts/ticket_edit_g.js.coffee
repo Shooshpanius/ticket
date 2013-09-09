@@ -2,18 +2,6 @@
 @show_set_delay = () ->
   $("#setDelay").modal 'show'
 
-@set_delay = (root_id) ->
-  $.ajax
-    url: "/tickets/srv_set_delay"
-    type: "POST"
-    async: false
-    data: {
-      root_id: root_id,
-      delay_date: $("#inputDelayDate").val(),
-      delay_time: $("#inputDelayTime").val()
-    }
-    success: () ->
-      location.reload()
 
 @change_status = (ticket_id) ->
   status = $("select#inputCompleted").val()
@@ -96,8 +84,6 @@ $(document).ready ($) ->
       inputCommText:
         required: true
 
-
-
     errorClass: "input_error"
     errorElement: "em"
     messages:
@@ -107,6 +93,30 @@ $(document).ready ($) ->
       queryString = $("#comment_new").serialize()
       $.ajax
         url: "/tickets/srv_comment_g_new"
+        type: "POST"
+        async: false
+        data: queryString
+        success: (msg) ->
+#          $("#comments").html $(msg)
+          location.reload()
+
+      false
+
+  $("#setDelayForm").validate
+    rules:
+      inputDelayComment:
+        required: true
+        minlength: 3
+
+    errorClass: "input_error"
+    errorElement: "em"
+    messages:
+      inputDelayComment: "*"
+
+    submitHandler: (form) ->
+      queryString = $("#setDelayForm").serialize()
+      $.ajax
+        url: "/tickets/srv_set_delay"
         type: "POST"
         async: false
         data: queryString

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class TicketRoot < ActiveRecord::Base
 
   acts_as_tree order: "id"
@@ -308,39 +309,18 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   def TicketRoot.set_delay(delay_data)
     root = TicketRoot.find(delay_data[:root_id])
     ticket_type = root.ticket_type
 
     if ticket_type = "g"
-
       if TicketToGroup.is_leader(delay_data[:user_id], root.ticket_id) == true || TicketToGroup.is_executor(delay_data[:user_id], root.ticket_id) == true  then
-
         root.delay = delay_data[:delay_date] + " " + delay_data[:delay_time] + ":00"
-        #root.delay = "1000-01-01 12:00:00"
         root.save
-
-
+        TicketToGroup.comment_new(delay_data[:user_id], root.ticket_id, "Заявка отложена до " + root.delay.strftime("%d-%m-%Y %H:%M") + " с комментарием: " + delay_data[:delay_comment])
       end
-
       #return TicketToGroup.is_leader(delay_data[:user_id], root.ticket_id).to_s + "___" + TicketToGroup.is_executor(delay_data[:user_id], root.ticket_id).to_s
-
     end
-
-
-
 
   end
 
