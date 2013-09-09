@@ -2,6 +2,17 @@
 @show_set_delay = () ->
   $("#setDelay").modal 'show'
 
+@set_delay_off = (ticket_id) ->
+  comm = $("#inputCommCloseText").val()
+  $.ajax
+    url: "/tickets/srv_set_delay_off"
+    type: "POST"
+    async: false
+    data: {
+      root_id: $("#inputDelayRoot").val()
+    }
+    success: () ->
+      location.reload()
 
 @change_status = (ticket_id) ->
   status = $("select#inputCompleted").val()

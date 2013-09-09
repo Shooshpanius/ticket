@@ -557,7 +557,17 @@ class TicketsController < ApplicationController
     render :nothing => true
   end
 
+  def srv_set_delay_off
 
+    delay_data = {
+        user_id: session[:user_id],
+        root_id: params[:root_id],
+    }
+    TicketRoot.set_delay_off(delay_data)
+
+    #render text: a
+    render :nothing => true
+  end
 
   private
   def is_login
