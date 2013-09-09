@@ -135,14 +135,20 @@ class TicketsController < ApplicationController
 
   def ticket_new
 
+    my_tickets_cnt = TicketRoot.my_tickets_cnt(session[:user_id])
+    my_tickets_delay_cnt = TicketRoot.my_tickets_delay_cnt(session[:user_id])
+
     if params[:id] == nil
       @users = User.all
       @groups = Group.all
       @form_data = {
         main_ticket: nil,
-        main_ticket_type: params
+        main_ticket_type: params,
+        my_tickets_cnt: my_tickets_cnt,
+        my_tickets_delay_cnt: my_tickets_delay_cnt
       }
     else
+
 
       ticket_id = params[:id].scan(/\d/).join.to_i
 
@@ -155,7 +161,9 @@ class TicketsController < ApplicationController
           @groups = Group.all
           @form_data = {
             root_ticket: TicketRoot.find( TicketToUser.find(ticket_id).root ),
-            ticket: TicketToUser.find(ticket_id)
+            ticket: TicketToUser.find(ticket_id),
+            my_tickets_cnt: my_tickets_cnt,
+            my_tickets_delay_cnt: my_tickets_delay_cnt
           }
         end
       end
@@ -168,7 +176,9 @@ class TicketsController < ApplicationController
           @groups = Group.all
           @form_data = {
             root_ticket: TicketRoot.find( TicketToGroup.find(ticket_id).root ),
-            ticket: TicketToGroup.find(ticket_id)
+            ticket: TicketToGroup.find(ticket_id),
+            my_tickets_cnt: my_tickets_cnt,
+            my_tickets_delay_cnt: my_tickets_delay_cnt
           }
 
         else
@@ -185,6 +195,12 @@ class TicketsController < ApplicationController
 
     ticket_id = params[:id].scan(/\d/).join.to_i
 
+    my_tickets_cnt = TicketRoot.my_tickets_cnt(session[:user_id])
+    my_tickets_delay_cnt = TicketRoot.my_tickets_delay_cnt(session[:user_id])
+    @form_data = {
+        my_tickets_cnt: my_tickets_cnt,
+        my_tickets_delay_cnt: my_tickets_delay_cnt,
+    }
 
 
 

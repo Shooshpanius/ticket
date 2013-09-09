@@ -3,10 +3,13 @@
 
 <ul class="nav nav-tabs">
   <li>
-    <a href="/tickets/in">Входящие</a>
+    <a href="/tickets/in">Входящие <span class='label label-info'><%= @form_data[:my_tickets_cnt] %></a>
   </li>
   <li>
     <a href="/tickets/out">Исходящие</a>
+  </li>
+  <li>
+    <a href="/tickets/in_delay/">Отложенные заявки <span class='label label-info'><%= @form_data[:my_tickets_delay_cnt] %></a>
   </li>
   <li class="active">
     <% if @form_data[:main_ticket] != nil %>
