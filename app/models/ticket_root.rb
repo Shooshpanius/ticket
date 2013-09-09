@@ -116,7 +116,11 @@ class TicketRoot < ActiveRecord::Base
                                             FROM ticket_roots
                                               LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
                                             WHERE
-                                            ticket_roots.ticket_type = 'g' AND ticket_to_groups.executor != #{user_id} AND ticket_to_groups.group_id in (#{my_groups}) AND ticket_to_groups.completed != '100'
+                                              ticket_roots.ticket_type = 'g' AND
+                                              ticket_to_groups.executor != #{user_id} AND
+                                              ticket_to_groups.group_id in (#{my_groups}) AND
+                                              ticket_to_groups.completed != '100' AND
+                                               (ticket_roots.delay < '#{Time.now}' OR ticket_roots.delay IS NULL)
                                            ")
 
     group_tickets.each do |my_ticket|
@@ -130,6 +134,52 @@ class TicketRoot < ActiveRecord::Base
     return group_tickets
 
   end
+
+
+
+
+  #
+  #  TicketRoot.other_tickets_delay(user_id)
+  #
+  def TicketRoot.other_tickets_delay(user_id)
+
+    my_groups = ""
+    UserByGroup.groups_for_user(user_id).map{|x| x.id}.each do |y|
+      my_groups = my_groups + (y.to_s+",")
+    end
+    my_groups = my_groups + ")"
+    my_groups = my_groups.gsub(/(\,\))/,'')
+    if UserByGroup.groups_for_user(user_id).size == 0 then
+      return []
+    end
+
+    group_tickets = TicketRoot.find_by_sql("SELECT
+                                              ticket_roots.*,
+                                              ticket_to_groups.root as t_root,
+                                              ticket_to_groups.executor as t_executor,
+                                              ticket_to_groups.actual as actual
+                                            FROM ticket_roots
+                                              LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
+                                            WHERE
+                                              ticket_roots.ticket_type = 'g' AND
+                                              ticket_to_groups.executor != #{user_id} AND
+                                              ticket_to_groups.group_id in (#{my_groups}) AND
+                                              ticket_to_groups.completed != '100' AND
+                                              ticket_roots.delay > '#{Time.now}'
+                                           ")
+
+    group_tickets.each do |my_ticket|
+      my_ticket[:actual] = ActualTask.is_actual_g(user_id, my_ticket.ticket_id)
+    end
+    group_tickets.sort! do |a, b|
+      (b.actual <=> a.actual).nonzero? ||
+          (b.created_at <=> a.created_at)
+    end
+
+    return group_tickets
+
+  end
+
 
 
 

@@ -60,12 +60,14 @@ class TicketsController < ApplicationController
   def in_delay
 
     my_tickets_delay = TicketRoot.my_tickets_delay(session[:user_id])
+    other_tickets_delay = TicketRoot.other_tickets_delay(session[:user_id])
     my_tickets_cnt = TicketRoot.my_tickets_cnt(session[:user_id])
     my_tickets_delay_cnt = TicketRoot.my_tickets_delay_cnt(session[:user_id])
     out_tickets_cnt = TicketRoot.out_tickets_cnt(session[:user_id])
 
     @form_data = {
         my_tickets: my_tickets_delay,
+        other_tickets: other_tickets_delay,
         my_tickets_cnt: my_tickets_cnt,
         my_tickets_delay_cnt: my_tickets_delay_cnt,
         out_tickets_cnt: out_tickets_cnt,
