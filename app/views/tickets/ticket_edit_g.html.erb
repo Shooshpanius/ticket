@@ -47,7 +47,7 @@
 
   <fieldset>
 
-    <% if Time.now < (TicketRoot.find(@ticket.id).delay || "1000-01-01 00:00:00") %>
+    <% if Time.now < (TicketRoot.find(@ticket.root).delay || "1000-01-01 00:00:00") %>
        <div class="control-group">
           <label class="control-label" for="inputStatusDelay"></label>
           <div class="controls">
@@ -281,5 +281,5 @@
 
 
 
-<%= (TicketRoot.find(@ticket.id).delay) %> <br />
+<%= (TicketRoot.find(@ticket.root).delay) %> <br />
 <%= Time.now  %> <br />
