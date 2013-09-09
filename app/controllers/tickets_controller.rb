@@ -42,10 +42,12 @@ class TicketsController < ApplicationController
   def in
 
     my_tickets = TicketRoot.my_tickets(session[:user_id])
+    my_tickets_cnt = TicketRoot.my_tickets_cnt(session[:user_id])
     other_tickets = TicketRoot.other_tickets(session[:user_id])
 
     @form_data = {
         my_tickets: my_tickets,
+        my_tickets_cnt: my_tickets_cnt,
         other_tickets: other_tickets
     }
 

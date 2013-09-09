@@ -49,6 +49,43 @@ class TicketRoot < ActiveRecord::Base
   end
 
 
+
+  def TicketRoot.my_tickets_cnt(user_id)
+
+    user_tickets = TicketRoot.find_by_sql("SELECT SQL_CALC_FOUND_ROWS
+                                            ticket_roots.*,
+                                            ticket_to_users.root as t_root,
+                                            ticket_to_users.user_id as t_user_id,
+                                            ticket_to_users.actual as actual
+                                           FROM ticket_roots
+                                              LEFT JOIN ticket_to_users ON ticket_roots.id = ticket_to_users.root
+                                           WHERE
+                                              ticket_roots.ticket_type = 'u' AND
+                                              ticket_to_users.user_id = #{user_id} AND
+                                              ticket_to_users.completed != '100' AND
+                                               (ticket_roots.delay < '#{Time.now}' OR ticket_roots.delay IS NULL)
+                                          ")
+
+    group_tickets = TicketRoot.find_by_sql("SELECT SQL_CALC_FOUND_ROWS
+                                              ticket_roots.*,
+                                              ticket_to_groups.root as t_root,
+                                              ticket_to_groups.executor as t_executor,
+                                              ticket_to_groups.actual as actual
+                                            FROM ticket_roots
+                                              LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
+                                            WHERE
+                                              ticket_roots.ticket_type = 'g' AND
+                                              ticket_to_groups.executor = #{user_id} AND
+                                              ticket_to_groups.completed != '100' AND
+                                               (ticket_roots.delay < '#{Time.now}' OR ticket_roots.delay IS NULL)
+                                            ")
+
+    my_tickets = user_tickets.size + group_tickets.size
+
+    return my_tickets
+  end
+
+
   def TicketRoot.other_tickets(user_id)
 
     my_groups = ""
