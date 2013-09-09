@@ -51,6 +51,16 @@ class TicketsController < ApplicationController
 
   end
 
+  def in_delay
+
+    my_tickets_delay = TicketRoot.my_tickets_delay(session[:user_id])
+
+    @form_data = {
+        my_tickets: my_tickets_delay,
+    }
+
+  end
+
   def out
     my_tickets_to_users = TicketToUser.where("initiator_id = ? and completed < ?", session[:user_id], 100).sort_by{ |elem| [elem.actual, elem.deadline]}.take(10)
     my_tickets_to_users.each do |user_ticket|
