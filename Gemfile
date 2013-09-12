@@ -55,6 +55,7 @@ gem 'mail'
 gem 'magic_encoding'
 gem "jquery-tablesorter"
 gem "acts_as_tree"
+gem "plupload-rails4"
 
 
 # Use ActiveModel has_secure_password
