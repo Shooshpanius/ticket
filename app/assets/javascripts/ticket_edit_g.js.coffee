@@ -90,28 +90,28 @@ $(document).ready ($) ->
 
   $('#inputDelayTime').mask "99:99"
 
-  $("#comment_new").validate
-    rules:
-      inputCommText:
-        required: true
-
-    errorClass: "input_error"
-    errorElement: "em"
-    messages:
-      inputCommText: "*"
-
-    submitHandler: (form) ->
-      queryString = $("#comment_new").serialize()
-      $.ajax
-        url: "/tickets/srv_comment_g_new"
-        type: "POST"
-        async: false
-        data: queryString
-        success: (msg) ->
-#          $("#comments").html $(msg)
-          location.reload()
-
-      false
+#  $("#comment_new").validate
+#    rules:
+#      inputCommText:
+#        required: true
+#
+#    errorClass: "input_error"
+#    errorElement: "em"
+#    messages:
+#      inputCommText: "*"
+#
+#    submitHandler: (form) ->
+#      queryString = $("#comment_new").serialize()
+#      $.ajax
+#        url: "/tickets/srv_comment_g_new"
+#        type: "POST"
+#        async: false
+#        data: queryString
+#        success: (msg) ->
+##          $("#comments").html $(msg)
+#          location.reload()
+#
+#      false
 
   $("#setDelayForm").validate
     rules:

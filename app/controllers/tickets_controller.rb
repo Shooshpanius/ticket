@@ -1,6 +1,7 @@
 # encoding: utf-8
 class TicketsController < ApplicationController
 
+  protect_from_forgery except: :srv_comment_g_new
   before_filter :is_login
 
   def index
@@ -320,7 +321,9 @@ class TicketsController < ApplicationController
 
   def srv_comment_g_new
     TicketToGroup.comment_new(session[:user_id], params[:ticket_id], params[:inputCommText])
-    render :nothing => true
+    #render :text => params[:inputCommFile]
+    redirect_to "/tickets/ticket_edit/g_"+params[:ticket_id].to_s
+    #render :nothing => true
   end
 
 
