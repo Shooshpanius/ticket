@@ -322,17 +322,8 @@ class TicketsController < ApplicationController
   def srv_comment_g_new
     comment_id =  TicketToGroup.comment_new(session[:user_id], params[:ticket_id], params[:inputCommText])
 
-    #@test = MIME::Types.type_for(params[:inputCommFile].tempfile)
-
-    #DataFile.save(params[:inputCommFile])
+    #@test = params[:inputCommFile]
     #render "tickets/test"
-
-
-    #uploaded_io = params[:inputCommFile]
-    #File.open(Rails.root.join('public/attache', uploaded_io.original_filename), 'w') do |file|
-    #  file.write(uploaded_io.read)
-    #end
-
 
     filename = params[:inputCommFile].original_filename
 
@@ -343,12 +334,14 @@ class TicketsController < ApplicationController
       new_filename = hash+"."+filename
       mime = params[:inputCommFile].content_type
 
-
       #File.open("public/attache/" + new_filename, "w+b", 0644) {|f| f.write attachment.body.decoded}
 
-      File.open(Rails.root.join('public/attache', new_filename), 'w') do |file|
-        file.write(params[:inputCommFile])
-      end
+      #File.open(Rails.root.join('public/attache', new_filename), 'w') do |file|
+      #  file.write params[:inputCommFile]
+      #end
+
+      file = params[:inputCommFile]
+      FileUtils.copy(params[:inputCommFile].tempfile, 'public/attache/'+new_filename)
 
 
       attach_data = {
@@ -362,13 +355,13 @@ class TicketsController < ApplicationController
       attach = Attach.new(attach_data)
       attach.save
 
-      redirect_to "/tickets/ticket_edit/g_"+params[:ticket_id].to_s
+
 
     rescue Exception => e
       puts "Unable to save data for #{filename} because #{e.message}"
     end
 
-
+    redirect_to "/tickets/ticket_edit/g_"+params[:ticket_id].to_s
 
     #render :text => params[:inputCommFile]
     #render :nothing => true
