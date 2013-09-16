@@ -140,6 +140,8 @@ class TicketToGroup < ActiveRecord::Base
           ticket.save()
       end
 
+      return user_comment.id
+
     end
   end
 

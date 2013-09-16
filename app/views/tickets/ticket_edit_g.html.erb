@@ -192,7 +192,7 @@
 
 
 <!--<form class="form-horizontal" id="comment_new" novalidate="">-->
-<form class="form-horizontal" id="comment_new" method="post" action="/tickets/srv_comment_g_new">
+<form class="form-horizontal" id="comment_new" method="post" action="/tickets/srv_comment_g_new" enctype="multipart/form-data" >
   <fieldset>
     <input type="hidden"  id="ticket_id" name="ticket_id" value=<%= @ticket.id %> >
     <div class="control-group">
