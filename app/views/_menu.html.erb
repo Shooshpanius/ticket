@@ -36,25 +36,6 @@
 
           <ul class="nav pull-right">
             <li class="dropdown"
-                <%= (controller.controller_name=="tickets")&&((controller.action_name=="arch_in")||(controller.action_name=="arch_out"))?"style=background-color:#FFDAB9":""   %>
-            >
-              <a href="" class="dropdown-toggle" data-toggle="dropdown">
-                Архив
-                <b class="caret"></b>
-              </a>
-              <ul class="dropdown-menu">
-                <li
-                    <%= (controller.controller_name=="tickets")&&(controller.action_name=="arch_in")?"style=background-color:#FFDAB9":""   %>
-                ><a href="/tickets/arch_in">Входящие</a></li>
-                <li
-                    <%= (controller.controller_name=="tickets")&&(controller.action_name=="arch_out")?"style=background-color:#FFDAB9":""   %>
-                ><a href="/tickets/arch_out">Исходящие</a></li>
-              </ul>
-            </li>
-          </ul>
-
-          <ul class="nav pull-right">
-            <li class="dropdown"
                 <%= (controller.controller_name=="problems")?"style=background-color:#FFDAB9":""   %>
             >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
@@ -74,7 +55,7 @@
 
           <ul  class="nav pull-right">
             <li
-                <%= (controller.controller_name=="tickets")&&((controller.action_name=="in")||(controller.action_name=="out")||(controller.action_name=="ticket_new"))?"style=background-color:#FFDAB9":""   %>
+                <%= (controller.controller_name=="tickets")?"style=background-color:#FFDAB9":"" %>
             class="dropdown"
             >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
@@ -88,6 +69,15 @@
                 <li
                     <%= (controller.controller_name=="tickets")&&(controller.action_name=="out")?"style=background-color:#FFDAB9":""   %>
                 ><a href="/tickets/out">Исходящие</a></li>
+
+                <li
+                    <%= (controller.controller_name=="tickets")&&(controller.action_name=="arch_in")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/tickets/arch_in">Входящие (архив)</a></li>
+                <li
+                    <%= (controller.controller_name=="tickets")&&(controller.action_name=="arch_out")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/tickets/arch_out">Исходящие (архив)</a></li>
+
+
               </ul>
             </li>
           </ul>
