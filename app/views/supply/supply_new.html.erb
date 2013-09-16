@@ -1,5 +1,5 @@
 <%= javascript_include_tag "main" %>
-<%= javascript_include_tag "supply" %>
+<%= javascript_include_tag "supply_new" %>
 
 
 <ul class="nav nav-tabs">
@@ -13,3 +13,63 @@
     <a href="/supply/supply_new/">Новая заявка на МТЦ</a>
   </li>
 </ul>
+
+
+<form class="form-horizontal" id="ticket_new" novalidate="">
+
+  <fieldset>
+
+    <div class="control-group">
+      <label class="control-label" for="inputIsp">Исполнитель</label>
+      <div class="controls">
+        <select  id="inputIsp" name="inputIsp">
+          <option value="">-Группы-</option>
+          <% @form_data[:groups].each do |group| %>
+              <option id="g_<%= group.id %>" name="g_<%= group.id %>" value="g_<%= group.id %>" ><%= group.name %></option>
+          <% end %>
+          <option value="">-Пользователи-</option>
+          <% @form_data[:users].each do |user| %>
+              <option id="u_<%= user.id %>" name="g_<%= user.id %>" value="u_<%= user.id %>" ><%= user.f_name %> <%= user.i_name %> <%= user.o_name %></option>
+          <% end %>
+
+        </select>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputTopic">Тема</label>
+      <div class="controls">
+        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;">
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputText">Текст</label>
+      <div class="controls">
+        <textarea rows="7" id="inputText" name="inputText" style="width:70%;">  </textarea>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputDateTo">Исполнить до</label>
+      <div class="controls">
+        <input type="text" id="inputDateTo" name="inputDateTo" >
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputFiles">Файлы</label>
+      <div class="controls">
+        <input type="text" value="Прикрепление файлов возможно после записи заявки" style="width:70%;" disabled="disabled" >
+      </div>
+    </div>
+
+
+    <div class="control-group">
+      <div class="controls">
+        <button type="submit" class="btn">Сохранить</button>
+      </div>
+    </div>
+
+  </fieldset>
+</form>

@@ -28,7 +28,8 @@ class SupplyController < ApplicationController
   def supply_new
 
     @form_data = {
-
+        users: User.all,
+        groups: Group.all
     }
 
   end
