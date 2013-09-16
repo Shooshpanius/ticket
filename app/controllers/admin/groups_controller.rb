@@ -46,7 +46,9 @@ class Admin::GroupsController < ApplicationController
       var_pr = /\d/
       users_by_groups = UserByGroup.new()
       users_by_groups.group_id = params[:inputId]
-      users_by_groups.user_id = key.scan(var_pr)[0]
+      #users_by_groups.user_id = key.scan(var_pr)[0]
+      users_by_groups.user_id = key.scan(/\d/).join.to_i
+
       users_by_groups.save
     } if params[:user] != nil
 
