@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130906061327) do
+ActiveRecord::Schema.define(version: 20130916122709) do
 
   create_table "actual_tasks", force: true do |t|
     t.integer  "user_id"
@@ -113,6 +113,20 @@ ActiveRecord::Schema.define(version: 20130906061327) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "root"
+  end
+
+  create_table "ticket_to_supplies", force: true do |t|
+    t.integer  "initiator_id"
+    t.integer  "group_id"
+    t.string   "topic"
+    t.text     "text"
+    t.date     "deadline"
+    t.integer  "completed"
+    t.integer  "executor"
+    t.integer  "actual"
+    t.integer  "root"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "ticket_to_users", force: true do |t|
