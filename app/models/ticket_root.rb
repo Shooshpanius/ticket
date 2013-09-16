@@ -5,6 +5,7 @@ class TicketRoot < ActiveRecord::Base
 
   has_one :ticket_to_user, foreign_key: "root"
   has_one :ticket_to_group, foreign_key: "root"
+  has_one :ticket_to_supply, foreign_key: "root"
 
   #
   #  TicketRoot.my_tickets(user_id)
