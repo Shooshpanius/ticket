@@ -77,23 +77,8 @@ class TicketsController < ApplicationController
   end
 
   def out
-    #my_tickets_to_users = TicketToUser.where("initiator_id = ? and completed < ?", session[:user_id], 100).sort_by{ |elem| [elem.actual, elem.deadline]}
-    #my_tickets_to_users.each do |user_ticket|
-    #  user_ticket[:actual] = ActualTask.is_actual_u(session[:user_id], user_ticket[:id])
-    #end
-    #my_tickets_to_groups = TicketToGroup.where("initiator_id = ? and completed < ?", session[:user_id], 100).sort_by{ |elem| [elem.actual, elem.deadline]}
-    #my_tickets_to_groups.each do |group_ticket|
-    #  group_ticket[:actual] = ActualTask.is_actual_g(session[:user_id], group_ticket[:id])
-    #end
-    #my_tickets = my_tickets_to_users + my_tickets_to_groups
-    #
-    #
-    #@my_tickets = my_tickets
-
 
     out_tickets = TicketRoot.out_tickets(session[:user_id])
-
-
     out_tickets_cnt = TicketRoot.out_tickets_cnt(session[:user_id])
     my_tickets_cnt = TicketRoot.my_tickets_cnt(session[:user_id])
     my_tickets_delay_cnt = TicketRoot.my_tickets_delay_cnt(session[:user_id])
@@ -322,10 +307,6 @@ class TicketsController < ApplicationController
   def srv_comment_g_new
     comment_id =  TicketToGroup.comment_new(session[:user_id], params[:ticket_id], params[:inputCommText])
 
-    #@test = params[:inputCommFile]
-    #render "tickets/test"
-
-
     begin
 
       filename = params[:inputCommFile].original_filename
@@ -335,15 +316,8 @@ class TicketsController < ApplicationController
       new_filename = hash+"."+filename
       mime = params[:inputCommFile].content_type
 
-      #File.open("public/attache/" + new_filename, "w+b", 0644) {|f| f.write attachment.body.decoded}
-
-      #File.open(Rails.root.join('public/attache', new_filename), 'w') do |file|
-      #  file.write params[:inputCommFile]
-      #end
-
       file = params[:inputCommFile]
       FileUtils.copy(params[:inputCommFile].tempfile, 'public/attache/'+new_filename)
-
 
       attach_data = {
           object_type: "ticket_comment",
@@ -356,16 +330,12 @@ class TicketsController < ApplicationController
       attach = Attach.new(attach_data)
       attach.save
 
-
-
     rescue Exception => e
       puts "Unable to save data for #{filename} because #{e.message}"
     end
 
     redirect_to "/tickets/ticket_edit/g_"+params[:ticket_id].to_s
 
-    #render :text => params[:inputCommFile]
-    #render :nothing => true
   end
 
 
