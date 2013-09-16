@@ -25,6 +25,13 @@ class SupplyController < ApplicationController
   end
 
 
+  def supply_new
+
+    @form_data = {
+
+    }
+
+  end
 
   private
   def is_login
