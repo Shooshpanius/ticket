@@ -325,9 +325,10 @@ class TicketsController < ApplicationController
     #@test = params[:inputCommFile]
     #render "tickets/test"
 
-    filename = params[:inputCommFile].original_filename
 
     begin
+
+      filename = params[:inputCommFile].original_filename
       ext = File.extname(filename)
       salt = pass_generate(len=7)
       hash = Digest::MD5.hexdigest(Time.now.to_s + salt.to_s)
