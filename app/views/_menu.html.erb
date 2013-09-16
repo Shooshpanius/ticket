@@ -37,7 +37,7 @@
 
           <ul  class="nav pull-right">
             <li
-            <%= (controller.controller_name=="supplies")?"style=background-color:#FFDAB9":"" %>
+            <%= (controller.controller_name=="supply")?"style=background-color:#FFDAB9":"" %>
             class="dropdown"
             >
               <a href="" class="dropdown-toggle" data-toggle="dropdown">
@@ -46,18 +46,18 @@
               </a>
               <ul class="dropdown-menu">
                 <li
-                <%= (controller.controller_name=="tickets")&&(controller.action_name=="in")?"style=background-color:#FFDAB9":""   %>
-                ><a href="/supplies/in">Входящие</a></li>
+                <%= (controller.controller_name=="supply")&&(controller.action_name=="in")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/supply/in">Входящие</a></li>
                 <li
-                <%= (controller.controller_name=="tickets")&&(controller.action_name=="out")?"style=background-color:#FFDAB9":""   %>
-                ><a href="/supplies/out">Исходящие</a></li>
+                <%= (controller.controller_name=="supply")&&(controller.action_name=="out")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/supply/out">Исходящие</a></li>
 
                 <li
-                <%= (controller.controller_name=="tickets")&&(controller.action_name=="arch_in")?"style=background-color:#FFDAB9":""   %>
-                ><a href="/supplies/arch_in">Входящие (архив)</a></li>
+                <%= (controller.controller_name=="supply")&&(controller.action_name=="arch_in")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/supply/arch_in">Входящие (архив)</a></li>
                 <li
-                <%= (controller.controller_name=="tickets")&&(controller.action_name=="arch_out")?"style=background-color:#FFDAB9":""   %>
-                ><a href="/supplies/arch_out">Исходящие (архив)</a></li>
+                <%= (controller.controller_name=="supply")&&(controller.action_name=="arch_out")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/supply/arch_out">Исходящие (архив)</a></li>
               </ul>
             </li>
           </ul>
