@@ -187,12 +187,15 @@
 </form>
 
 
-
 <h4>Комментарии:</h4>
+
+<div class="well" style="background-color: #FFFFCC; padding-bottom: 0px;" >
+
+
 
 
 <!--<form class="form-horizontal" id="comment_new" novalidate="">-->
-<form class="form-horizontal" id="comment_new" method="post" action="/tickets/srv_comment_g_new" enctype="multipart/form-data" >
+<form class="form-horizontal" id="comment_new" method="post" action="/tickets/srv_comment_g_new" enctype="multipart/form-data" style="margin-bottom: 0px"  >
   <fieldset>
     <input type="hidden"  id="ticket_id" name="ticket_id" value=<%= @ticket.id %> >
     <div class="control-group">
@@ -220,9 +223,10 @@
   </fieldset>
 </form>
 
+</div>
 
 
-<form class="form-horizontal">
+<form class="form-horizontal" >
 
 
 
@@ -230,6 +234,7 @@
   <% @comments.each do |comment| %>
       <%
         user_comm = User.find(comment.user_id)
+        attach = Attach.where("object_type = ? AND object_id = ?", "ticket_comment", comment.id)
       %>
       <div class="control-group">
         <label class="control-label" for="inputCommText">
@@ -238,12 +243,25 @@
           <%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S") %>
         </label>
         <div class="controls">
-          <div><%== comment.text %> </div>
+
+          <% if attach.size != 0 %>
+              <%= content_tag :a, :class => 'icon-envelope' do %>
+                 <%= link_to attach[0].original_filename,  :action => :download, :file_name => attach[0].filename  %>
+              <% end  %>
+          <% end  %>
+
+          <div>
+            <%== comment.text %>
+          </div>
+
         </div>
+
       </div>
   <% end %>
 
 </form>
+
+
 
 
 
