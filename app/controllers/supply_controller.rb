@@ -78,9 +78,9 @@ class SupplyController < ApplicationController
       text: params[:inputText],
       completed: 0,
       executor: 0,
-      deadline: params[:inputDateTo],
-
+      deadline: params[:inputDateTo]
     }
+
     ticket_supply = TicketToSupply.new(ticket_data)
     ticket_supply.save
 
