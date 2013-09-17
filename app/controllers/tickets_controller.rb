@@ -244,7 +244,7 @@ class TicketsController < ApplicationController
     if params[:inputIsp].scan(/u_/)[0]
       ticket = TicketToUser.new()
       ticket.initiator_id = session[:user_id]
-      ticket.user_id = params[:inputIsp].scan(/\d/)[0]
+      ticket.user_id = params[:inputIsp].scan(/\d/).join.to_i
       ticket.topic = params[:inputTopic]
       ticket.text = params[:inputText]
       ticket.completed = 0
@@ -271,7 +271,7 @@ class TicketsController < ApplicationController
     if params[:inputIsp].scan(/g_/)[0]
       ticket = TicketToGroup.new()
       ticket.initiator_id = session[:user_id]
-      ticket.group_id = params[:inputIsp].scan(/\d/)[0]
+      ticket.group_id = params[:inputIsp].scan(/\d/).join.to_i
       ticket.topic = params[:inputTopic]
       ticket.text = params[:inputText]
       ticket.completed = 0
