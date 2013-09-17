@@ -29,7 +29,7 @@ class SupplyController < ApplicationController
 
     @form_data = {
         users: User.all,
-        groups: Group.all
+        groups: Group.all,
     }
 
   end
