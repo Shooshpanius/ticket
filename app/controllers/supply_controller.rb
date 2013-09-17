@@ -6,7 +6,9 @@ class SupplyController < ApplicationController
 
 
 
-
+  ###################################################################################################################
+  #
+  #
   def in
 
     @form_data = {
@@ -15,17 +17,37 @@ class SupplyController < ApplicationController
 
   end
 
-
+  ###################################################################################################################
+  #
+  #
   def out
 
+    out_supplies = TicketRoot.out_supplies(session[:user_id])
+
     @form_data = {
+        out_supplies: out_supplies
 
     }
 
   end
 
-
+  ###################################################################################################################
+  #
+  #
   def supply_new
+
+    @form_data = {
+        users: User.all,
+        groups: Group.all,
+    }
+
+
+  end
+
+  ###################################################################################################################
+  #
+  #
+  def supply_edit
 
     @form_data = {
         users: User.all,
@@ -35,7 +57,9 @@ class SupplyController < ApplicationController
   end
 
 
-
+  ###################################################################################################################
+  #
+  #
   def srv_supply_new
 
     ticket_data = {
@@ -54,6 +78,9 @@ class SupplyController < ApplicationController
     render :text => ticket_supply.id
 
   end
+
+
+
 
 
   private

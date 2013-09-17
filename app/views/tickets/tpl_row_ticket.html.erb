@@ -1,5 +1,8 @@
 <!--LEVEL 0-->
-<% if @my_ticket.ticket_type == "g" %>
+
+
+<% case @my_ticket.ticket_type %>
+<% when "g" %>
     <% child = TicketToGroup.find(@my_ticket.ticket_id) %>
     <tr <%= ( ActualTask.is_actual_g(session[:user_id], child.id) == 1)?"class=success":"" %> >
       <%
@@ -12,7 +15,7 @@
          }
       %>
       <%= render template: "tickets/tpl_row_group_ticket" %>
-<% else %>
+<% when "u" %>
     <% child = TicketToUser.find(@my_ticket.ticket_id) %>
     <tr <%= ( ActualTask.is_actual_u(session[:user_id], child.id) == 1)?"class=success":"" %> >
       <%
@@ -24,6 +27,19 @@
          }
       %>
       <%= render template: "tickets/tpl_row_user_ticket" %>
+<% when "s" %>
+    <% child = TicketToSupply.find(@my_ticket.ticket_id) %>
+    <tr>
+      <%
+         @tpl_str_data = {
+                 child: TicketToSupply.find(@my_ticket.ticket_id),
+                 user_data: User.find(child.initiator_id),
+                 executor_data: (child.executor == 0)?"":User.find(child.executor),
+                 group_data: Group.find(child.group_id),
+                 icon_incl: ""
+         }
+      %>
+      <%= render template: "tickets/tpl_row_supply_ticket" %>
 <% end %>
 
 

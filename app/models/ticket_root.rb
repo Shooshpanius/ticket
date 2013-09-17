@@ -360,6 +360,34 @@ class TicketRoot < ActiveRecord::Base
 
 
 
+
+  #
+  #  TicketRoot.out_supplies(user_id)
+  #
+  def TicketRoot.out_supplies(user_id)
+
+    my_supplies = TicketRoot.find_by_sql("SELECT
+                                              ticket_roots.*,
+                                              ticket_to_supplies.root as t_root,
+                                              ticket_to_supplies.initiator_id as t_initiator_id,
+                                              ticket_to_supplies.actual as actual
+                                            FROM ticket_roots
+                                              LEFT JOIN ticket_to_supplies ON ticket_roots.id = ticket_to_supplies.root
+                                            WHERE
+                                              ticket_roots.ticket_type = 's' AND
+                                              ticket_to_supplies.initiator_id = #{user_id} AND
+                                              ticket_to_supplies.completed != '100'
+                                            ")
+
+    my_supplies.sort! do |a, b|
+      (b.created_at <=> a.created_at)
+    end
+
+    return my_supplies
+  end
+
+
+
   def TicketRoot.set_delay(delay_data)
     root = TicketRoot.find(delay_data[:root_id])
     ticket_type = root.ticket_type

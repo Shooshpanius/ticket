@@ -1,0 +1,19 @@
+<td> <%== @tpl_str_data[:icon_incl] %><%= @tpl_str_data[:user_data].f_name %> <%= @tpl_str_data[:user_data].i_name %> <%= @tpl_str_data[:user_data].o_name %> (<%= @tpl_str_data[:user_data].login %>)</td>
+<td
+<% if @tpl_str_data[:group_data].leader == session[:user_id] %>
+style="cursor: pointer" href="#myModal"  data-toggle="modal" onclick="group_list(<%= @tpl_str_data[:child].group_id %>, <%= @tpl_str_data[:child].id %>)"
+<% end %>
+>
+  <%= @tpl_str_data[:group_data].abbreviation %><%== (@tpl_str_data[:child].executor == 0)?" <span class='label label-important'>(не назначен)</span> ":"  <span class='label label-success'>#{@tpl_str_data[:executor_data].login}</span>" %>
+</td>
+<td style="cursor: pointer" onclick="ticket_open('s', <%= @tpl_str_data[:child].id %>)" ><%== @tpl_str_data[:icon_incl] %><%= @tpl_str_data[:child].topic %></td>
+<td>
+
+</td>
+<td><%= @tpl_str_data[:child].created_at.strftime("%d-%m-%Y") %></td>
+<td>
+  <a  class="btn btn-mini btn-primary" type="button" href="/supply/supply_edit/<%= @tpl_str_data[:child].id %>"><i class="icon-edit"></i></a>
+  <span class="badge" ></span>
+  <span class="badge" ><%= @tpl_str_data[:child].completed %>%</span>
+</td>
+</tr>
