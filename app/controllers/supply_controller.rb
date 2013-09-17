@@ -49,10 +49,22 @@ class SupplyController < ApplicationController
   #
   def supply_edit
 
+    ticket = TicketToSupply.find(params[:id])
+    ticket_id = params[:id]
     @form_data = {
-        users: User.all,
-        groups: Group.all,
+        ticket_id: params[:id],
+        ticket: ticket,
+        ticket_root: TicketRoot.where("ticket_type = ? AND ticket_id = ?", "s", params[:id])[0],
+        initiator: User.find(ticket.initiator_id),
+        group: Group.find(ticket.group_id),
     }
+    if TicketToSupply.is_initiator(session[:user_id], ticket_id)==true || TicketToSupply.is_executor(session[:user_id], ticket_id)==true ||
+        TicketToSupply.is_member(session[:user_id], ticket_id)==true || TicketToSupply.is_leader(session[:user_id], ticket_id)==true
+    then
+      render "supply_edit"
+    end
+
+
 
   end
 

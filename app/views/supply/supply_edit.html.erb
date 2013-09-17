@@ -1,0 +1,113 @@
+<%= javascript_include_tag "main" %>
+<%= javascript_include_tag "supply_edit" %>
+
+
+<ul class="nav nav-tabs">
+  <li>
+    <a href="/supply/in">Входящие</a>
+  </li>
+  <li>
+    <a href="/supply/out">Исходящие</a>
+  </li>
+  <li class="active">
+    <a href="/supply/supply_edit/<%= @form_data[:ticket_id] %>">Заявка № <%= @form_data[:ticket_id] %> </a>
+  </li>
+</ul>
+
+
+
+
+<form class="form-horizontal" id="ticket_edit_s" novalidate="">
+
+  <fieldset>
+
+    <% if Time.now < (TicketRoot.find(@form_data[:ticket].root).delay || "1000-01-01 00:00:00") %>
+        <div class="control-group">
+          <label class="control-label" for="inputStatusDelay"></label>
+          <div class="controls">
+            Заявка отложена до <span class='label label-important' ><%= TicketRoot.find(@form_data[:ticket].root).delay.strftime("%d-%m-%Y %H:%M") %></span> <button class="btn btn-mini btn-danger" type="button" onclick="set_delay_off()" ><i class=" icon-ban-circle"></i></button>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="control-group">
+      <label class="control-label" for="inputInit">Инициатор</label>
+      <div class="controls">
+        <input type="text"  id="inputInit" name="inputInit" style="width:70%;" readonly="readonly" value="<%= @form_data[:initiator].f_name %> <%= @form_data[:initiator].i_name %> <%= @form_data[:initiator].o_name %> (<%= @form_data[:initiator].login %>)" >
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputIsp">Группа</label>
+      <div class="controls">
+        <input type="text"  id="inputIsp" name="inputIsp" style="width:70%;" readonly="readonly" value="<%= @form_data[:group].name %>" >
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputTopic">Тема</label>
+      <div class="controls">
+        <input type="text"  id="inputTopic" name="inputTopic" style="width:70%;" readonly="readonly" value="<%= @form_data[:ticket].topic %>" >
+      </div>
+    </div>
+
+
+    <div class="well" style="background-color: #FFFFCC;">
+
+      <button type="button" class="btn btn-mini btn-primary"> <i class="icon-plus"></i></button>
+      <p></p>
+      <table id="tbl-in-group" name="tbl-in-group" class="table table-hover table-bordered table-condensed table-striped">
+        <thead>
+        <tr>
+          <th class="span1">№</th>
+          <th class="span3">Наименование</th>
+          <th class="span2">Спецификация</th>
+          <th class="span1">Ед.изм.</th>
+          <th class="span1">Кол-во</th>
+          <th class="span1">Дата</th>
+          <th class="span2">Поставщик</th>
+          <th class="span1"></th>
+        </tr>
+        </thead>
+      </table>
+
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputText">Текст</label>
+      <div class="controls">
+        <% new_str = @form_data[:ticket].text.gsub(/<style>/m, '' )
+           new_str.gsub!('style', '' )
+        %>
+        <div class="well" style="width:70%;"  ><%== new_str %></div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputText">Файлы</label>
+      <div class="controls">
+        <div class="well" style="width:70%;"  >
+          <% attaches = Attach.where("object_type = ? and object_id = ?", "supply_ticket", @form_data[:ticket].id) %>
+
+          <% attaches.each_with_index do |attach, i| %>
+              <%= link_to attach.original_filename,:action => :download, :file_name => attach.filename %> <br />
+          <% end  %>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="control-group">
+      <label class="control-label" for="inputDateReg">Дата регистрации</label>
+      <div class="controls">
+        <input type="text" id="inputDateReg" name="inputDateReg"  readonly="readonly" value=<%= @form_data[:ticket].created_at.strftime("%d-%m-%Y") %> >
+      </div>
+    </div>
+
+
+
+
+
+
+  </fieldset>
+</form>

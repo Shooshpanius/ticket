@@ -1,4 +1,11 @@
 
+$('#inputText').wysihtml5()
+
+$("#inputDateTo").datepicker
+  firstDay: 1
+  dateFormat: "dd-mm-yy"
+
+
 $("#supply_new").validate
   rules:
     inputIsp:
