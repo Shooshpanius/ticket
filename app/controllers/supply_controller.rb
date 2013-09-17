@@ -22,11 +22,8 @@ class SupplyController < ApplicationController
   #
   def out
 
-    out_supplies = TicketRoot.out_supplies(session[:user_id])
-
     @form_data = {
-        out_supplies: out_supplies
-
+        out_supplies: TicketRoot.out_supplies(session[:user_id])
     }
 
   end
