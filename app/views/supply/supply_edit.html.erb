@@ -10,7 +10,7 @@
     <a href="/supply/out">Исходящие</a>
   </li>
   <li class="active">
-    <a href="/supply/supply_edit/<%= @form_data[:ticket_id] %>">Заявка № <%= @form_data[:ticket_id] %> </a>
+    <a href="/supply/supply_edit/<%= @form_data[:ticket_id] %>">Заявка № <%= @form_data[:ticket_id] %> от <%= @form_data[:ticket].created_at.strftime("%d-%m-%Y") %></a>
   </li>
 </ul>
 
@@ -53,9 +53,13 @@
 
 
     <div class="well" style="background-color: #FFFFCC;">
+      <!--<div class="well" style="background-color: #FFFFCC;">-->
 
-      <button type="button" class="btn btn-mini btn-primary" onclick="show_add_supply()"> <i class="icon-plus"></i></button>
-      <p></p>
+      <% if @form_data[:initiator].id == session[:user_id] %>
+          <button type="button" class="btn btn-mini btn-primary" onclick="show_add_supply()"> <i class="icon-plus"></i></button>
+          <p></p>
+      <% end %>
+
       <table id="tbl-in-group" name="tbl-in-group" class="table table-hover table-bordered table-condensed table-striped">
         <thead>
         <tr>
@@ -104,16 +108,6 @@
         </div>
       </div>
     </div>
-
-    <div class="control-group">
-      <label class="control-label" for="inputDateReg">Дата регистрации</label>
-      <div class="controls">
-        <input type="text" id="inputDateReg" name="inputDateReg"  readonly="readonly" value=<%= @form_data[:ticket].created_at.strftime("%d-%m-%Y") %> >
-      </div>
-    </div>
-
-
-
 
 
 
