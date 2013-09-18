@@ -1,10 +1,12 @@
 GIT
-  remote: git://github.com/sandal/prawn.git
-  revision: 857f13e919d1bd7120de1ea9ba0429620329865b
+  remote: git://github.com/prawnpdf/prawn
+  revision: ffcb42961f9023027f98d992c5c96b71a70e218e
   submodules: true
   specs:
-    prawn (1.0.0.rc1)
-      pdf-reader (>= 0.9.0)
+    prawn (1.0.0.rc2)
+      afm
+      pdf-reader (~> 1.2)
+      ruby-rc4
       ttfunk (~> 1.0.3)
 
 GEM
