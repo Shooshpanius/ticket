@@ -54,6 +54,7 @@ class SupplyController < ApplicationController
         ticket_root: TicketRoot.where("ticket_type = ? AND ticket_id = ?", "s", params[:id])[0],
         initiator: User.find(ticket.initiator_id),
         group: Group.find(ticket.group_id),
+        supply_data: SupplyData.where("root = ?", ticket.root),
     }
     if TicketToSupply.is_initiator(session[:user_id], ticket_id)==true || TicketToSupply.is_executor(session[:user_id], ticket_id)==true ||
         TicketToSupply.is_member(session[:user_id], ticket_id)==true || TicketToSupply.is_leader(session[:user_id], ticket_id)==true

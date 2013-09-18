@@ -69,6 +69,22 @@
           <th class="span1"></th>
         </tr>
         </thead>
+
+        <% @form_data[:supply_data].each_with_index do |supply_data, i| %>
+            <tr>
+            <td><%= i+1 %></td>
+            <td><%= supply_data.name %></td>
+            <td><%= supply_data.spec %></td>
+            <td><%= supply_data.measure %></td>
+            <td><%= supply_data.cnt %></td>
+            <td><%= supply_data.estimated_date %></td>
+            <td><%= supply_data.supplier %></td>
+            <td></td>
+            </tr>
+
+        <% end %>
+
+
       </table>
 
     </div>
