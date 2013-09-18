@@ -90,7 +90,29 @@ class SupplyController < ApplicationController
 
 
 
+  ###################################################################################################################
+  #
+  #
+  def srv_add_supply_data
 
+    supply_data = {
+        ticket_id: params[:inputAddTicket],
+        root: params[:inputAddRoot],
+        name: params[:inputAddName],
+        spec: params[:inputAddSpec],
+        measure: params[:inputAddMeasure],
+        cnt: params[:inputAddCnt],
+        estimated_date: params[:inputAddDate],
+        supplier: params[:inputAddSupplier],
+    }
+
+    supply = SupplyData.new(supply_data)
+    supply.save
+
+    render :nothing => true
+    #render :text => supply.id
+
+  end
 
   private
   def is_login
