@@ -12,6 +12,7 @@ Ticketmanager::Application.routes.draw do
   resources :login, :path => 'login/(:action)(.:format)'
   resources :tickets, :path => ':controller/(:action)(.:format)'
   resources :supply, :path => ':controller/(:action)(.:format)'
+  resources :pdf, :path => ':controller/(:action)(.:format)'
   resources :problems, :path => 'problems/(:action)(.:format)'
   resources :mail_receiver, :path => 'mail_receiver/(:action)(.:format)'
 

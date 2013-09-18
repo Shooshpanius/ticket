@@ -4,7 +4,7 @@ class SupplyController < ApplicationController
   protect_from_forgery
   before_filter :is_login
 
-
+  require "prawn"
 
   ###################################################################################################################
   #
@@ -38,23 +38,25 @@ class SupplyController < ApplicationController
         users: User.all,
         groups: Group.all,
       }
-    end
+    else
 
-    if params[:id].scan(/g_/)[0]
-      ticket_id = params[:id].scan(/\d/).join.to_i
-      if TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
-          TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true
-      then
-        @form_data = {
-            users: User.all,
-            groups: Group.all,
-            root_ticket: TicketRoot.find( TicketToGroup.find(ticket_id).root ),
-            ticket: TicketToGroup.find(ticket_id),
+      if params[:id].scan(/g_/)[0]
+        ticket_id = params[:id].scan(/\d/).join.to_i
+        if TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
+            TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true
+        then
+          @form_data = {
+              users: User.all,
+              groups: Group.all,
+              root_ticket: TicketRoot.find( TicketToGroup.find(ticket_id).root ),
+              ticket: TicketToGroup.find(ticket_id),
 
-        }
-      else
-        redirect_to "/"
+          }
+        else
+          redirect_to "/"
+        end
       end
+
     end
 
 
@@ -136,6 +138,29 @@ class SupplyController < ApplicationController
     #render :text => supply.id
 
   end
+
+
+
+
+
+
+
+  ###################################################################################################################
+  #
+  #
+  def download
+
+    supply = TicketToSupply.find(params[:id])
+    supply_data = SupplyData.where("root = ?", supply.root)
+
+    output = Pdf.new.to_pdf(supply, supply_data)
+    send_data output, :type => 'application/pdf', :filename => "public/pdf/supply_#{params[:id]}.pdf"
+
+
+  end
+
+
+
 
   private
   def is_login

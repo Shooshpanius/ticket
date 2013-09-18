@@ -57,6 +57,10 @@
 
       <% if @form_data[:initiator].id == session[:user_id] %>
           <button type="button" class="btn btn-mini btn-primary" onclick="show_add_supply()"> <i class="icon-plus"></i></button>
+
+          <a type="button" class="btn btn-mini btn-primary" href="/supply/download/<%= @form_data[:ticket].id %>"> <i class="icon-print"></i></a>
+
+
           <p></p>
       <% end %>
 
