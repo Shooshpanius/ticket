@@ -16,10 +16,6 @@
   <li class="active">
     <a>Заявка № g_<%= @ticket.id %> от <%= @ticket.created_at.strftime("%d-%m-%Y") %></a>
   </li>
-  <li>
-  <a href="/tickets/ticket_new/g_<%= @ticket.id %>">Новая вложенная заявка</a>
-  </li>
-
 
   <li class="nav  pull-right dropdown">
     <a class="dropdown-toggle"
@@ -34,15 +30,24 @@
         <% if Time.now < (TicketRoot.find(@ticket.root).delay || "1000-01-01 00:00:00") %>
             <a onclick="set_delay_off()" >Вернуть из отложенных</a>
         <% end %>
-
-
-
-
-      </li>      <!-- links -->
+      </li>
     </ul>
   </li>
 
-
+  <li class="nav pull-right dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown"
+       href="#">
+      Новая вложенная заявка
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li>
+        <a href="/tickets/ticket_new/g_<%= @ticket.id %>">Заявка на работы</a>
+        <a href="#">Заявка на поставку</a>
+      </li>
+    </ul>
+  </li>
 
 </ul>
 
