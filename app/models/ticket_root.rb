@@ -361,7 +361,7 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-  #
+  ###################################################################################################################
   #  TicketRoot.out_supplies(user_id)
   #
   def TicketRoot.out_supplies(user_id)
@@ -388,6 +388,52 @@ class TicketRoot < ActiveRecord::Base
 
 
 
+
+  ###################################################################################################################
+  #  TicketRoot.other_supplies(user_id)
+  #
+  def TicketRoot.in_supplies(user_id)
+
+    my_groups = ""
+    UserByGroup.groups_for_user(user_id).map{|x| x.id}.each do |y|
+      my_groups = my_groups + (y.to_s+",")
+    end
+    my_groups = my_groups + ")"
+    my_groups = my_groups.gsub(/(\,\))/,'')
+    if UserByGroup.groups_for_user(user_id).size == 0 then
+      return []
+    end
+
+    group_tickets = TicketRoot.find_by_sql("SELECT
+                                              ticket_roots.*,
+                                              ticket_to_supplies.root as t_root,
+                                              ticket_to_supplies.executor as t_executor,
+                                              ticket_to_supplies.actual as actual
+                                            FROM ticket_roots
+                                              LEFT JOIN ticket_to_supplies ON ticket_roots.id = ticket_to_supplies.root
+                                            WHERE
+                                              ticket_roots.ticket_type = 's' AND
+
+                                              ticket_to_supplies.group_id in (#{my_groups}) AND
+                                              ticket_to_supplies.completed != '100' AND
+                                               (ticket_roots.delay < '#{Time.now}' OR ticket_roots.delay IS NULL)
+                                           ")
+
+    group_tickets.each do |my_ticket|
+      my_ticket[:actual] = ActualTask.is_actual_g(user_id, my_ticket.ticket_id)
+    end
+    group_tickets.sort! do |a, b|
+      (b.actual <=> a.actual).nonzero? ||
+          (b.created_at <=> a.created_at)
+    end
+
+    return group_tickets
+
+  end
+
+  ###################################################################################################################
+  #  TicketRoot.set_delay(delay_data)
+  #
   def TicketRoot.set_delay(delay_data)
     root = TicketRoot.find(delay_data[:root_id])
     ticket_type = root.ticket_type

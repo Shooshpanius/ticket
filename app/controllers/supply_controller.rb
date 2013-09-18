@@ -12,7 +12,7 @@ class SupplyController < ApplicationController
   def in
 
     @form_data = {
-
+      supplies: TicketRoot.in_supplies(session[:user_id])
     }
 
   end
@@ -23,7 +23,7 @@ class SupplyController < ApplicationController
   def out
 
     @form_data = {
-        out_supplies: TicketRoot.out_supplies(session[:user_id])
+      out_supplies: TicketRoot.out_supplies(session[:user_id])
     }
 
   end
@@ -48,21 +48,21 @@ class SupplyController < ApplicationController
 
     ticket = TicketToSupply.find(params[:id])
     ticket_id = params[:id]
-    @form_data = {
-        ticket_id: params[:id],
-        ticket: ticket,
-        ticket_root: TicketRoot.where("ticket_type = ? AND ticket_id = ?", "s", params[:id])[0],
-        initiator: User.find(ticket.initiator_id),
-        group: Group.find(ticket.group_id),
-        supply_data: SupplyData.where("root = ?", ticket.root),
-    }
+
     if TicketToSupply.is_initiator(session[:user_id], ticket_id)==true || TicketToSupply.is_executor(session[:user_id], ticket_id)==true ||
         TicketToSupply.is_member(session[:user_id], ticket_id)==true || TicketToSupply.is_leader(session[:user_id], ticket_id)==true
     then
+
+      @form_data = {
+          ticket_id: params[:id],
+          ticket: ticket,
+          ticket_root: TicketRoot.where("ticket_type = ? AND ticket_id = ?", "s", params[:id])[0],
+          initiator: User.find(ticket.initiator_id),
+          group: Group.find(ticket.group_id),
+          supply_data: SupplyData.where("root = ?", ticket.root),
+      }
       render "supply_edit"
     end
-
-
 
   end
 
