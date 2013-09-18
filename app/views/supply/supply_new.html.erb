@@ -19,6 +19,20 @@
 
   <fieldset>
 
+    <% if @form_data[:root_ticket] != nil %>
+        <div class="control-group">
+          <label class="control-label">Основная заявка</label>
+          <div class="controls">
+            <input type="text" style="width:65%;" value="<%= @form_data[:ticket].topic %>" disabled>
+            <a class="btn" href="/tickets/ticket_edit/<%= @form_data[:root_ticket].ticket_type %>_<%= @form_data[:ticket].id %>" > <i class="icon-share-alt"></i> </a>
+          </div>
+        </div>
+
+        <input type="hidden"  id="inputRootTicket" name="inputRootTicket" value="<%= @form_data[:root_ticket].id %>" >
+
+    <% end %>
+
+
     <div class="control-group">
       <label class="control-label" for="inputIsp">Исполнитель</label>
       <div class="controls">

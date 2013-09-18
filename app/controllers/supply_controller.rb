@@ -33,10 +33,30 @@ class SupplyController < ApplicationController
   #
   def supply_new
 
-    @form_data = {
+    if params[:id] == nil
+      @form_data = {
         users: User.all,
         groups: Group.all,
-    }
+      }
+    end
+
+    if params[:id].scan(/g_/)[0]
+      ticket_id = params[:id].scan(/\d/).join.to_i
+      if TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
+          TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true
+      then
+        @form_data = {
+            users: User.all,
+            groups: Group.all,
+            root_ticket: TicketRoot.find( TicketToGroup.find(ticket_id).root ),
+            ticket: TicketToGroup.find(ticket_id),
+
+        }
+      else
+        redirect_to "/"
+      end
+    end
+
 
 
   end

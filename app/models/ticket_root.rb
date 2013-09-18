@@ -7,7 +7,7 @@ class TicketRoot < ActiveRecord::Base
   has_one :ticket_to_group, foreign_key: 'root'
   has_one :ticket_to_supply, foreign_key: 'root'
 
-  #
+  ###################################################################################################################
   #  TicketRoot.my_tickets(user_id)
   #
   def TicketRoot.my_tickets(user_id)
@@ -55,7 +55,7 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-  #
+  ###################################################################################################################
   #  TicketRoot.my_tickets_cnt(user_id)
   #
   def TicketRoot.my_tickets_cnt(user_id)
@@ -94,7 +94,7 @@ class TicketRoot < ActiveRecord::Base
   end
 
 
-  #
+  ###################################################################################################################
   #  TicketRoot.other_tickets(user_id)
   #
   def TicketRoot.other_tickets(user_id)
@@ -139,7 +139,7 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-  #
+  ###################################################################################################################
   #  TicketRoot.other_tickets_delay(user_id)
   #
   def TicketRoot.other_tickets_delay(user_id)
@@ -184,7 +184,7 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-  #
+  ###################################################################################################################
   #  TicketRoot.my_tickets_delay(user_id)
   #
   def TicketRoot.my_tickets_delay(user_id)
@@ -232,7 +232,7 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-  #
+  ###################################################################################################################
   #  TicketRoot.my_tickets_delay_cnt(user_id)
   #
   def TicketRoot.my_tickets_delay_cnt(user_id)
@@ -272,7 +272,7 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-  #
+  ###################################################################################################################
   #  TicketRoot.out_tickets(user_id)
   #
   def TicketRoot.out_tickets(user_id)
@@ -318,7 +318,7 @@ class TicketRoot < ActiveRecord::Base
 
 
 
-  #
+  ###################################################################################################################
   #  TicketRoot.out_tickets_cnt(user_id)
   #
   def TicketRoot.out_tickets_cnt(user_id)
