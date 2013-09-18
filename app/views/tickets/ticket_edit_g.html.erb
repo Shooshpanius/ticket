@@ -14,7 +14,7 @@
     <a href="/tickets/in_delay/">Отложенные <span class='label label-info'><%= @form_data[:my_tickets_delay_cnt] %></a>
   </li>
   <li class="active">
-    <a>Просмотр заявки</a>
+    <a>Заявка № g_<%= @ticket.id %> от <%= @ticket.created_at.strftime("%d-%m-%Y") %></a>
   </li>
   <li>
   <a href="/tickets/ticket_new/g_<%= @ticket.id %>">Новая вложенная заявка</a>
@@ -105,13 +105,6 @@
           <% end  %>
 
         </div>
-      </div>
-    </div>
-
-    <div class="control-group">
-      <label class="control-label" for="inputDateReg">Дата регистрации</label>
-      <div class="controls">
-        <input type="text" id="inputDateReg" name="inputDateReg"  readonly="readonly" value=<%= @ticket.created_at.strftime("%d-%m-%Y") %> >
       </div>
     </div>
 
