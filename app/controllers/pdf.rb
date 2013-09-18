@@ -1,10 +1,10 @@
 # encoding: utf-8
 class Pdf < Prawn::Document
 
-  require 'rubygems'
-  require 'active_support/all'
-
-  $KCODE = 'UTF8'
+  #require 'rubygems'
+  #require 'active_support/all'
+  #
+  #$KCODE = 'UTF8'
 
   Widths = [190, 190, 50, 50, 80, 150]
 
