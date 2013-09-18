@@ -106,8 +106,10 @@ class SupplyController < ApplicationController
         supplier: params[:inputAddSupplier],
     }
 
-    supply = SupplyData.new(supply_data)
-    supply.save
+    if TicketToSupply.is_initiator(session[:user_id], params[:inputAddTicket])
+      supply = SupplyData.new(supply_data)
+      supply.save
+    end
 
     render :nothing => true
     #render :text => supply.id
