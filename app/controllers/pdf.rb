@@ -25,7 +25,7 @@ class Pdf < Prawn::Document
 
 
 
-  def to_pdf(supply, supply_data)
+  def to_pdf(supply, supply_data, user)
 
     font_families.update(
         "Verdana" => {
@@ -39,12 +39,48 @@ class Pdf < Prawn::Document
       data << row( item.name, item.spec, item.measure, item.cnt, item.estimated_date, item.supplier )
     end
 
+    span(600, :position => :center) do
+      text "Заявка на приобретение МТЦ _______________________________________ на ____________2013 г."
+    end
+    text "
+         "
 
     head = make_table([Headers], :column_widths => Widths)
-    table([[head], *(data.map{|d| [d]})], :header => true, :row_colors => %w[cccccc ffffff]) do
+    table([[head], *(data.map{|d| [d]})], :header => true, :row_colors => %w[ffffff ffffff]) do
       row(0).style :background_color => 'ffffff', :text_color => '000000'
-      cells.style :borders => []
+
     end
+
+    text '
+         '
+    text '
+         '
+
+    span(600, :position => :center) do
+      text "Заявку составил: ___________________________/__________/  '___'____________2013 г."
+    end
+    text '
+         '
+
+    span(600, :position => :center) do
+      text "Согласовал:     ___________________________/__________/  '___'____________2013 г."
+    end
+    text '
+         '
+
+    span(600, :position => :center) do
+      text "Получил:        ___________________________/__________/  '___'____________2013 г."
+    end
+    text '
+         '
+
+    #span(600, :position => :center) do
+    #  text "Получил: #{user.position} #{user.f_name} #{(user.i_name.to_s[0]||"")}#{user.o_name.to_s[0]||""}  /__________/  '___'____________2013 г."
+    #end
+    #text '
+    #     '
+
+
 
     render
 

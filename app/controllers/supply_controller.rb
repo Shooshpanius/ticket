@@ -152,8 +152,9 @@ class SupplyController < ApplicationController
 
     supply = TicketToSupply.find(params[:id])
     supply_data = SupplyData.where("root = ?", supply.root)
+    user = User.find(session[:user_id])
 
-    output = Pdf.new.to_pdf(supply, supply_data)
+    output = Pdf.new.to_pdf(supply, supply_data, user)
     send_data output, :type => 'application/pdf', :filename => "public/pdf/supply_#{params[:id]}.pdf"
 
 
