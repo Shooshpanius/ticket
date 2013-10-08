@@ -56,7 +56,9 @@ gem 'magic_encoding'
 gem "jquery-tablesorter"
 gem "acts_as_tree"
 
-gem 'prawn', :git => "git://github.com/prawnpdf/prawn", :submodules => true
+#gem 'prawn', :git => "git://github.com/prawnpdf/prawn", :submodules => true
+
+gem 'prawn'
 
 #gem "plupload-rails4"
 
