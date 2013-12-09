@@ -35,7 +35,7 @@ end
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '= 2.3.2.2'
 
 gem 'ruby-prof'
 gem 'test-unit'
@@ -70,7 +70,7 @@ gem 'prawn'
 gem 'unicorn'
 
 # Use Capistrano for deployment
-gem 'capistrano'
+gem 'capistrano', '~> 2.15'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
