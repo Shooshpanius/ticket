@@ -1,1 +1,27 @@
-<%= debug @form_data[:user_comments] %>
+
+<table id="tbl-comments" name="tbl-comments" class="table table-hover table-bordered table-condensed table-striped">
+  <caption></caption>
+  <thead>
+  <tr>
+    <th class="span2">Дата/время</th>
+    <th>Комментарий</th>
+
+  </tr>
+  </thead>
+  <tbody>
+
+      <% @form_data[:user_comments].each do |comment| %>
+
+        <tr>
+          <td><%= comment.created_at %></td>
+          <td><%= comment.text %></td>
+        </tr>
+
+
+      <% end %>
+
+  </tbody>
+</table>
+
+
+
