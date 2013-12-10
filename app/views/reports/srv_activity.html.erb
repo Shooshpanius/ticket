@@ -17,19 +17,30 @@
 
       <% @form_data[:user_comments].each do |comment| %>
 
-        <tr>
-          <td rowspan="2"> <%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S" ) %></td>
-          <td>
+        <tr
+
             <%
-                ticket_root = TicketRoot.find(comment.root)
-                if ticket_root.ticket_type == 'u'
-                    ticket = TicketToUser.find(ticket_root.ticket_id)
-                end
-                if TicketRoot.find(comment.root).ticket_type == 'g'
-                  ticket = TicketToGroup.find(ticket_root.ticket_id)
-                end
+               ticket_root = TicketRoot.find(comment.root)
+               if ticket_root.ticket_type == 'u'
+                 ticket = TicketToUser.find(ticket_root.ticket_id)
+               end
+               if TicketRoot.find(comment.root).ticket_type == 'g'
+                 ticket = TicketToGroup.find(ticket_root.ticket_id)
+               end
+
             %>
-            <strong><%== ticket.topic %></strong>
+
+            <% if ticket.completed == 100 %>
+                class="success"
+            <% end %>
+
+        >
+          <td> <%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S" ) %></td>
+          <td>
+
+            <a target="_blank"  href="/tickets/ticket_edit/<%= ticket_root.ticket_type %>_<%= ticket.id %>"><%= ticket.topic %></a>
+            <br><br>
+            <%== comment.text %>
           </td>
           <td>
             <%= ticket.completed %>
@@ -37,8 +48,13 @@
           </td>
         </tr>
 
-      <tr>
-        <td><%== comment.text %></td>
+      <tr
+          <% if ticket.completed == 100 %>
+          class="success"
+          <% end %>
+      >
+
+
       </tr>
 
 
