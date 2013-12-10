@@ -2,20 +2,41 @@
 <table id="tbl-comments" name="tbl-comments" class="table table-hover table-bordered table-condensed table-striped">
   <caption></caption>
   <thead>
-  <tr>
-    <th class="span2">Дата/время</th>
-    <th>Комментарий</th>
 
+  <tr>
+    <th class="span2" rowspan="2">Дата/время</th>
+    <th>Заявка</th>
   </tr>
+  <tr>
+    <th>Комментарий</th>
+  </tr>
+
   </thead>
   <tbody>
 
       <% @form_data[:user_comments].each do |comment| %>
 
         <tr>
-          <td><%= comment.created_at %></td>
-          <td><%= comment.text %></td>
+          <td rowspan="2"> <%= comment.created_at.strftime("%d-%m-%Y %H:%M:%S" ) %></td>
+          <td>
+            <%
+                ticket_root = TicketRoot.find(comment.root)
+                if ticket_root.ticket_type == 'u'
+                    ticket = TicketToUser.find(ticket_root.ticket_id)
+                end
+                if TicketRoot.find(comment.root).ticket_type == 'g'
+                  ticket = TicketToGroup.find(ticket_root.ticket_id)
+                end
+            %>
+
+            <%= ticket.text %>
+
+          </td>
         </tr>
+
+      <tr>
+        <td><%= comment.text %></td>
+      </tr>
 
 
       <% end %>
