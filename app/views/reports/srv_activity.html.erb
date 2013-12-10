@@ -4,13 +4,11 @@
   <thead>
 
   <tr>
-    <th class="span2" rowspan="2">Дата/время</th>
-    <th>Заявка</th>
-    <th class="span2" rowspan="2">%</th>
+    <th class="span2" >Дата/время</th>
+    <th>Заявка / Комментарий</th>
+    <th class="span2" >%</th>
   </tr>
-  <tr>
-    <th>Комментарий</th>
-  </tr>
+
 
   </thead>
   <tbody>
@@ -39,6 +37,7 @@
           <td>
 
             <a target="_blank"  href="/tickets/ticket_edit/<%= ticket_root.ticket_type %>_<%= ticket.id %>"><%= ticket.topic %></a>
+            <i class="icon-info-sign" style="cursor: pointer" ></i>
             <br><br>
             <%== comment.text %>
           </td>
