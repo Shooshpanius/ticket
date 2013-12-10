@@ -36,10 +36,10 @@ $(document).ready ($) ->
       queryString = $("#activity").serialize()
       $.ajax
         url: "/reports/srv_activity"
-        type: "POST"
+        type: "GET"
         async: false
         data: queryString
         success: (msg) ->
-#          location.replace "/tickets"
+          $("#act").html msg
 
       false
