@@ -6,6 +6,7 @@
   <tr>
     <th class="span2" rowspan="2">Дата/время</th>
     <th>Заявка</th>
+    <th class="span2" rowspan="2">%</th>
   </tr>
   <tr>
     <th>Комментарий</th>
@@ -28,8 +29,10 @@
                   ticket = TicketToGroup.find(ticket_root.ticket_id)
                 end
             %>
-
             <%= ticket.topic %>
+          </td>
+          <td>
+            <%= ticket.completed %>
 
           </td>
         </tr>
