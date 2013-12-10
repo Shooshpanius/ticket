@@ -36,7 +36,7 @@ $(document).ready ($) ->
       queryString = $("#activity").serialize()
       $.ajax
         url: "/reports/srv_activity"
-        type: "GET"
+        type: "POST"
         async: false
         data: queryString
         success: (msg) ->
