@@ -86,6 +86,28 @@
             </li>
           </ul>
 
+
+          <ul  class="nav pull-right">
+            <li
+            <%= (controller.controller_name=="reports")?"style=background-color:#FFDAB9":"" %>
+            class="dropdown"
+            >
+              <a href="" class="dropdown-toggle" data-toggle="dropdown">
+                Отчеты
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li
+                <%= (controller.controller_name=="reports")&&(controller.action_name=="activity")?"style=background-color:#FFDAB9":""   %>
+                ><a href="/reports/activity">Активность пользователя</a>
+                </li>
+
+              </ul>
+            </li>
+          </ul>
+
+
+
           <ul  class="nav pull-right">
             <li
                 <%= (controller.controller_name=="tickets")?"style=background-color:#FFDAB9":"" %>
