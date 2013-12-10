@@ -29,7 +29,7 @@
                   ticket = TicketToGroup.find(ticket_root.ticket_id)
                 end
             %>
-            <%= ticket.topic %>
+            <%== ticket.topic %>
           </td>
           <td>
             <%= ticket.completed %>
@@ -38,7 +38,7 @@
         </tr>
 
       <tr>
-        <td><%= comment.text %></td>
+        <td><%== comment.text %></td>
       </tr>
 
 
