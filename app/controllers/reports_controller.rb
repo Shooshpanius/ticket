@@ -14,7 +14,7 @@ class ReportsController < ApplicationController
   def srv_activity
 
 
-    user_comments = TicketComment.where('created_at >= (?) and created_at <= (?) and user_id = (?)', params[:inputDateFrom].to_time.to_datetime, params[:inputDateTo].to_time.to_datetime.next, session[:user_id] )
+    user_comments = TicketComment.where('created_at >= (?) and created_at <= (?) and user_id = (?)', params[:inputDateFrom].to_time.to_datetime, params[:inputDateTo].to_time.to_datetime.next, params[:inputIsp] )
 
     @form_data = {
       user_comments: user_comments

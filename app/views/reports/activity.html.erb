@@ -8,9 +8,19 @@
     <input type="text" id="inputDateFrom" name="inputDateFrom" >
   </label>
 
-  <label class="control-label" for="inputDateTo">по:
+  <label class="control-label" for="inputDateTo">&nbsp; по:
     <input type="text" id="inputDateTo" name="inputDateTo" >
   </label>
+
+  <label class="control-label" for="inputIsp">&nbsp; Исполнитель:</label>
+
+    <select  id="inputIsp" name="inputIsp">
+        <option id="<%= session[:user_id] %>" name="<%= session[:user_id] %>" value="<%= session[:user_id] %>" ><%= session[:user_login] %></option>
+        <% subordinates = UserByGroup.get_subordinates(session[:user_id]) %>
+        <% subordinates.each do |subordinate| %>
+          <option id="<%= subordinate.id %>" name="<%= subordinate.id %>" value="<%= subordinate.id %>" ><%= subordinate.login %></option>
+        <% end  %>
+    </select>
 
 
   <button class="btn">Сформировать</button>
