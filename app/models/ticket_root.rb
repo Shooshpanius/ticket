@@ -466,6 +466,27 @@ class TicketRoot < ActiveRecord::Base
   end
 
 
+
+
+  def TicketRoot.get_ticket(user_id, root_id)
+
+    ticket_root = TicketRoot.find(root_id)
+
+
+    if ticket_root[:ticket_type] == "g" && TicketToGroup.is_member(user_id, ticket_root[:ticket_id])
+        ticket = TicketToGroup.find(ticket_root[:ticket_id])
+    end
+
+    if ticket_root[:ticket_type] == "u" && (TicketToUser.is_initiator(user_id, ticket_root[:ticket_id]) or TicketToUser.is_executor(user_id, ticket_root[:ticket_id]))
+      ticket = TicketToUser.find(ticket_root[:ticket_id])
+    end
+
+    return ticket
+
+  end
+
+
+
 end
 
 # AND ticket_to_groups.group_id IN #{my_groups}

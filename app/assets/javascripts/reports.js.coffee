@@ -2,6 +2,17 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+@show_text = (root_id) ->
+
+  $.ajax
+    url: "/reports/srv_activity_show_text"
+    type: "get"
+    async: false
+    data: "root_id="+root_id
+    success: (msg) ->
+      $("#ticketText").html msg
+      $("#setDelay").modal 'show'
+    false
 
 $(document).ready ($) ->
 

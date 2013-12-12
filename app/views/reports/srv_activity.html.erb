@@ -37,7 +37,7 @@
           <td>
 
             <a target="_blank"  href="/tickets/ticket_edit/<%= ticket_root.ticket_type %>_<%= ticket.id %>"><%= ticket.topic %></a>
-            <i class="icon-info-sign" style="cursor: pointer" ></i>
+            <i class="icon-info-sign" style="cursor: pointer" onclick="show_text(<%= ticket_root.id %>)"></i>
             <br><br>
             <%== comment.text %>
           </td>
