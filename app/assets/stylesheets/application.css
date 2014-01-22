@@ -15,6 +15,6 @@
  *= require jquery.ui.slider
  *= require bootstrap-wysihtml5
  *= require jquery-tablesorter/theme.dropbox
- *= require dhtmlxscheduler
+ *= require dhtmlxscheduler.css.erb
  *= require_tree .
  */

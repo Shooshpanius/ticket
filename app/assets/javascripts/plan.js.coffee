@@ -5,4 +5,8 @@
 $(document).ready ($) ->
   scheduler.config.xml_date = "%Y-%m-%d %H:%i"
   scheduler.init "scheduler_here", new Date('2014, 01, 1'), "month"
-  scheduler.callEvent("onOptionsLoad", []);
+#  scheduler.callEvent("onOptionsLoad", []);
+  scheduler.config.hour_size_px = 44;
+
+  scheduler.config.first_hour = 7;
+  scheduler.config.last_hour = 22;
