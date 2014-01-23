@@ -22,4 +22,5 @@
 //= require bootstrap-wysihtml5
 //= require jquery-tablesorter
 //= require jquery.maskedinput
+//= require dhtmlxscheduler
 //= require_self
