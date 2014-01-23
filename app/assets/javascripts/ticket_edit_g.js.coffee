@@ -86,10 +86,22 @@ $(document).ready ($) ->
 
 
   $("#startSchedulerDiv").on "changeDate", (e) ->
-    alert "1"
+    $.ajax
+      url: "/tickets/srv_change_sheduler_start"
+      type: "POST"
+      async: false
+      data: {
+        s_date: e.date.valueOf()
+      }
 
   $("#stopSchedulerDiv").on "changeDate", (e) ->
-    alert "2"
+    $.ajax
+      url: "/tickets/srv_change_sheduler_stop"
+      type: "POST"
+      async: false
+      data: {
+        s_date: e.date.valueOf()
+      }
 
   $('#inputCommText').wysihtml5()
 
@@ -99,11 +111,11 @@ $(document).ready ($) ->
 
   $('#startSchedulerDiv').datetimepicker
     pickSeconds: false
-    language: 'pt-BR'
+    language: 'ru'
 
   $('#stopSchedulerDiv').datetimepicker
     pickSeconds: false
-    language: 'pt-BR'
+    language: 'ru'
 
   $('#inputDelayTime').mask "99:99"
 
