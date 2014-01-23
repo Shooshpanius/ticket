@@ -101,7 +101,7 @@ $(document).ready ($) ->
       type: "POST"
       async: false
       data: {
-        s_date: e.date.valueOf(),
+        s_date: e.localDate.valueOf(),
         ticket_id: $("#ticket_id").val()
       }
 
@@ -111,7 +111,7 @@ $(document).ready ($) ->
       type: "POST"
       async: false
       data: {
-        s_date: e.date.valueOf(),
+        s_date: e.localDate.valueOf(),
         ticket_id: $("#ticket_id").val()
       }
 

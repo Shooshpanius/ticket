@@ -114,6 +114,7 @@
     </div>
 
 
+
     <div class="control-group">
       <label class="control-label">В календарь</label>
       <div class="controls">
@@ -124,15 +125,14 @@
     >
 
         <div id="startSchedulerDiv" class="input-append date">
-            <input data-format="dd/MM/yyyy hh:mm" type="text" id="startScheduler" name="startScheduler" >
-            <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>>
+            <input data-format="dd/MM/yyyy hh:mm" type="text" id="startScheduler" name="startScheduler" value="<%= (@ticket.start_scheduler != nil ? @ticket.start_scheduler.strftime("%d/%m/%Y %I:%M "):"") %>" >
+            <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
         </div>
 
         <div id="stopSchedulerDiv" class="input-append date">
-          <input data-format="dd/MM/yyyy hh:mm" type="text" id="stopScheduler" name="stopScheduler" >
-            <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>>
+            <input data-format="dd/MM/yyyy hh:mm" type="text" id="stopScheduler" name="stopScheduler" value="<%= (@ticket.stop_scheduler != nil ? @ticket.stop_scheduler.strftime("%d/%m/%Y %I:%M "):"") %>" >
+            <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
         </div>
-
 
       </div>
     </div>
