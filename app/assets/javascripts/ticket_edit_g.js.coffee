@@ -1,4 +1,7 @@
 
+
+
+
 @show_set_delay = () ->
   $("#setDelay").modal 'show'
 
@@ -81,17 +84,25 @@
 
 $(document).ready ($) ->
 
-  $('#inputCommText').wysihtml5()
 
+  $("#startSchedulerDiv").on "changeDate", (e) ->
+    alert "1"
+
+  $("#stopSchedulerDiv").on "changeDate", (e) ->
+    alert "2"
+
+  $('#inputCommText').wysihtml5()
 
   $("#inputDelayDate").datepicker
     firstDay: 1
     dateFormat: "yy-mm-dd"
 
   $('#startSchedulerDiv').datetimepicker
+    pickSeconds: false
     language: 'pt-BR'
 
   $('#stopSchedulerDiv').datetimepicker
+    pickSeconds: false
     language: 'pt-BR'
 
   $('#inputDelayTime').mask "99:99"
