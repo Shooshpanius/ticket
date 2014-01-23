@@ -88,6 +88,12 @@ $(document).ready ($) ->
     firstDay: 1
     dateFormat: "yy-mm-dd"
 
+  $('#startSchedulerDiv').datetimepicker
+    language: 'pt-BR'
+
+  $('#stopSchedulerDiv').datetimepicker
+    language: 'pt-BR'
+
   $('#inputDelayTime').mask "99:99"
 
 #  $("#comment_new").validate

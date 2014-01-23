@@ -117,8 +117,18 @@
       <label class="control-label">В календарь</label>
       <div class="controls">
         <input type="checkbox" id="inScheduler" name="inScheduler" >
-        <input type="text" id="startScheduler" name="startScheduler" > -
-        <input type="text" id="stopScheduler" name="stopScheduler" >
+
+        <div id="startSchedulerDiv" class="input-append date">
+            <input data-format="dd/MM/yyyy hh:mm:ss" type="text" id="startScheduler" name="startScheduler" >
+            <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>>
+        </div>
+
+        <div id="stopSchedulerDiv" class="input-append date">
+          <input data-format="dd/MM/yyyy hh:mm:ss" type="text" id="stopScheduler" name="stopScheduler" >
+            <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>>
+        </div>
+
+
       </div>
     </div>
 

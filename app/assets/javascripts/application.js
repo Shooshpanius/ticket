@@ -23,4 +23,6 @@
 //= require jquery-tablesorter
 //= require jquery.maskedinput
 //= require dhtmlxscheduler
+
+//= require bootstrap-datetimepicker
 //= require_self
