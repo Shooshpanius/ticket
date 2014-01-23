@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130917050633) do
+ActiveRecord::Schema.define(version: 20140123051529) do
 
   create_table "actual_tasks", force: true do |t|
     t.integer  "user_id"
@@ -127,6 +127,9 @@ ActiveRecord::Schema.define(version: 20130917050633) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "root"
+    t.boolean  "in_scheduler"
+    t.integer  "start_scheduler"
+    t.integer  "stop_scheduler"
   end
 
   create_table "ticket_to_supplies", force: true do |t|
@@ -154,6 +157,9 @@ ActiveRecord::Schema.define(version: 20130917050633) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "root"
+    t.boolean  "in_scheduler"
+    t.integer  "start_scheduler"
+    t.integer  "stop_scheduler"
   end
 
   create_table "user_by_groups", force: true do |t|

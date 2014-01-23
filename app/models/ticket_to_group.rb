@@ -125,7 +125,7 @@ class TicketToGroup < ActiveRecord::Base
   def TicketToGroup.change_sheduler_start(user_id, s_date, ticket_id)
     #if TicketToGroup.is_leader(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
       ticket = TicketToGroup.find(ticket_id)
-      ticket.start_scheduler = s_date.to_s.strftime("%m/%d/%y %I:%M %p")
+      ticket.start_scheduler = s_date
       ticket.save
     #end
   end
@@ -133,7 +133,7 @@ class TicketToGroup < ActiveRecord::Base
   def TicketToGroup.change_sheduler_stop(user_id, s_date, ticket_id)
     #if TicketToGroup.is_leader(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
       ticket = TicketToGroup.find(ticket_id)
-      ticket.stop_scheduler = s_date.to_s.strftime("%m/%d/%y %I:%M %p")
+      ticket.stop_scheduler = s_date
       ticket.save
     #end
   end
