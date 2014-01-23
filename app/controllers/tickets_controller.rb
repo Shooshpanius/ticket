@@ -572,6 +572,20 @@ class TicketsController < ApplicationController
     render :nothing => true
   end
 
+  def srv_change_g_sheduler_start
+
+    TicketToGroup.change_sheduler_start(session[:user_id], params[:s_date], params[:ticket_id])
+
+    render :nothing => true
+  end
+
+  def srv_change_g_sheduler_stop
+
+    TicketToGroup.change_sheduler_stop(session[:user_id], params[:s_date], params[:ticket_id])
+
+    render :nothing => true
+  end
+
   def srv_set_delay_off
 
     delay_data = {
@@ -583,6 +597,7 @@ class TicketsController < ApplicationController
     #render text: a
     render :nothing => true
   end
+
 
   private
   def is_login

@@ -87,20 +87,22 @@ $(document).ready ($) ->
 
   $("#startSchedulerDiv").on "changeDate", (e) ->
     $.ajax
-      url: "/tickets/srv_change_sheduler_start"
+      url: "/tickets/srv_change_g_sheduler_start"
       type: "POST"
       async: false
       data: {
-        s_date: e.date.valueOf()
+        s_date: e.date.valueOf(),
+        ticket_id: $("#ticket_id").val()
       }
 
   $("#stopSchedulerDiv").on "changeDate", (e) ->
     $.ajax
-      url: "/tickets/srv_change_sheduler_stop"
+      url: "/tickets/srv_change_g_sheduler_stop"
       type: "POST"
       async: false
       data: {
-        s_date: e.date.valueOf()
+        s_date: e.date.valueOf(),
+        ticket_id: $("#ticket_id").val()
       }
 
   $('#inputCommText').wysihtml5()

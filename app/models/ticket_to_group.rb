@@ -122,6 +122,22 @@ class TicketToGroup < ActiveRecord::Base
     end
   end
 
+  def TicketToGroup.change_sheduler_start(user_id, s_date, ticket_id)
+    #if TicketToGroup.is_leader(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
+      ticket = TicketToGroup.find(ticket_id)
+      ticket.start_scheduler = s_date.to_s.strftime("%m/%d/%y %I:%M %p")
+      ticket.save
+    #end
+  end
+
+  def TicketToGroup.change_sheduler_stop(user_id, s_date, ticket_id)
+    #if TicketToGroup.is_leader(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
+      ticket = TicketToGroup.find(ticket_id)
+      ticket.stop_scheduler = s_date.to_s.strftime("%m/%d/%y %I:%M %p")
+      ticket.save
+    #end
+  end
+
 
   def TicketToGroup.comment_new(user_id, ticket_id, inputCommText)
     if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_member(user_id, ticket_id)
