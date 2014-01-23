@@ -116,7 +116,7 @@
     <div class="control-group">
       <label class="control-label">В календарь</label>
       <div class="controls">
-        <input type="checkbox" id="inScheduler" name="inScheduler" >
+        <input type="checkbox" id="inScheduler" name="inScheduler" onclick="change_in_scheduler(<%= @ticket.id %>)" >
 
         <div id="startSchedulerDiv" class="input-append date">
             <input data-format="dd/MM/yyyy hh:mm" type="text" id="startScheduler" name="startScheduler" >

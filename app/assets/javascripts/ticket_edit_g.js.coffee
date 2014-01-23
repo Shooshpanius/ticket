@@ -62,6 +62,16 @@
     success: () ->
 #      location.replace ""
 
+@change_in_scheduler = (ticket_id) ->
+  $.ajax
+    url: "/tickets/srv_change_g_in_scheduler"
+    type: "POST"
+    async: false
+    data: {
+      status: $("#inScheduler").is(':checked'),
+      ticket_id: ticket_id
+    }
+
 @change_executor_leader = (ticket_id) ->
   $.ajax
     url: "/tickets/srv_change_executor_leader"

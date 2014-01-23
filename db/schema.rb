@@ -128,8 +128,8 @@ ActiveRecord::Schema.define(version: 20140123051529) do
     t.datetime "updated_at"
     t.integer  "root"
     t.boolean  "in_scheduler"
-    t.integer  "start_scheduler"
-    t.integer  "stop_scheduler"
+    t.datetime "start_scheduler"
+    t.datetime "stop_scheduler"
   end
 
   create_table "ticket_to_supplies", force: true do |t|
@@ -158,8 +158,8 @@ ActiveRecord::Schema.define(version: 20140123051529) do
     t.datetime "updated_at"
     t.integer  "root"
     t.boolean  "in_scheduler"
-    t.integer  "start_scheduler"
-    t.integer  "stop_scheduler"
+    t.datetime "start_scheduler"
+    t.datetime "stop_scheduler"
   end
 
   create_table "user_by_groups", force: true do |t|

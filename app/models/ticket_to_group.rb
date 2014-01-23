@@ -138,6 +138,13 @@ class TicketToGroup < ActiveRecord::Base
     #end
   end
 
+  def TicketToGroup.change_in_scheduler(user_id, status, ticket_id)
+    #if TicketToGroup.is_leader(user_id, ticket_id) or TicketToGroup.is_executor(user_id, ticket_id)
+    ticket = TicketToGroup.find(ticket_id)
+    ticket.in_scheduler = status
+    ticket.save
+    #end
+  end
 
   def TicketToGroup.comment_new(user_id, ticket_id, inputCommText)
     if TicketToGroup.is_initiator(user_id, ticket_id) or TicketToGroup.is_member(user_id, ticket_id)
