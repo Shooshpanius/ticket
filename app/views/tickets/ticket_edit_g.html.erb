@@ -125,12 +125,12 @@
     >
 
         <div id="startSchedulerDiv" class="input-append date">
-            <input data-format="dd/MM/yyyy hh:mm" type="text" id="startScheduler" name="startScheduler" value="<%= (@ticket.start_scheduler != nil ? @ticket.start_scheduler.strftime("%d/%m/%Y %I:%M "):"") %>" >
+            <input data-format="dd/MM/yyyy hh:mm" type="text" id="startScheduler" name="startScheduler" value="<%= (@ticket.start_scheduler != nil ? @ticket.start_scheduler.strftime("%d/%m/%Y %H:%M"):"") %>" >
             <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
         </div>
 
         <div id="stopSchedulerDiv" class="input-append date">
-            <input data-format="dd/MM/yyyy hh:mm" type="text" id="stopScheduler" name="stopScheduler" value="<%= (@ticket.stop_scheduler != nil ? @ticket.stop_scheduler.strftime("%d/%m/%Y %I:%M "):"") %>" >
+            <input data-format="dd/MM/yyyy hh:mm" type="text" id="stopScheduler" name="stopScheduler" value="<%= (@ticket.stop_scheduler != nil ? @ticket.stop_scheduler.strftime("%d/%m/%Y %H:%M"):"") %>" >
             <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
         </div>
 

@@ -574,12 +574,12 @@ class TicketsController < ApplicationController
 
   def srv_change_g_sheduler_start
     TicketToGroup.change_sheduler_start(session[:user_id], Time.at(params[:s_date][0..9].to_i), params[:ticket_id])
-    render :nothing => true
+    render :text => Time.at(params[:s_date][0..9].to_i)
   end
 
   def srv_change_g_sheduler_stop
     TicketToGroup.change_sheduler_stop(session[:user_id], Time.at(params[:s_date][0..9].to_i), params[:ticket_id])
-    render :nothing => true
+    render :text => Time.at(params[:s_date][0..9].to_i)
   end
 
   def srv_change_g_in_scheduler
