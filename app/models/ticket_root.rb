@@ -33,7 +33,8 @@ class TicketRoot < ActiveRecord::Base
                                               ticket_to_groups.actual as actual,
                                               ticket_to_groups.start_scheduler as start_scheduler,
                                               ticket_to_groups.stop_scheduler as stop_scheduler,
-                                              ticket_to_groups.topic as topic
+                                              ticket_to_groups.topic as topic,
+                                              ticket_to_groups.in_scheduler as in_scheduler
                                             FROM ticket_roots
                                               LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
                                             WHERE
@@ -119,7 +120,8 @@ class TicketRoot < ActiveRecord::Base
                                               ticket_to_groups.actual as actual,
                                               ticket_to_groups.start_scheduler as start_scheduler,
                                               ticket_to_groups.stop_scheduler as stop_scheduler,
-                                              ticket_to_groups.topic as topic
+                                              ticket_to_groups.topic as topic,
+                                              ticket_to_groups.in_scheduler as in_scheduler
                                             FROM ticket_roots
                                               LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
                                             WHERE
@@ -303,7 +305,8 @@ class TicketRoot < ActiveRecord::Base
                                               ticket_to_groups.actual as actual,
                                               ticket_to_groups.start_scheduler as start_scheduler,
                                               ticket_to_groups.stop_scheduler as stop_scheduler,
-                                              ticket_to_groups.topic as topic
+                                              ticket_to_groups.topic as topic,
+                                              ticket_to_groups.in_scheduler as in_scheduler
                                             FROM ticket_roots
                                               LEFT JOIN ticket_to_groups ON ticket_roots.id = ticket_to_groups.root
                                             WHERE
