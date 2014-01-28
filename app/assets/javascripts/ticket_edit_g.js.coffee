@@ -24,7 +24,11 @@
       url: "/tickets/srv_change_g_status"
       type: "POST"
       async: false
-      data: "status="+status+"&ticket_id="+ticket_id
+      data: {
+        status: status,
+        ticket_id: ticket_id
+      }
+#      data: "status="+status+"&ticket_id="+ticket_id
       success: () ->
         location.reload()
   else
@@ -58,7 +62,11 @@
     url: "/tickets/srv_change_g_actual"
     type: "POST"
     async: false
-    data: "status="+$("#inputActual").is(':checked')+"&ticket_id="+ticket_id
+#    data: "status="+$("#inputActual").is(':checked')+"&ticket_id="+ticket_id
+    data: {
+      status: $("#inputActual").is(':checked'),
+      ticket_id: ticket_id
+    }
     success: () ->
 #      location.replace ""
 
@@ -68,7 +76,11 @@
     url: "/tickets/srv_change_executor_leader"
     type: "POST"
     async: false
-    data: "executor_id="+$("select#executor").val()+"&ticket_id="+ticket_id
+#    data: "executor_id="+$("select#executor").val()+"&ticket_id="+ticket_id
+    data: {
+      executor_id: $("select#executor").val(),
+      ticket_id: ticket_id
+    }
     success: () ->
       location.reload()
 
@@ -77,7 +89,10 @@
     url: "/tickets/srv_change_executor_member"
     type: "POST"
     async: false
-    data: "ticket_id="+ticket_id
+#    data: "ticket_id="+ticket_id
+    data: {
+      ticket_id: ticket_id
+    }
     success: () ->
       location.reload()
 
