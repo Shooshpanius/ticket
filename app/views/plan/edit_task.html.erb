@@ -61,5 +61,22 @@
       <a  class="btn btn-success" type="button" onclick="add_task(<%= @form_data[:root].id %>)"><i class="icon-plus"></i></a>
     </td>
   </tr>
+
+
+  <% @form_data[:tasks].each do |task| %>
+    <% recipient = User.find(task.recipient_id) %>
+    <tr>
+      <td><%= recipient.f_name %> <%= recipient.i_name %> <%= recipient.o_name %></td>
+      <td><%= task.start_scheduler %></td>
+      <td><%= task.stop_scheduler %></td>
+      <td></td>
+
+
+
+    </tr>
+  <% end %>
+
+
+
   </tbody>
 </table>

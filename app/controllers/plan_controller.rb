@@ -26,10 +26,13 @@ class PlanController < ApplicationController
     if (ticket_type == 'u' && TicketToUser.is_initiator(session[:user_id], ticket_id)==false && TicketToUser.is_executor(session[:user_id], ticket_id)==false) or
        (ticket_type == 'g') && (TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
             TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true)
+
+      tasks = Plan.where('recipient_id = ?', session[:user_id])
       @form_data = {
           ticket: TicketRoot.get_ticket(session[:user_id], root.id),
           root: root,
-          plan_data: Plan.where('sender_id = ?', session[:user_id])
+          plan_data: Plan.where('sender_id = ?', session[:user_id]),
+          tasks: tasks
       }
     end
   end
