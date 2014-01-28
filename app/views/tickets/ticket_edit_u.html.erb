@@ -71,15 +71,6 @@
     </div>
 
     <div class="control-group">
-      <label class="control-label">В календарь</label>
-      <div class="controls">
-        <input type="checkbox" id="inScheduler" name="inScheduler" >
-        <input type="text" id="startScheduler" name="startScheduler" > -
-        <input type="text" id="stopScheduler" name="stopScheduler" >
-      </div>
-    </div>
-
-    <div class="control-group">
       <label class="control-label" for="inputDateTo">Исполнить до</label>
       <div class="controls">
         <input type="text" id="inputDateTo" name="inputDateTo"  readonly="readonly" value=<%= @user_ticket.deadline.strftime("%d.%m.%Y") %> >

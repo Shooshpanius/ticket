@@ -40,6 +40,23 @@ class PlanController < ApplicationController
     end
   end
 
+  def srv_add_task
+
+    root = TicketRoot.find(params[:root_id])
+    ticket_type = root.ticket_type
+    ticket_id = root.ticket_id
+    if (ticket_type == 'u' && TicketToUser.is_initiator(session[:user_id], ticket_id)==false && TicketToUser.is_executor(session[:user_id], ticket_id)==false)
+
+    end
+
+    if (ticket_type == 'g') && (TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
+            TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true)
+
+
+    end
+
+    render :nothing => true
+  end
 
 
   private

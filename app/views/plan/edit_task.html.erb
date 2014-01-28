@@ -25,7 +25,7 @@
       </tr>
   </thead>
   <tbody>
-  <tr>
+  <tr class="info">
     <td>
         <% if @form_data[:root].ticket_type == 'g' %>
           <%  @form_data[:group] = Group.where('id = ?', @form_data[:root].to_id)[0] %>
@@ -35,13 +35,13 @@
                  users = UserByGroup.users_in_group(@form_data[:group].id)
                  categores = users.map { |user| [user.login, user.id] }
               %>
-              <%= select_tag(:executor, options_for_select(categores, @form_data[:ticket].executor), { :style => 'margin-bottom: 0px;' } ) %>
+              <%= select_tag(:task_to, options_for_select(categores, @form_data[:ticket].executor), { :style => 'margin-bottom: 0px;' } ) %>
           <% else %>
               <%
                  users = User.where('id = ?', session[:user_id])
                  categores = users.map { |user| [user.login, user.id] }
               %>
-              <%= select_tag(:executor, options_for_select(categores, @form_data[:ticket].executor), { :style => 'margin-bottom: 0px;' } ) %>
+              <%= select_tag(:task_to, options_for_select(categores, @form_data[:ticket].executor), { :style => 'margin-bottom: 0px;' } ) %>
           <% end %>
         <% end %>
     </td>
@@ -58,7 +58,7 @@
       </div>
     </td>
     <td>
-      <a  class="btn btn-success" type="button" ><i class="icon-plus"></i></a>
+      <a  class="btn btn-success" type="button" onclick="add_task(<%= @form_data[:root].id %>)"><i class="icon-plus"></i></a>
     </td>
   </tr>
   </tbody>
