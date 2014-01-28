@@ -62,15 +62,6 @@
     success: () ->
 #      location.replace ""
 
-@change_in_scheduler = (ticket_id) ->
-  $.ajax
-    url: "/tickets/srv_change_g_in_scheduler"
-    type: "POST"
-    async: false
-    data: {
-      status: $("#inScheduler").is(':checked'),
-      ticket_id: ticket_id
-    }
 
 @change_executor_leader = (ticket_id) ->
   $.ajax
@@ -95,25 +86,6 @@
 $(document).ready ($) ->
 
 
-  $("#startSchedulerDiv").on "changeDate", (e) ->
-    $.ajax
-      url: "/tickets/srv_change_g_sheduler_start"
-      type: "POST"
-      async: false
-      data: {
-        s_date: e.localDate.valueOf(),
-        ticket_id: $("#ticket_id").val()
-      }
-
-  $("#stopSchedulerDiv").on "changeDate", (e) ->
-    $.ajax
-      url: "/tickets/srv_change_g_sheduler_stop"
-      type: "POST"
-      async: false
-      data: {
-        s_date: e.localDate.valueOf(),
-        ticket_id: $("#ticket_id").val()
-      }
 
   $('#inputCommText').wysihtml5()
 
@@ -121,13 +93,6 @@ $(document).ready ($) ->
     firstDay: 1
     dateFormat: "yy-mm-dd"
 
-  $('#startSchedulerDiv').datetimepicker
-    pickSeconds: false
-    language: 'ru'
-
-  $('#stopSchedulerDiv').datetimepicker
-    pickSeconds: false
-    language: 'ru'
 
   $('#inputDelayTime').mask "99:99"
 
