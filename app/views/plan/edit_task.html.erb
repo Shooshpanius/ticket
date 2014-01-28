@@ -30,7 +30,6 @@
         <% if @form_data[:root].ticket_type == 'g' %>
           <%  @form_data[:group] = Group.where('id = ?', @form_data[:root].to_id)[0] %>
           <% if @form_data[:group].leader == session[:user_id] %>
-
               <%== (@form_data[:ticket].executor == 0)?"<span class='label label-important'>Не назначен</span>":"<span class='label label-success'>#{User.find(@form_data[:ticket].executor).login}</span>" %>
               <%
                  users = UserByGroup.users_in_group(@form_data[:group].id)
@@ -38,9 +37,11 @@
               %>
               <%= select_tag(:executor, options_for_select(categores, @form_data[:ticket].executor), { :style => 'margin-bottom: 0px;' } ) %>
           <% else %>
-              <% executor = User.find(@form_data[:ticket].executor)  %>
-               <span class='label label-success'><%= executor.login %></span>
-              <%= executor.f_name %> <%= executor.i_name %> <%= executor.o_name %>
+              <%
+                 users = User.where('id = ?', session[:user_id])
+                 categores = users.map { |user| [user.login, user.id] }
+              %>
+              <%= select_tag(:executor, options_for_select(categores, @form_data[:ticket].executor), { :style => 'margin-bottom: 0px;' } ) %>
           <% end %>
         <% end %>
     </td>
