@@ -25,6 +25,30 @@ class PlanController < ApplicationController
   end
 
 
+  def edit_task
+
+    root = TicketRoot.find(params[:id])
+
+    ticket_type = root.ticket_type
+    ticket_id = root.ticket_id
+
+    if (ticket_type == 'u' && TicketToUser.is_initiator(session[:user_id], ticket_id)==false && TicketToUser.is_executor(session[:user_id], ticket_id)==false) or
+       (ticket_type == 'g') && (TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
+            TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true)
+
+
+      @form_data = {
+
+      }
+
+
+    end
+
+
+  end
+
+
+
   private
   def is_login
     unless session[:is_login]
