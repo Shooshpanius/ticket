@@ -51,6 +51,13 @@ class PlanController < ApplicationController
 
     if (ticket_type == 'g') && (TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
             TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true)
+      Plan.create(
+          sender_id: session[:user_id],
+          recipient_id: params[:task_to],
+          ticket_root_id: params[:root_id],
+          start_scheduler: params[:startScheduler],
+          stop_scheduler: params[:stopScheduler]
+      )
 
 
     end
