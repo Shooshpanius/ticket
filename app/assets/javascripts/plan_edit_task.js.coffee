@@ -11,7 +11,7 @@
       root_id: root_id
     }
     success: () ->
-#      location.reload()
+      location.reload()
 
 
 $(document).ready ($) ->
