@@ -6,8 +6,8 @@
     async: false
     data: {
       task_to: $("#task_to").val(),
-      startScheduler: $("#startScheduler").val(),
-      stopScheduler: $("#stopScheduler").val(),
+      startScheduler: $("#startScheduler").val().valueOf(),
+      stopScheduler: $("#stopScheduler").val().valueOf(),
       root_id: root_id
     }
     success: () ->
