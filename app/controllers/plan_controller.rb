@@ -33,6 +33,8 @@ class PlanController < ApplicationController
        (ticket_type == 'g') && (TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
             TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true)
       @form_data = {
+          ticket: TicketRoot.get_ticket(session[:user_id], root.id),
+          root: root,
           plan_data: Plan.where('sender_id = ?', session[:user_id])
       }
     end
