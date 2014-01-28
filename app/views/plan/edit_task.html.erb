@@ -25,7 +25,26 @@
       </tr>
   </thead>
   <tbody>
-    <td></td>
+    <td>
+
+    <% if @form_data[:root].ticket_type == 'g' %>
+      <%  @form_data[:group] = Group.where('id = ?', @form_data[:root].to_id)[0] %>
+      <% if @form_data[:group].leader == session[:user_id] %>
+
+          <%== (@form_data[:ticket].executor == 0)?"<span class='label label-important'>Не назначен</span>":"<span class='label label-success'>#{User.find(@form_data[:ticket].executor).login}</span>" %>
+          <%
+             users = UserByGroup.users_in_group(@form_data[:group].id)
+             categores = users.map { |user| [user.login, user.id] }
+          %>
+          <%= select_tag(:executor, options_for_select(categores, @form_data[:ticket].executor), { :style => 'margin-bottom: 0px;' } ) %>
+      <% else %>
+          <% executor = User.find(@form_data[:ticket].executor)  %>
+           <span class='label label-success'><%= executor.login %></span>
+          <%= executor.f_name %> <%= executor.i_name %> <%= executor.o_name %>
+      <% end %>
+    <% end %>
+
+    </td>
     <td>
       <div style="margin-bottom: 0px;" id="startSchedulerDiv" class="input-append date">
         <input data-format="dd/MM/yyyy hh:mm" type="text" id="startScheduler" name="startScheduler" value="" >
@@ -38,7 +57,10 @@
         <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
       </div>
     </td>
-    <td></td>
+    <td>
+      <a  class="btn btn-success" type="button" ><i class="icon-plus"></i></a>
+
+    </td>
 
   </tbody>
 </table>
