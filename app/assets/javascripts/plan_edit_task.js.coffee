@@ -13,6 +13,16 @@
     success: () ->
       location.reload()
 
+@delete_task = (task_id) ->
+  $.ajax
+    url: "/plan/srv_delete_task"
+    type: "POST"
+    async: false
+    data: {
+      task_id: task_id
+    }
+    success: () ->
+      location.reload()
 
 $(document).ready ($) ->
 

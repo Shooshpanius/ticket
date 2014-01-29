@@ -67,9 +67,9 @@
     <% recipient = User.find(task.recipient_id) %>
     <tr>
       <td><%= recipient.f_name %> <%= recipient.i_name %> <%= recipient.o_name %></td>
-      <td><%= task.start_scheduler %></td>
-      <td><%= task.stop_scheduler %></td>
-      <td></td>
+      <td><%= task.start_scheduler.strftime("%d-%m-%Y %H:%M:%S") %></td>
+      <td><%= task.stop_scheduler.strftime("%d-%m-%Y %H:%M:%S") %></td>
+      <td><a  class="btn btn-mini btn-danger" type="button" onclick="delete_task(<%= task.id %>)"><i class="icon-trash"></i></a></td>
 
 
 

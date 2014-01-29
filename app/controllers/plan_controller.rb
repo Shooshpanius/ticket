@@ -27,7 +27,7 @@ class PlanController < ApplicationController
        (ticket_type == 'g') && (TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
             TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true)
 
-      tasks = Plan.where('recipient_id = ?', session[:user_id])
+      tasks = Plan.where('(recipient_id = ? or sender_id = ?) and ticket_root_id = ?', session[:user_id], session[:user_id], root.id)
       @form_data = {
           ticket: TicketRoot.get_ticket(session[:user_id], root.id),
           root: root,
@@ -48,6 +48,7 @@ class PlanController < ApplicationController
 
     if (ticket_type == 'g') && (TicketToGroup.is_initiator(session[:user_id], ticket_id)==true || TicketToGroup.is_executor(session[:user_id], ticket_id)==true ||
             TicketToGroup.is_member(session[:user_id], ticket_id)==true || TicketToGroup.is_leader(session[:user_id], ticket_id)==true)
+
       Plan.create(
           sender_id: session[:user_id],
           recipient_id: params[:task_to],
@@ -55,13 +56,19 @@ class PlanController < ApplicationController
           start_scheduler: params[:startScheduler],
           stop_scheduler: params[:stopScheduler]
       )
+    end
+    render :nothing => true
+  end
 
+  def srv_delete_task
 
+    task = Plan.find(params[:task_id])
+    if task.recipient_id == session[:user_id] || task.sender_id == session[:user_id]
+      Plan.destroy(task.id)
     end
 
     render :nothing => true
   end
-
 
   private
   def is_login
